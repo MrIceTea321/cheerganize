@@ -11,13 +11,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    //TODO insert drop down menu list
+
     return Scaffold(
         appBar: AppBar(
-          title: Text('Test'),
+          leading: Image.asset('images/logoRemovedBackground.png'),
+          title: Text("Cheerganize"),
           actions: <Widget>[
-            SafeArea(
-              child: Image.asset('images/logoRemovedBackground.png'),
-            ),
             IconButton(
                 iconSize: 40.0,
                 icon: Icon(Icons.settings),
@@ -33,7 +33,8 @@ class _HomeScreen extends State<HomeScreen> {
                 text: 'Routine',
                 onPress: () {
                   Navigator.pushNamed(context, 'Settings');
-                  //TODO insert different Routines
+                  //TODO insert different Routines (maybe steal code from
+                  // studycards project - but refactor first)
                 },
               );
             }));
