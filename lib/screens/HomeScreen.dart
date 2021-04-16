@@ -1,5 +1,5 @@
 import 'package:cheerganize/consts/buttons/RoutineButton.dart';
-import 'package:cheerganize/consts/buttons/Constants.dart';
+import 'package:cheerganize/consts/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,57 +15,61 @@ class _HomeScreen extends State<HomeScreen> {
     //TODO insert drop down menu list
     //TODO make routines in drop down? or single page
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Cheerganize",
-            style: RoutineButtonTextStyle,
-          ),
-          actions: <Widget>[
-            IconButton(
-              iconSize: 40.0,
-              icon: Icon(Icons.settings),
-              onPressed: () {
-                Navigator.pushNamed(context, 'Settings');
-              },
-            ),
-          ],
+      appBar: AppBar(
+        title: Text(
+          "Cheerganize",
+          style: BlackPawsAppBarTextStyle,
         ),
-        body: SafeArea(
+        actions: <Widget>[
+          IconButton(
+            iconSize: 40.0,
+            color: Colors.white70,
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(context, 'Settings');
+            },
+          ),
+        ],
+      ),
+      body: Center(
+        child: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 10.0,
+                height: 30.0,
               ),
-              Image.asset(
-                'images/logoRemovedBackground.png',
-                alignment: AlignmentDirectional.topCenter,
-              ),
-              SizedBox(
-                height: 20.0,
-                width: 325.0,
-                child: Divider(
-                  thickness: 1.5,
-                  color: BlackPawsColor,
+              Expanded(
+                child: Image.asset(
+                  'images/logoRemovedBackground.png',
+                  alignment: Alignment.topCenter,
+                  scale: 0.5,
                 ),
               ),
               Expanded(
-                child: new ListView.builder(
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) {
-                    return RoutineButton(
-                      text: 'Routine',
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RoutineButton(
+                      text: 'Routines',
+                      onPress: () {
+                        Navigator.pushNamed(context, 'ALlRoutines');
+                      },
+                    ),
+                    RoutineButton(
+                      text: 'Neue Routine erstellen',
                       onPress: () {
                         Navigator.pushNamed(context, 'NewRoutine');
-                        //TODO insert different Routines (maybe steal code from
-                        //TODO studycards project - but refactor first)
                       },
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

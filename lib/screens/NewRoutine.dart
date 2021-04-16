@@ -1,4 +1,4 @@
-import 'package:cheerganize/consts/buttons/Constants.dart';
+import 'package:cheerganize/consts/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +15,7 @@ class _NewRoutine extends State<NewRoutine> {
         actions: <Widget>[
           IconButton(
             iconSize: 40.0,
+            color: Colors.white70,
             icon: Icon(Icons.settings),
             onPressed: () {
               Navigator.pushNamed(context, 'Settings');
@@ -23,6 +24,7 @@ class _NewRoutine extends State<NewRoutine> {
         ],
         leading: IconButton(
           icon: Icon(Icons.home),
+          color: Colors.white70,
           iconSize: 40.0,
           onPressed: () {
             Navigator.pushNamed(context, 'HomeScreen');
@@ -30,7 +32,7 @@ class _NewRoutine extends State<NewRoutine> {
         ),
         title: Text(
           "Cheerganize",
-          style: RoutineButtonTextStyle,
+          style: BlackPawsAppBarTextStyle,
         ),
       ),
     );
