@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 
-const FormationButtonTextStyle= TextStyle(
+const RoutineButtonTextStyle= TextStyle(
   color: Color(0xffb6a24f),
   fontSize: 40.0,
-  fontFamily: 'BalooBhai2-ExtraBold',
+  fontFamily: 'Antonio-VariableFont',
 );
 
 const SmallerDisplayTextStyle= TextStyle(

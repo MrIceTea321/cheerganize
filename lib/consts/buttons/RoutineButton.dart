@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'TextStyles.dart';
 
-class MenuButton extends StatelessWidget {
-  MenuButton({
+class RoutineButton extends StatelessWidget {
+  RoutineButton({
     @required this.text,
     @required this.onPress,
   });
@@ -24,7 +24,7 @@ class MenuButton extends StatelessWidget {
           child: AutoSizeText(
             text,
             textAlign: TextAlign.center,
-            style: FormationButtonTextStyle,
+            style: RoutineButtonTextStyle,
           ),
         ),
         margin: EdgeInsets.all(2.0),

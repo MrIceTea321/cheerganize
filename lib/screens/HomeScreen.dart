@@ -1,4 +1,5 @@
-import 'package:cheerganize/consts/buttons/MenuButton.dart';
+import 'package:cheerganize/consts/buttons/RoutineButton.dart';
+import 'package:cheerganize/consts/buttons/TextStyles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,28 +16,42 @@ class _HomeScreen extends State<HomeScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          leading: Image.asset('images/logoRemovedBackground.png'),
-          title: Text("Cheerganize"),
+          title: Text(
+            "Cheerganize",
+            style: RoutineButtonTextStyle,
+          ),
           actions: <Widget>[
             IconButton(
-                iconSize: 40.0,
-                icon: Icon(Icons.settings),
-                onPressed: () {
-                  Navigator.pushNamed(context, 'Settings');
-                }),
+              iconSize: 40.0,
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.pushNamed(context, 'Settings');
+              },
+            ),
           ],
         ),
-        body: new ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext contex, index) {
-              return MenuButton(
-                text: 'Routine',
-                onPress: () {
-                  Navigator.pushNamed(context, 'Settings');
-                  //TODO insert different Routines (maybe steal code from
-                  // studycards project - but refactor first)
-                },
-              );
-            }));
+        body: SafeArea(
+          child: Column(
+            children: [
+              Image.asset('images/logoRemovedBackground.png'),
+              Expanded(
+                child: new ListView.builder(
+                  itemCount: 10,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext contex, index) {
+                    return RoutineButton(
+                      text: 'Routine',
+                      onPress: () {
+                       // Navigator.pushNamed(context, 'Settings');
+                        //TODO insert different Routines (maybe steal code from
+                        // studycards project - but refactor first)
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
