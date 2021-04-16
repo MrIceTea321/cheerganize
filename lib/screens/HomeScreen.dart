@@ -13,7 +13,7 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     //TODO insert drop down menu list
-
+    //TODO make routines in drop down? or single page
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -33,7 +33,10 @@ class _HomeScreen extends State<HomeScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              Image.asset('images/logoRemovedBackground.png'),
+              Image.asset(
+                'images/logoRemovedBackground.png',
+                alignment: AlignmentDirectional.topCenter,
+              ),
               Expanded(
                 child: new ListView.builder(
                   itemCount: 10,
@@ -42,9 +45,9 @@ class _HomeScreen extends State<HomeScreen> {
                     return RoutineButton(
                       text: 'Routine',
                       onPress: () {
-                       // Navigator.pushNamed(context, 'Settings');
+                        Navigator.pushNamed(context, 'NewRoutine');
                         //TODO insert different Routines (maybe steal code from
-                        // studycards project - but refactor first)
+                        //TODO studycards project - but refactor first)
                       },
                     );
                   },
