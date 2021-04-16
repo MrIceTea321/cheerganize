@@ -1,3 +1,4 @@
+import 'package:cheerganize/consts/buttons/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,19 +8,31 @@ class NewRoutine extends StatefulWidget {
 }
 
 class _NewRoutine extends State<NewRoutine> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.home),
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
             iconSize: 40.0,
+            icon: Icon(Icons.settings),
             onPressed: () {
-              Navigator.pushNamed(context, 'HomeScreen');
+              Navigator.pushNamed(context, 'Settings');
             },
           ),
-        )
+        ],
+        leading: IconButton(
+          icon: Icon(Icons.home),
+          iconSize: 40.0,
+          onPressed: () {
+            Navigator.pushNamed(context, 'HomeScreen');
+          },
+        ),
+        title: Text(
+          "Cheerganize",
+          style: RoutineButtonTextStyle,
+        ),
+      ),
     );
   }
 }

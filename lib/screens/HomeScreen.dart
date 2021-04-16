@@ -1,5 +1,5 @@
 import 'package:cheerganize/consts/buttons/RoutineButton.dart';
-import 'package:cheerganize/consts/buttons/TextStyles.dart';
+import 'package:cheerganize/consts/buttons/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -33,15 +33,26 @@ class _HomeScreen extends State<HomeScreen> {
         body: SafeArea(
           child: Column(
             children: [
+              SizedBox(
+                height: 10.0,
+              ),
               Image.asset(
                 'images/logoRemovedBackground.png',
                 alignment: AlignmentDirectional.topCenter,
+              ),
+              SizedBox(
+                height: 20.0,
+                width: 325.0,
+                child: Divider(
+                  thickness: 1.5,
+                  color: BlackPawsColor,
+                ),
               ),
               Expanded(
                 child: new ListView.builder(
                   itemCount: 10,
                   shrinkWrap: true,
-                  itemBuilder: (BuildContext contex, index) {
+                  itemBuilder: (BuildContext context, index) {
                     return RoutineButton(
                       text: 'Routine',
                       onPress: () {

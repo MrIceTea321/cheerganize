@@ -25,3 +25,4 @@ const CardTextStyle=TextStyle(
     fontSize: 20.0
 );
 
+const BlackPawsColor = Color(0xffb6a24f);
