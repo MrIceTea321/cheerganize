@@ -1,3 +1,5 @@
+import 'package:cheerganize/screens/AllRoutines.dart';
+import 'package:cheerganize/screens/NewRoutine.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/HomeScreen.dart';
@@ -21,6 +23,8 @@ class Cheerganize extends StatelessWidget {
       routes: {
         'HomeScreen':(context)=>HomeScreen(),
         'Settings':(context)=>Settings(),
+        'NewRoutine':(context)=>NewRoutine(),
+        'AllRoutines':(context)=>AllRoutines(),
       },
     );
   }

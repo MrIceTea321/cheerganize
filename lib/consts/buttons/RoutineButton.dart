@@ -2,10 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:flutter/material.dart';
 
-import 'TextStyles.dart';
+import '../Constants.dart';
 
-class MenuButton extends StatelessWidget {
-  MenuButton({
+class RoutineButton extends StatelessWidget {
+  RoutineButton({
     @required this.text,
     @required this.onPress,
   });
@@ -18,19 +18,23 @@ class MenuButton extends StatelessWidget {
     return TextButton(
       onPressed: onPress,
       child: Container(
-        width: 300.0,
-        height: 80.0,
+        width: 250.0,
+        height: 60.0,
         child: Center(
-          child: AutoSizeText(
+          child: Text(
             text,
             textAlign: TextAlign.center,
-            style: FormationButtonTextStyle,
+            style: RoutineButtonTextStyle,
           ),
         ),
-        margin: EdgeInsets.all(2.0),
+        margin: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-          color: Colors.black87,
-          borderRadius: BorderRadius.circular(7.0),
+          borderRadius: BorderRadius.circular(20.0),
+          border: Border.all(
+            color: BlackPawsColor,
+            width: 0.5,
+            style: BorderStyle.solid,
+          ),
         ),
       ),
     );
