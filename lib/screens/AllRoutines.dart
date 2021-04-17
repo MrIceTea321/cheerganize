@@ -42,10 +42,10 @@ class _AllRoutines extends State<AllRoutines> {
             SizedBox(
               height: 10.0,
             ),
-            Image.asset(
-              'images/logoRemovedBackground.png',
-              alignment: AlignmentDirectional.topCenter,
-            ),
+            CircleAvatar(
+                backgroundImage: AssetImage('images/logoRemovedBackground.png'),
+                radius: 100.0,
+                backgroundColor: Colors.transparent),
             SizedBox(
               height: 20.0,
               width: 325.0,

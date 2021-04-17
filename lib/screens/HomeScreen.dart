@@ -41,10 +41,11 @@ class _HomeScreen extends State<HomeScreen> {
                 height: 30.0,
               ),
               Expanded(
-                child: Image.asset(
-                  'images/logoRemovedBackground.png',
-                  alignment: Alignment.topCenter,
-                  scale: 0.5,
+                child: CircleAvatar(
+                  backgroundImage:
+                      AssetImage('images/logoRemovedBackground.png'),
+                  radius: 300.0,
+                  backgroundColor: Colors.transparent,
                 ),
               ),
               Expanded(
@@ -54,11 +55,11 @@ class _HomeScreen extends State<HomeScreen> {
                     RoutineButton(
                       text: 'Routines',
                       onPress: () {
-                        Navigator.pushNamed(context, 'ALlRoutines');
+                        Navigator.pushNamed(context, 'AllRoutines');
                       },
                     ),
                     RoutineButton(
-                      text: 'Neue Routine erstellen',
+                      text: 'Neue Routine',
                       onPress: () {
                         Navigator.pushNamed(context, 'NewRoutine');
                       },
