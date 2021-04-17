@@ -25,7 +25,7 @@ class _HomeScreen extends State<HomeScreen> {
         actions: <Widget>[
           IconButton(
             iconSize: 40.0,
-            color: Colors.white70,
+            color: IconColorWhite,
             icon: Icon(Icons.settings),
             onPressed: () {
               Navigator.pushNamed(context, 'Settings');

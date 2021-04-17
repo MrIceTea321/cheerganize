@@ -18,8 +18,8 @@ class RoutineButton extends StatelessWidget {
     return TextButton(
       onPressed: onPress,
       child: Container(
-        width: 300.0,
-        height: 80.0,
+        width: 250.0,
+        height: 60.0,
         child: Center(
           child: Text(
             text,
@@ -29,7 +29,6 @@ class RoutineButton extends StatelessWidget {
         ),
         margin: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-          color: Colors.transparent,
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
             color: BlackPawsColor,

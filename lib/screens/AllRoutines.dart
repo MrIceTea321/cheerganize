@@ -18,7 +18,7 @@ class _AllRoutines extends State<AllRoutines> {
         actions: <Widget>[
           IconButton(
             iconSize: 40.0,
-            color: Colors.white70,
+            color: IconColorWhite,
             icon: Icon(Icons.settings),
             onPressed: () {
               Navigator.pushNamed(context, 'Settings');
@@ -27,7 +27,7 @@ class _AllRoutines extends State<AllRoutines> {
         ],
         leading: IconButton(
           icon: Icon(Icons.home),
-          color: Colors.white70,
+          color: IconColorWhite,
           iconSize: 40.0,
           onPressed: () {
             Navigator.pushNamed(context, 'HomeScreen');
@@ -42,13 +42,13 @@ class _AllRoutines extends State<AllRoutines> {
         child: Column(
           children: [
             SizedBox(
-              height: 10.0,
+              height: 20.0,
             ),
             BlackPawsCircleAvatar(
               radius: 100.0,
             ),
             SizedBox(
-              height: 20.0,
+              height: 40.0,
               width: 325.0,
               child: Divider(
                 thickness: 0.5,

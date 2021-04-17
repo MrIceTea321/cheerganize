@@ -1,3 +1,4 @@
+import 'package:cheerganize/consts/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,16 @@ class _Settings extends State<Settings> {
     //TODO insert user credentials and settings
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.home),
+            color: IconColorWhite,
+            iconSize: 40.0,
+            onPressed: () {
+              Navigator.pushNamed(context, 'HomeScreen');
+            },
+          ),
+        ],
         title: Text('Settings'),
       ),
     );

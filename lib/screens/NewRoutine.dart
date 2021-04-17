@@ -1,4 +1,7 @@
+import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
+import 'package:cheerganize/consts/buttons/HomeScreenButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +18,7 @@ class _NewRoutine extends State<NewRoutine> {
         actions: <Widget>[
           IconButton(
             iconSize: 40.0,
-            color: Colors.white70,
+            color: IconColorWhite,
             icon: Icon(Icons.settings),
             onPressed: () {
               Navigator.pushNamed(context, 'Settings');
@@ -24,7 +27,7 @@ class _NewRoutine extends State<NewRoutine> {
         ],
         leading: IconButton(
           icon: Icon(Icons.home),
-          color: Colors.white70,
+          color: IconColorWhite,
           iconSize: 40.0,
           onPressed: () {
             Navigator.pushNamed(context, 'HomeScreen');
@@ -33,6 +36,20 @@ class _NewRoutine extends State<NewRoutine> {
         title: Text(
           "Cheerganize",
           style: BlackPawsAppBarTextStyle,
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            BlackPawsCircleAvatar(radius: 100.0),
+            ConstTextField(hintText: 'Name der Routine'),
+            ConstTextField(hintText: 'Kategorie / Sportart'),
+            HomeScreenButton(text: 'Neue Aufstellung', onPress: (){}),
+            HomeScreenButton(text: "8 - Counts Planung", onPress: (){}),
+
+          ],
         ),
       ),
     );

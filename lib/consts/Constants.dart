@@ -1,6 +1,13 @@
+import 'package:cheerganize/consts/buttons/HomeScreenButton.dart';
 import 'package:flutter/material.dart';
 
 const RoutineButtonTextStyle = TextStyle(
+  color: Color(0xffb6a24f),
+  fontSize: 30.0,
+  fontFamily: 'Antonio-VariableFont',
+);
+
+const HomeScreenButtonTextStyle = TextStyle(
   color: Color(0xffb6a24f),
   fontSize: 40.0,
   fontFamily: 'Antonio-VariableFont',
@@ -12,17 +19,12 @@ const BlackPawsAppBarTextStyle = TextStyle(
   fontFamily: 'Antonio-VariableFont',
 );
 
-const SmallerDisplayTextStyle = TextStyle(
-  color: Colors.black,
-  fontSize: 25.0,
-  fontFamily: 'BalooBhai2-ExtraBold',
+const BlackPawsTextFieldTextStyle = TextStyle(
+  color: Color(0xffb6a24f),
+  fontSize: 20.0,
+  fontFamily: 'Antonio-VariableFont',
 );
-
-const WhiteTextStyle = TextStyle(
-    color: Colors.white, fontFamily: 'BalooBhai2-Regular', fontSize: 20.0);
-
-const CardTextStyle = TextStyle(
-    color: Colors.black, fontFamily: 'BalooBhai2-ExtraBold', fontSize: 20.0);
 
 const BlackPawsColor = Color(0xffb6a24f);
 
+const IconColorWhite = Colors.white70;
