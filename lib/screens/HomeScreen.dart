@@ -1,3 +1,5 @@
+import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:cheerganize/consts/buttons/HomeScreenButton.dart';
 import 'package:cheerganize/consts/buttons/RoutineButton.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,25 +42,20 @@ class _HomeScreen extends State<HomeScreen> {
               SizedBox(
                 height: 30.0,
               ),
-              Expanded(
-                child: CircleAvatar(
-                  backgroundImage:
-                      AssetImage('images/logoRemovedBackground.png'),
-                  radius: 300.0,
-                  backgroundColor: Colors.transparent,
-                ),
+              BlackPawsCircleAvatar(
+                radius: 125.0,
               ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RoutineButton(
+                    HomeScreenButton(
                       text: 'Routines',
                       onPress: () {
                         Navigator.pushNamed(context, 'AllRoutines');
                       },
                     ),
-                    RoutineButton(
+                    HomeScreenButton(
                       text: 'Neue Routine',
                       onPress: () {
                         Navigator.pushNamed(context, 'NewRoutine');

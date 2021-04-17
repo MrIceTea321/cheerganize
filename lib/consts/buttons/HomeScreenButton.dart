@@ -1,11 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cheerganize/screens/HomeScreen.dart';
 
 import 'package:flutter/material.dart';
 
 import '../Constants.dart';
 
-class RoutineButton extends StatelessWidget {
-  RoutineButton({
+class HomeScreenButton extends StatelessWidget {
+  HomeScreenButton({
     @required this.text,
     @required this.onPress,
   });
@@ -27,13 +28,13 @@ class RoutineButton extends StatelessWidget {
             style: RoutineButtonTextStyle,
           ),
         ),
-        margin: EdgeInsets.all(10.0),
+        margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 60.0),
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
             color: BlackPawsColor,
-            width: 0.5,
+            width: 1.5,
             style: BorderStyle.solid,
           ),
         ),
