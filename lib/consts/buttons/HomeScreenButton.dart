@@ -9,12 +9,12 @@ class HomeScreenButton extends StatelessWidget {
   HomeScreenButton({
     @required this.text,
     @required this.onPress,
-    @required this.margin,
+    @required this.marginLTRB,
   });
 
   final String text;
   final Function onPress;
-  final List<double> margin;
+  final List<double> marginLTRB;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,9 @@ class HomeScreenButton extends StatelessWidget {
             style: HomeScreenButtonTextStyle,
           ),
         ),
-        margin: EdgeInsets.fromLTRB(margin.elementAt(0), margin.elementAt(1),
-            margin.elementAt(2), margin.elementAt(3)),
+        margin: EdgeInsets.fromLTRB(marginLTRB.elementAt(0), marginLTRB
+            .elementAt(1),
+            marginLTRB.elementAt(2), marginLTRB.elementAt(3)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(

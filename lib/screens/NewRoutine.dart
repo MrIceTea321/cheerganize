@@ -50,12 +50,12 @@ class _NewRoutine extends State<NewRoutine> {
             HomeScreenButton(
               text: 'Neue Aufstellung',
               onPress: () {},
-              margin: [10.0, 10.0, 10.0, 10.0],
+              marginLTRB: [10.0, 10.0, 10.0, 10.0],
             ),
             HomeScreenButton(
               text: "8 - Counts Planung",
               onPress: () {},
-              margin: [10.0, 10.0, 10.0, 10.0],
+              marginLTRB: [10.0, 10.0, 10.0, 10.0],
             ),
           ],
         ),

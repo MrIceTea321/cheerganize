@@ -18,6 +18,7 @@ class _HomeScreen extends State<HomeScreen> {
     //TODO make routines in drop down? or single page
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           "Cheerganize",
           style: BlackPawsAppBarTextStyle,
@@ -54,14 +55,14 @@ class _HomeScreen extends State<HomeScreen> {
                       onPress: () {
                         Navigator.pushNamed(context, 'AllRoutines');
                       },
-                      margin: [10.0,10.0,10.0,10.0],
+                      marginLTRB: [10.0,10.0,10.0,10.0],
                     ),
                     HomeScreenButton(
                       text: 'Neue Routine',
                       onPress: () {
                         Navigator.pushNamed(context, 'NewRoutine');
                       },
-                      margin: [10.0,10.0,10.0,10.0]
+                      marginLTRB: [10.0,10.0,10.0,10.0]
                     ),
                   ],
                 ),
