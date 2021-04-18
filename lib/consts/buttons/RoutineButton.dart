@@ -27,7 +27,7 @@ class RoutineButton extends StatelessWidget {
             style: RoutineButtonTextStyle,
           ),
         ),
-        margin: EdgeInsets.all(7.0),
+        margin: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
