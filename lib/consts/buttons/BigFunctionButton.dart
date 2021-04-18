@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../Constants.dart';
 
-class HomeScreenButton extends StatelessWidget {
-  HomeScreenButton({
+class BigFunctionButton extends StatelessWidget {
+  BigFunctionButton({
     @required this.text,
     @required this.onPress,
     @required this.marginLTRB,

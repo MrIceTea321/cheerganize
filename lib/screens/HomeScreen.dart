@@ -1,5 +1,5 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:cheerganize/consts/buttons/HomeScreenButton.dart';
+import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/consts/buttons/RoutineButton.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,14 +50,14 @@ class _HomeScreen extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    HomeScreenButton(
+                    BigFunctionButton(
                       text: 'Routines',
                       onPress: () {
                         Navigator.pushNamed(context, 'AllRoutines');
                       },
                       marginLTRB: [10.0,10.0,10.0,10.0],
                     ),
-                    HomeScreenButton(
+                    BigFunctionButton(
                       text: 'Neue Routine',
                       onPress: () {
                         Navigator.pushNamed(context, 'NewRoutine');
