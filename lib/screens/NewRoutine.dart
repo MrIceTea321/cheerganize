@@ -41,14 +41,22 @@ class _NewRoutine extends State<NewRoutine> {
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             BlackPawsCircleAvatar(radius: 100.0),
+            SizedBox(height: 40.0),
             ConstTextField(hintText: 'Name der Routine'),
             ConstTextField(hintText: 'Kategorie / Sportart'),
-            HomeScreenButton(text: 'Neue Aufstellung', onPress: (){}),
-            HomeScreenButton(text: "8 - Counts Planung", onPress: (){}),
-
+            SizedBox(height: 40.0),
+            HomeScreenButton(
+              text: 'Neue Aufstellung',
+              onPress: () {},
+              margin: [10.0, 10.0, 10.0, 10.0],
+            ),
+            HomeScreenButton(
+              text: "8 - Counts Planung",
+              onPress: () {},
+              margin: [10.0, 10.0, 10.0, 10.0],
+            ),
           ],
         ),
       ),

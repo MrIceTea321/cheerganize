@@ -54,12 +54,14 @@ class _HomeScreen extends State<HomeScreen> {
                       onPress: () {
                         Navigator.pushNamed(context, 'AllRoutines');
                       },
+                      margin: [10.0,10.0,10.0,10.0],
                     ),
                     HomeScreenButton(
                       text: 'Neue Routine',
                       onPress: () {
                         Navigator.pushNamed(context, 'NewRoutine');
                       },
+                      margin: [10.0,10.0,10.0,10.0]
                     ),
                   ],
                 ),

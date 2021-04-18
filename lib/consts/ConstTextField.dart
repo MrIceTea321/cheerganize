@@ -11,11 +11,10 @@ class ConstTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-      width: 500.0,
+      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 5.0),
       child: TextField(
+        //TODO redesign TextField
         textAlign: TextAlign.center,
-        autocorrect: true,
         onChanged: (value) {
           value = eingabe;
         },
