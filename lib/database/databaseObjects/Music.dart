@@ -33,7 +33,6 @@ class Music implements BuildDbObjectsInterface {
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
-    map["musicid"] = musicid;
     map["skills"] = title;
     map["bpm"] = duration;
 

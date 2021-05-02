@@ -42,7 +42,6 @@ class CountSheet implements BuildDbObjectsInterface {
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
-    map["countsheetid"] = countsheetid;
     map["musicid"] = musicid;
     map["skills"] = skills;
     map["bpm"] = bpm;
