@@ -3,57 +3,64 @@ import 'package:sqflite/sqflite.dart';
 
 class DbInitiator {
   static const String TABLE = "table";
-  static const _databaseName = "vereinomat.db";
+  static const _databaseName = "cheerganize.db";
 
   //-----------------Table names---------------------
-  static const TABLE_SJR_NAME = 'sjr' + TABLE;
-  static const TABLE_CARD_NAME = 'card' + TABLE;
-  static const TABLE_CATEGORY_NAME = 'category' + TABLE;
-  static const TABLE_CLUB_NAME = 'club' + TABLE;
-  static const TABLE_IMAGE_NAME = 'image' + TABLE;
+  static const TABLE_ROUTINE_NAME = 'routine' + TABLE;
+  static const TABLE_MAT_NAME = 'mat' + TABLE;
+  static const TABLE_COUNT_SHEET_NAME = 'countsheet' + TABLE;
+  static const TABLE_FORMATION_NAME = 'formation' + TABLE;
+  static const TABLE_MUSIC_NAME = 'music' + TABLE;
+  static const TABLE_ATHLETES_NAME = 'athletes' + TABLE;
+  static const TABLE_PATTERN_NAME = 'pattern' + TABLE;
 
-  //-----------------SjrTable------------------------
-  static const COLUMN_SJR_ID = 'sjrid';
-  static const COLUMN_CITY = 'city';
-  static const COLUMN_SJR_NAME = 'name';
-  static const COLUMN_SJR_ADRESS = 'adress';
-  static const COLUMN_SJR_PHONE = 'phonenumber';
-  static const COLUMN_SJR_EMAIL = 'mail';
-  static const COLUMN_SJR_URL = 'url';
-  static const COLUMN_SJR_DESCRIPTION = 'description';
+  //-----------------RoutineTable------------------------
+  static const COLUMN_ROUTINE_ID = 'routineid';
+  static const COLUMN_ROUTINE_MUSIC_ID = 'musicid';
+  static const COLUMN_ROUTINE_ATHLETES_ID = 'athletesid';
+  static const COLUMN_ROUTINE_FORMATION_ID = 'formationid';
+  static const COLUMN_ROUTINE_COUNT_SHEET_ID = 'countsheetid';
 
-  //--------------ImageTable------------------------
-  static const COLUMN_IMAGE_ID = 'imageid';
-  static const COLUMN_IMAGE_ADRESS = 'imageadress';
+  //--------------CountSheetTable------------------------
+  static const COLUMN_COUNT_SHEET_ID = 'countsheetid';
+  static const COLUMN_COUNT_SHEET_MUSIC_ID = 'musicid';
+  static const COLUMN_COUNT_SHEET_SKILLS = 'skills';
+  static const COLUMN_COUNT_SHEET_BPM = 'bpm';
 
-  //---------------ClubTable------------------------
-  static const COLUMN_CLUB_ID = 'clubid';
-  static const COLUMN_CLUB_SJR_ID = 'sjrid';
-  static const COLUMN_CLUB_CATEGORY_ID = 'categoryid';
-  static const COLUMN_CLUB_IMAGE_ID = 'imageid';
-  static const COLUMN_CLUB_NAME = "name";
-  static const COLUMN_CLUB_ADRESS = 'adress';
-  static const COLUMN_CLUB_PHONE = 'phonenumber';
-  static const COLUMN_CLUB_EMAIL = 'mail';
-  static const COLUMN_CLUB_URL = 'url';
-  static const COLUMN_CLUB_DESCRIPTION = 'description';
+  //---------------MusicTable---------------------------
+  static const COLUMN_MUSIC_ID = 'musicid';
+  static const COLUMN_MUSIC_TITLE = 'title';
+  static const COLUMN_MUSIC_DURATION = 'duration';
 
-  //---------------CategoryTable--------------------
-  static const COLUMN_CATEGORY_ID = 'categoryid';
-  static const COLUMN_CATEGORY_NAME = 'name';
+  //---------------FormationTable----------------------
+  static const COLUMN_FORMATION_ID = 'formationid';
+  static const COLUMN_FORMATION_ROUTINE_ID = 'routineid';
+  static const COLUMN_FORMATION_ATHLETES_ID = 'athletesid';
+  static const COLUMN_FORMATION_MAT_ID = 'matid';
+  static const COLUMN_FORMATION_PATTERN_ID = 'patternid';
+  static const COLUMN_FORMATION_NAME = 'name';
 
-  //---------------CardTable------------------------
-  static const COLUMN_CARD_ID = 'cardid';
-  static const COLUMN_CARD_IMAGE_ID = 'imageid';
-  static const COLUMN_CARD_CATEGORY_ID = 'categroyid';
-  static const COLUMN_CARD_SJR_ID = 'sjrid';
-  static const COLUMN_CARD_CONTENT = 'content';
+  //---------------AthletesTable-----------------------
+  static const COLUMN_ATHLETES_ID = 'athletesid';
+  static const COLUMN_ATHLETES_X_COORDINATE = 'xcoordinate';
+  static const COLUMN_ATHLETES_Y_COORDINATE = 'ycoordinate';
+  static const COLUMN_ATHLETES_NAME = 'name';
+  static const COLUMN_ATHLETES_COLOR = 'color';
+
+  //---------------MatTable---------------------------
+  static const COLUMN_MAT_ID = 'matid';
+  static const COLUMN_MAT_PATTERN_ID = 'patternid';
+  static const COLUMN_MAT_X_COORDINATE = 'xcoordinate';
+  static const COLUMN_MAT_Y_COORDINATE = 'ycoordinate';
+
+  //---------------PatternTable---------------------------
+  static const COLUMN_PATTERN_ID = 'patternid';
+  static const COLUMN_PATTERN_URL = 'url';
 
   //---------------DatabaseInitiatorCredentials------------------------
   DbInitiator._privateConstructor();
 
-  static final DbInitiator instance =
-      DbInitiator._privateConstructor();
+  static final DbInitiator instance = DbInitiator._privateConstructor();
 
   String path;
 
@@ -78,67 +85,76 @@ class DbInitiator {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
-          CREATE TABLE $TABLE_SJR_NAME (
-            $COLUMN_SJR_ID INTEGER PRIMARY KEY,
-            $COLUMN_CITY TEXT NOT NULL,
-            $COLUMN_SJR_NAME TEXT NOT NULL,
-            $COLUMN_SJR_ADRESS TEXT NOT NULL,
-            $COLUMN_SJR_PHONE TEXT NOT NULL,
-            $COLUMN_SJR_EMAIL TEXT NOT NULL,
-            $COLUMN_SJR_URL TEXT NOT NULL,
-            $COLUMN_SJR_DESCRIPTION TEXT NOT NULL
+          CREATE TABLE $TABLE_ROUTINE_NAME (
+            $COLUMN_ROUTINE_ID INTEGER PRIMARY KEY,
+            FOREIGN KEY ($COLUMN_ROUTINE_MUSIC_ID REFERENCES $TABLE_MUSIC_NAME
+            ($COLUMN_MUSIC_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY ($COLUMN_ROUTINE_ATHLETES_ID REFERENCES $TABLE_ATHLETES_NAME
+            ($COLUMN_ATHLETES_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY ($COLUMN_ROUTINE_FORMATION_ID REFERENCES $TABLE_FORMATION_NAME
+            ($COLUMN_FORMATION_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
+            FOREIGN KEY ($COLUMN_ROUTINE_COUNT_SHEET_ID REFERENCES $TABLE_COUNT_SHEET_NAME
+            ($COLUMN_COUNT_SHEET_ID)ON DELETE NO ACTION ON UPDATE NO ACTION
           )
           ''');
-      await db.execute('''
-          CREATE TABLE $TABLE_IMAGE_NAME (
-            $COLUMN_IMAGE_ID INTEGER PRIMARY KEY,
-            $COLUMN_IMAGE_ADRESS TEXT NOT NULL
-          )
-          ''');
-      await db.execute('''
-          CREATE TABLE $TABLE_CATEGORY_NAME (
-            $COLUMN_CATEGORY_ID INTEGER PRIMARY KEY,
-            $COLUMN_CATEGORY_NAME TEXT NOT NULL
-          )
-          ''');
-      await db.execute('''
-           CREATE TABLE $TABLE_CLUB_NAME (
-            $COLUMN_CLUB_ID INTEGER PRIMARY KEY,
-            $COLUMN_CLUB_SJR_ID INTEGER NOT NULL,
-            $COLUMN_CLUB_CATEGORY_ID INTEGER NOT NULL,
-            $COLUMN_CLUB_IMAGE_ID INTEGER NOT NULL,
-            $COLUMN_CLUB_NAME TEXT NOT NULL,
-            $COLUMN_CLUB_ADRESS TEXT NOT NULL,
-            $COLUMN_CLUB_PHONE TEXT NOT NULL,
-            $COLUMN_CLUB_EMAIL TEXT NOT NULL,
-            $COLUMN_CLUB_URL TEXT NOT NULL,
-            $COLUMN_CLUB_DESCRIPTION TEXT NOT NULL,
-            FOREIGN KEY ($COLUMN_CLUB_SJR_ID) REFERENCES $TABLE_SJR_NAME
-            ($COLUMN_SJR_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY ($COLUMN_CLUB_CATEGORY_ID) REFERENCES 
-            $TABLE_CATEGORY_NAME($COLUMN_CATEGORY_ID)ON DELETE NO ACTION 
-            ON UPDATE NO ACTION,
-            FOREIGN KEY ($COLUMN_CLUB_IMAGE_ID) REFERENCES 
-            $TABLE_IMAGE_NAME($COLUMN_IMAGE_ID)ON DELETE NO ACTION ON UPDATE NO ACTION
-          )
-          ''');
-      await db.execute('''
-          CREATE TABLE $TABLE_CARD_NAME (
-            $COLUMN_CARD_ID INTEGER PRIMARY KEY,
-            $COLUMN_CARD_SJR_ID INTEGER,
-            $COLUMN_CARD_IMAGE_ID INTEGER,
-            $COLUMN_CARD_CATEGORY_ID INTEGER,
-            $COLUMN_CARD_CONTENT TEXT NOT NULL,
-            FOREIGN KEY ($COLUMN_CARD_SJR_ID) REFERENCES $TABLE_SJR_NAME
-            ($COLUMN_SJR_ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY ($COLUMN_CARD_IMAGE_ID) REFERENCES 
-            $TABLE_IMAGE_NAME($COLUMN_IMAGE_ID) ON DELETE NO ACTION ON 
-            UPDATE NO ACTION,
-            FOREIGN KEY ($COLUMN_CARD_CATEGORY_ID) REFERENCES 
-            $TABLE_CATEGORY_NAME($COLUMN_CATEGORY_ID) ON DELETE NO 
-            ACTION ON 
-            UPDATE NO ACTION
 
+      await db.execute('''
+          CREATE TABLE $TABLE_COUNT_SHEET_NAME (
+            $COLUMN_COUNT_SHEET_ID INTEGER PRIMARY KEY,
+           FOREIGN KEY ($COLUMN_COUNT_SHEET_MUSIC_ID REFERENCES $TABLE_MUSIC_NAME
+            ($COLUMN_MUSIC_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
+            $COLUMN_COUNT_SHEET_SKILLS TEXT NOT NULL,
+            $COLUMN_COUNT_SHEET_BPM INTEGER NOT NULL            
+          )
+          ''');
+      await db.execute('''
+          CREATE TABLE $TABLE_MUSIC_NAME (
+            $COLUMN_MUSIC_ID INTEGER PRIMARY KEY,
+            $COLUMN_MUSIC_TITLE TEXT NOT NULL,
+            $COLUMN_MUSIC_DURATION DOUBLE PRECISION NOT NULL
+          )
+          ''');
+      await db.execute('''
+           CREATE TABLE $TABLE_FORMATION_NAME (
+           $COLUMN_FORMATION_ID INTEGER PRIMARY KEY,
+             FOREIGN KEY ($COLUMN_FORMATION_ROUTINE_ID REFERENCES 
+             $TABLE_ROUTINE_NAME
+            ($COLUMN_ROUTINE_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
+             FOREIGN KEY ($COLUMN_FORMATION_ATHLETES_ID REFERENCES 
+             $TABLE_ATHLETES_NAME
+            ($COLUMN_ATHLETES_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
+             FOREIGN KEY ($COLUMN_FORMATION_MAT_ID REFERENCES 
+             $TABLE_MAT_NAME
+            ($COLUMN_MAT_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
+             FOREIGN KEY ($COLUMN_FORMATION_PATTERN_ID REFERENCES 
+             $TABLE_PATTERN_NAME
+            ($COLUMN_PATTERN_ID)ON DELETE NO ACTION ON UPDATE NO ACTION
+            $COLUMN_FORMATION_NAME TEXT NOT NULL
+          )
+          ''');
+      await db.execute('''
+          CREATE TABLE $TABLE_ATHLETES_NAME (
+            $COLUMN_ATHLETES_ID INTEGER PRIMARY KEY,
+            $COLUMN_ATHLETES_X_COORDINATE DOUBLE PRECISION,
+            $COLUMN_ATHLETES_Y_COORDINATE DOUBLE PRECISION,
+            $COLUMN_ATHLETES_NAME TEXT NOT NULL,
+            $COLUMN_ATHLETES_COLOR TEXT NOT NULL
+          )
+          ''');
+      await db.execute('''
+          CREATE TABLE $TABLE_MAT_NAME (
+            $COLUMN_MAT_ID INTEGER PRIMARY KEY,
+            FOREIGN KEY ($COLUMN_MAT_PATTERN_ID REFERENCES 
+             $TABLE_PATTERN_NAME
+            ($COLUMN_PATTERN_ID)ON DELETE NO ACTION ON UPDATE NO ACTION
+            $COLUMN_MAT_X_COORDINATE DOUBLE PRECISION,
+            $COLUMN_MAT_Y_COORDINATE DOUBLE PRECISION,
+          )
+          ''');
+      await db.execute('''
+          CREATE TABLE $TABLE_PATTERN_NAME (
+            $COLUMN_PATTERN_ID INTEGER PRIMARY KEY,
+            $COLUMN_PATTERN_URL TEXT
           )
           ''');
     });
@@ -164,6 +180,4 @@ class DbInitiator {
     return Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM $tableName'));
   }
-
-
 }

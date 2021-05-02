@@ -1,69 +1,55 @@
 import 'dart:convert';
 import '../BuildDbObjectsInterface.dart';
 
-class Sjr implements BuildDbObjectsInterface {
+class Rountine implements BuildDbObjectsInterface {
   @override
-  Sjr buildDbObjectModel(String str) => Sjr.fromJson(json.decode(str));
+  Rountine buildDbObjectModel(String str) =>
+      Rountine.fromJson(json.decode(str));
 
   @override
-  String buildDbObjectModelToJson(data) =>
-      json.encode(data.toJson());
+  String buildDbObjectModelToJson(data) => json.encode(data.toJson());
 
-  Sjr({
-    this.sjrId,
-    this.city,
-    this.name,
-    this.adress,
-    this.phoneNumber,
-    this.eMail,
-    this.url,
-    this.description,
+  Rountine({
+    this.routineid,
+    this.musicid,
+    this.athletesid,
+    this.formationid,
+    this.countsheetid,
   });
 
-  int sjrId;
-  String city;
-  String name;
-  String adress;
-  String phoneNumber;
-  String eMail;
-  String url;
-  String description;
+  int routineid;
+  int musicid;
+  int athletesid;
+  int formationid;
+  int countsheetid;
 
   @override
-  factory Sjr.fromJson(Map<String, dynamic> json) => Sjr(
-        sjrId: json["id"],
-        city: json["city"],
-        name: json["name"],
-        adress: json["adress"],
-        phoneNumber: json["phoneNumber"],
-        eMail: json["eMail"],
-        url: json["url"],
-        description: json["description"],
+  factory Rountine.fromJson(Map<String, dynamic> json) => Rountine(
+        routineid: json["routineid"],
+        musicid: json["musicid"],
+        athletesid: json["athletesid"],
+        formationid: json["formationid"],
+        countsheetid: json["countsheetid"],
       );
 
   @override
   Map<String, dynamic> toJson() => {
-        "id": sjrId,
-        "city": city,
-        "name": name,
-        "adress": adress,
-        "phoneNumber": phoneNumber,
-        "eMail": eMail,
-        "url": url,
-        "description": description,
+        "routineid": routineid,
+        "musicid": musicid,
+        "athletesid": athletesid,
+        "formationid": formationid,
+        "countsheetid": countsheetid,
       };
 
 //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
-    map["city"] = city;
-    map["name"] = name;
-    map["adress"] = adress;
-    map["phoneNumber"] = phoneNumber;
-    map["eMail"] = eMail;
-    map["url"] = url;
-    map["description"] = description;
+    map["musicid"] = musicid;
+    map["athletesid"] = athletesid;
+    map["formationid"] = formationid;
+    map["countsheetid"] = countsheetid;
+
     return map;
   }
 
@@ -71,25 +57,20 @@ class Sjr implements BuildDbObjectsInterface {
   @override
   Map<String, dynamic> toMap() {
     final map = new Map<String, dynamic>();
-    map["id"] = sjrId;
-    map["city"] = city;
-    map["name"] = name;
-    map["adress"] = adress;
-    map["phoneNumber"] = phoneNumber;
-    map["eMail"] = eMail;
-    map["url"] = url;
-    map["description"] = description;
+    map["routineid"] = routineid;
+    map["musicid"] = musicid;
+    map["athletesid"] = athletesid;
+    map["formationid"] = formationid;
+    map["countsheetid"] = countsheetid;
+
     return map;
   }
 
 //to be used when converting the row into object
-  factory Sjr.fromMap(Map<String, dynamic> data) => new Sjr(
-      sjrId: data['id'],
-      city: data['city'],
-      name: data['name'],
-      adress: data['adress'],
-      phoneNumber: data['phoneNumber'],
-      eMail: data['eMail'],
-      url: data['url'],
-      description: data['description']);
+  factory Rountine.fromMap(Map<String, dynamic> data) => new Rountine(
+      routineid: data['routineid'],
+      musicid: data['musicid'],
+      athletesid: data['athletesid'],
+      formationid: data['formationid'],
+      countsheetid: data['countsheetid']);
 }
