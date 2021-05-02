@@ -28,3 +28,5 @@ const BlackPawsTextFieldTextStyle = TextStyle(
 const BlackPawsColor = Color(0xffb6a24f);
 
 const IconColorWhite = Colors.white70;
+
+const BasicBlackColor = Color(0xFF181d21);

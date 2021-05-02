@@ -84,78 +84,91 @@ class DbInitiator {
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-      await db.execute('''
+          //-----------------RoutineTable------------------------
+          await db.execute('''
           CREATE TABLE $TABLE_ROUTINE_NAME (
             $COLUMN_ROUTINE_ID INTEGER PRIMARY KEY,
-            FOREIGN KEY ($COLUMN_ROUTINE_MUSIC_ID REFERENCES $TABLE_MUSIC_NAME
+            $COLUMN_ROUTINE_MUSIC_ID INTEGER,
+            $COLUMN_ROUTINE_ATHLETES_ID INTEGER,
+            $COLUMN_ROUTINE_FORMATION_ID INTEGER,
+            $COLUMN_ROUTINE_COUNT_SHEET_ID INTEGER,
+            FOREIGN KEY ($COLUMN_ROUTINE_MUSIC_ID) REFERENCES $TABLE_MUSIC_NAME
             ($COLUMN_MUSIC_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY ($COLUMN_ROUTINE_ATHLETES_ID REFERENCES $TABLE_ATHLETES_NAME
+            FOREIGN KEY ($COLUMN_ROUTINE_ATHLETES_ID) REFERENCES 
+            $TABLE_ATHLETES_NAME
             ($COLUMN_ATHLETES_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY ($COLUMN_ROUTINE_FORMATION_ID REFERENCES $TABLE_FORMATION_NAME
+            FOREIGN KEY ($COLUMN_ROUTINE_FORMATION_ID) REFERENCES 
+            $TABLE_FORMATION_NAME
             ($COLUMN_FORMATION_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
-            FOREIGN KEY ($COLUMN_ROUTINE_COUNT_SHEET_ID REFERENCES $TABLE_COUNT_SHEET_NAME
-            ($COLUMN_COUNT_SHEET_ID)ON DELETE NO ACTION ON UPDATE NO ACTION
-          )
+            FOREIGN KEY ($COLUMN_ROUTINE_COUNT_SHEET_ID) REFERENCES 
+            $TABLE_COUNT_SHEET_NAME
+            ($COLUMN_COUNT_SHEET_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )
           ''');
-
-      await db.execute('''
+          //--------------CountSheetTable------------------------
+          await db.execute('''
           CREATE TABLE $TABLE_COUNT_SHEET_NAME (
             $COLUMN_COUNT_SHEET_ID INTEGER PRIMARY KEY,
-           FOREIGN KEY ($COLUMN_COUNT_SHEET_MUSIC_ID REFERENCES $TABLE_MUSIC_NAME
-            ($COLUMN_MUSIC_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
+            $COLUMN_COUNT_SHEET_MUSIC_ID INTEGER,
             $COLUMN_COUNT_SHEET_SKILLS TEXT NOT NULL,
-            $COLUMN_COUNT_SHEET_BPM INTEGER NOT NULL            
-          )
+            $COLUMN_COUNT_SHEET_BPM INTEGER NOT NULL,       
+           FOREIGN KEY ($COLUMN_COUNT_SHEET_MUSIC_ID) REFERENCES 
+           $TABLE_MUSIC_NAME
+            ($COLUMN_MUSIC_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )
           ''');
-      await db.execute('''
+          //---------------MusicTable----------------------------
+          await db.execute('''
           CREATE TABLE $TABLE_MUSIC_NAME (
             $COLUMN_MUSIC_ID INTEGER PRIMARY KEY,
             $COLUMN_MUSIC_TITLE TEXT NOT NULL,
-            $COLUMN_MUSIC_DURATION DOUBLE PRECISION NOT NULL
-          )
+            $COLUMN_MUSIC_DURATION DOUBLE PRECISION NOT NULL )
           ''');
-      await db.execute('''
+          //---------------FormationTable------------------------
+          await db.execute('''
            CREATE TABLE $TABLE_FORMATION_NAME (
            $COLUMN_FORMATION_ID INTEGER PRIMARY KEY,
-             FOREIGN KEY ($COLUMN_FORMATION_ROUTINE_ID REFERENCES 
+           $COLUMN_FORMATION_ROUTINE_ID  INTEGER,
+           $COLUMN_FORMATION_ATHLETES_ID INTEGER,
+           $COLUMN_FORMATION_MAT_ID INTEGER,
+           $COLUMN_FORMATION_PATTERN_ID INTEGER,
+            $COLUMN_FORMATION_NAME TEXT NOT NULL,
+             FOREIGN KEY ($COLUMN_FORMATION_ROUTINE_ID) REFERENCES 
              $TABLE_ROUTINE_NAME
             ($COLUMN_ROUTINE_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
-             FOREIGN KEY ($COLUMN_FORMATION_ATHLETES_ID REFERENCES 
+             FOREIGN KEY ($COLUMN_FORMATION_ATHLETES_ID) REFERENCES 
              $TABLE_ATHLETES_NAME
             ($COLUMN_ATHLETES_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
-             FOREIGN KEY ($COLUMN_FORMATION_MAT_ID REFERENCES 
+             FOREIGN KEY ($COLUMN_FORMATION_MAT_ID) REFERENCES 
              $TABLE_MAT_NAME
             ($COLUMN_MAT_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
-             FOREIGN KEY ($COLUMN_FORMATION_PATTERN_ID REFERENCES 
+             FOREIGN KEY ($COLUMN_FORMATION_PATTERN_ID) REFERENCES 
              $TABLE_PATTERN_NAME
-            ($COLUMN_PATTERN_ID)ON DELETE NO ACTION ON UPDATE NO ACTION
-            $COLUMN_FORMATION_NAME TEXT NOT NULL
-          )
+            ($COLUMN_PATTERN_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )
           ''');
-      await db.execute('''
+          //---------------AthletesTable-------------------------
+          await db.execute('''
           CREATE TABLE $TABLE_ATHLETES_NAME (
             $COLUMN_ATHLETES_ID INTEGER PRIMARY KEY,
             $COLUMN_ATHLETES_X_COORDINATE DOUBLE PRECISION,
             $COLUMN_ATHLETES_Y_COORDINATE DOUBLE PRECISION,
             $COLUMN_ATHLETES_NAME TEXT NOT NULL,
-            $COLUMN_ATHLETES_COLOR TEXT NOT NULL
-          )
+            $COLUMN_ATHLETES_COLOR TEXT NOT NULL )
           ''');
-      await db.execute('''
+          //---------------MatTable------------------------------
+          await db.execute('''
           CREATE TABLE $TABLE_MAT_NAME (
             $COLUMN_MAT_ID INTEGER PRIMARY KEY,
-            FOREIGN KEY ($COLUMN_MAT_PATTERN_ID REFERENCES 
-             $TABLE_PATTERN_NAME
-            ($COLUMN_PATTERN_ID)ON DELETE NO ACTION ON UPDATE NO ACTION
-            $COLUMN_MAT_X_COORDINATE DOUBLE PRECISION,
+            $COLUMN_MAT_PATTERN_ID INTEGER,
+             $COLUMN_MAT_X_COORDINATE DOUBLE PRECISION,
             $COLUMN_MAT_Y_COORDINATE DOUBLE PRECISION,
-          )
+            FOREIGN KEY ($COLUMN_MAT_PATTERN_ID) REFERENCES 
+             $TABLE_PATTERN_NAME
+            ($COLUMN_PATTERN_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )
           ''');
-      await db.execute('''
+          //---------------PatternTable--------------------------
+          await db.execute('''
           CREATE TABLE $TABLE_PATTERN_NAME (
             $COLUMN_PATTERN_ID INTEGER PRIMARY KEY,
-            $COLUMN_PATTERN_URL TEXT
-          )
+            $COLUMN_PATTERN_URL TEXT )
           ''');
     });
   }
