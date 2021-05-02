@@ -24,27 +24,27 @@ class CountSheet implements BuildDbObjectsInterface {
 
   @override
   factory CountSheet.fromJson(Map<String, dynamic> json) => CountSheet(
-        countsheetid: json["countsheetid"],
-        musicid: json["musicid"],
-        skills: json["skills"],
-        bpm: json["bpm"],
+        countsheetid: json['countsheetid'],
+        musicid: json['musicid'],
+        skills: json['skills'],
+        bpm: json['bpm'],
       );
 
   @override
   Map<String, dynamic> toJson() => {
-        "countsheetid": countsheetid,
-        "musicid": musicid,
-        "skills": skills,
-        "bpm": bpm,
+        'countsheetid': countsheetid,
+        'musicid': musicid,
+        'skills': skills,
+        'bpm': bpm,
       };
 
 //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
-    map["musicid"] = musicid;
-    map["skills"] = skills;
-    map["bpm"] = bpm;
+    map['musicid'] = musicid;
+    map['skills'] = skills;
+    map['bpm'] = bpm;
 
     return map;
   }
@@ -53,10 +53,10 @@ class CountSheet implements BuildDbObjectsInterface {
   @override
   Map<String, dynamic> toMap() {
     final map = new Map<String, dynamic>();
-    map["countsheetid"] = countsheetid;
-    map["musicid"] = musicid;
-    map["skills"] = skills;
-    map["bpm"] = bpm;
+    map['countsheetid'] = countsheetid;
+    map['musicid'] = musicid;
+    map['skills'] = skills;
+    map['bpm'] = bpm;
 
     return map;
   }

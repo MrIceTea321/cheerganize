@@ -21,20 +21,20 @@ class Music implements BuildDbObjectsInterface {
 
   @override
   factory Music.fromJson(Map<String, dynamic> json) => Music(
-      musicid: json["musicid"],
-      title: json["title"],
-      duration: json["duration"]);
+      musicid: json['musicid'],
+      title: json['title'],
+      duration: json['duration']);
 
   @override
   Map<String, dynamic> toJson() =>
-      {"musicid": musicid, "title": title, "duration": duration};
+      {'musicid': musicid, 'title': title, 'duration': duration};
 
 //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
-    map["skills"] = title;
-    map["bpm"] = duration;
+    map['skills'] = title;
+    map['bpm'] = duration;
 
     return map;
   }
@@ -43,9 +43,9 @@ class Music implements BuildDbObjectsInterface {
   @override
   Map<String, dynamic> toMap() {
     final map = new Map<String, dynamic>();
-    map["musicid"] = musicid;
-    map["title"] = title;
-    map["duration"] = duration;
+    map['musicid'] = musicid;
+    map['title'] = title;
+    map['duration'] = duration;
 
     return map;
   }

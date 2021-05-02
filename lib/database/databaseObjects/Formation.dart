@@ -28,33 +28,33 @@ class Formation implements BuildDbObjectsInterface {
 
   @override
   factory Formation.fromJson(Map<String, dynamic> json) => Formation(
-        formationid: json["formationid"],
-        routineid: json["routineid"],
-        athletesid: json["athletesid"],
-        matid: json["matid"],
-        patternid: json["patternid"],
-        name: json["name"],
+        formationid: json['formationid'],
+        routineid: json['routineid'],
+        athletesid: json['athletesid'],
+        matid: json['matid'],
+        patternid: json['patternid'],
+        name: json['name'],
       );
 
   @override
   Map<String, dynamic> toJson() => {
-        "formationid": formationid,
-        "routineid": routineid,
-        "athletesid": athletesid,
-        "matid": matid,
-        "patternid": patternid,
-        "name": name
+        'formationid': formationid,
+        'routineid': routineid,
+        'athletesid': athletesid,
+        'matid': matid,
+        'patternid': patternid,
+        'name': name
       };
 
 //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
-    map["routineid"] = routineid;
-    map["athletesid"] = athletesid;
-    map["matid"] = matid;
-    map["patternid"] = patternid;
-    map["name"] = name;
+    map['routineid'] = routineid;
+    map['athletesid'] = athletesid;
+    map['matid'] = matid;
+    map['patternid'] = patternid;
+    map['name'] = name;
 
     return map;
   }
@@ -63,12 +63,12 @@ class Formation implements BuildDbObjectsInterface {
   @override
   Map<String, dynamic> toMap() {
     final map = new Map<String, dynamic>();
-    map["formationid"] = formationid;
-    map["routineid"] = routineid;
-    map["athletesid"] = athletesid;
-    map["matid"] = matid;
-    map["patternid"] = patternid;
-    map["name"] = name;
+    map['formationid'] = formationid;
+    map['routineid'] = routineid;
+    map['athletesid'] = athletesid;
+    map['matid'] = matid;
+    map['patternid'] = patternid;
+    map['name'] = name;
     return map;
   }
 

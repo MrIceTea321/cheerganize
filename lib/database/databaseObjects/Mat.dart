@@ -23,27 +23,27 @@ class Mat implements BuildDbObjectsInterface {
 
   @override
   factory Mat.fromJson(Map<String, dynamic> json) => Mat(
-        matid: json["matid"],
-        patternid: json["patternid"],
-        xcoordinate: json["xcoordinate"],
-        ycoordinate: json["ycoordinate"],
+        matid: json['matid'],
+        patternid: json['patternid'],
+        xcoordinate: json['xcoordinate'],
+        ycoordinate: json['ycoordinate'],
       );
 
   @override
   Map<String, dynamic> toJson() => {
-        "matid": matid,
-        "patternid": patternid,
-        "xcoordinate": xcoordinate,
-        "ycoordinate": ycoordinate,
+        'matid': matid,
+        'patternid': patternid,
+        'xcoordinate': xcoordinate,
+        'ycoordinate': ycoordinate,
       };
 
 //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
-    map["patternid"] = patternid;
-    map["xcoordinate"] = xcoordinate;
-    map["ycoordinate"] = ycoordinate;
+    map['patternid'] = patternid;
+    map['xcoordinate'] = xcoordinate;
+    map['ycoordinate'] = ycoordinate;
 
     return map;
   }
@@ -52,10 +52,10 @@ class Mat implements BuildDbObjectsInterface {
   @override
   Map<String, dynamic> toMap() {
     final map = new Map<String, dynamic>();
-    map["matid"] = matid;
-    map["patternid"] = patternid;
-    map["xcoordinate"] = xcoordinate;
-    map["ycoordinate"] = ycoordinate;
+    map['matid'] = matid;
+    map['patternid'] = patternid;
+    map['xcoordinate'] = xcoordinate;
+    map['ycoordinate'] = ycoordinate;
 
     return map;
   }

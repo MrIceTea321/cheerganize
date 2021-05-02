@@ -2,8 +2,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DbInitiator {
-  static const String TABLE = "table";
-  static const _databaseName = "cheerganize.db";
+  static const String TABLE = 'table';
+  static const _databaseName = 'cheerganize.db';
 
   //-----------------Table names---------------------
   static const TABLE_ROUTINE_NAME = 'routine' + TABLE;
@@ -80,7 +80,7 @@ class DbInitiator {
   init() async {
     String path = await getDatabasesPath();
     path = join(path, _databaseName);
-    print("Entered path $path");
+    print('Entered path $path');
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {

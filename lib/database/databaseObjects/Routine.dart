@@ -25,30 +25,30 @@ class Routine implements BuildDbObjectsInterface {
 
   @override
   factory Routine.fromJson(Map<String, dynamic> json) => Routine(
-        routineid: json["routineid"],
-        musicid: json["musicid"],
-        athletesid: json["athletesid"],
-        formationid: json["formationid"],
-        countsheetid: json["countsheetid"],
+        routineid: json['routineid'],
+        musicid: json['musicid'],
+        athletesid: json['athletesid'],
+        formationid: json['formationid'],
+        countsheetid: json['countsheetid'],
       );
 
   @override
   Map<String, dynamic> toJson() => {
-        "routineid": routineid,
-        "musicid": musicid,
-        "athletesid": athletesid,
-        "formationid": formationid,
-        "countsheetid": countsheetid,
+        'routineid': routineid,
+        'musicid': musicid,
+        'athletesid': athletesid,
+        'formationid': formationid,
+        'countsheetid': countsheetid,
       };
 
 //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
-    map["musicid"] = musicid;
-    map["athletesid"] = athletesid;
-    map["formationid"] = formationid;
-    map["countsheetid"] = countsheetid;
+    map['musicid'] = musicid;
+    map['athletesid'] = athletesid;
+    map['formationid'] = formationid;
+    map['countsheetid'] = countsheetid;
 
     return map;
   }
@@ -57,11 +57,11 @@ class Routine implements BuildDbObjectsInterface {
   @override
   Map<String, dynamic> toMap() {
     final map = new Map<String, dynamic>();
-    map["routineid"] = routineid;
-    map["musicid"] = musicid;
-    map["athletesid"] = athletesid;
-    map["formationid"] = formationid;
-    map["countsheetid"] = countsheetid;
+    map['routineid'] = routineid;
+    map['musicid'] = musicid;
+    map['athletesid'] = athletesid;
+    map['formationid'] = formationid;
+    map['countsheetid'] = countsheetid;
 
     return map;
   }

@@ -26,30 +26,30 @@ class Athletes implements BuildDbObjectsInterface {
 
   @override
   factory Athletes.fromJson(Map<String, dynamic> json) => Athletes(
-        athletesid: json["athletesid"],
-        xcoordinate: json["xcoordinate"],
-        ycoordinate: json["ycoordinate"],
-        name: json["name"],
-        color: json["color"],
+        athletesid: json['athletesid'],
+        xcoordinate: json['xcoordinate'],
+        ycoordinate: json['ycoordinate'],
+        name: json['name'],
+        color: json['color'],
       );
 
   @override
   Map<String, dynamic> toJson() => {
-        "athletesid": athletesid,
-        "xcoordinate": xcoordinate,
-        "ycoordinate": ycoordinate,
-        "name": name,
-        "color": color,
+        'athletesid': athletesid,
+        'xcoordinate': xcoordinate,
+        'ycoordinate': ycoordinate,
+        'name': name,
+        'color': color,
       };
 
 //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
-    map["xcoordinate"] = xcoordinate;
-    map["ycoordinate"] = ycoordinate;
-    map["name"] = name;
-    map["color"] = color;
+    map['xcoordinate'] = xcoordinate;
+    map['ycoordinate'] = ycoordinate;
+    map['name'] = name;
+    map['color'] = color;
 
     return map;
   }
@@ -58,11 +58,11 @@ class Athletes implements BuildDbObjectsInterface {
   @override
   Map<String, dynamic> toMap() {
     final map = new Map<String, dynamic>();
-    map["athletesid"] = athletesid;
-    map["xcoordinate"] = xcoordinate;
-    map["ycoordinate"] = ycoordinate;
-    map["name"] = name;
-    map["color"] = color;
+    map['athletesid'] = athletesid;
+    map['xcoordinate'] = xcoordinate;
+    map['ycoordinate'] = ycoordinate;
+    map['name'] = name;
+    map['color'] = color;
     return map;
   }
 
