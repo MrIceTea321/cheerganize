@@ -27,7 +27,8 @@ class BuildDbObjectsInterface {
     return map;
   }
 
+//insert factory manually by every object which implements the interface
   factory BuildDbObjectsInterface.fromMap(Map<String, dynamic> data) =>
       //to be used when converting the row into object
-  new BuildDbObjectsInterface();
+      new BuildDbObjectsInterface();
 }

@@ -39,7 +39,7 @@ class _Cheerganize extends State<Cheerganize> {
         'Settings': (context) => Settings(),
         'NewRoutine': (context) => NewRoutine(),
         'AllRoutines': (context) => AllRoutines(),
-        //TODO DELTE CLASS MyHomePage ASAP
+        //TODO DELETE CLASS MyHomePage ASAP
         'MyHomePage': (context) => MyHomePage(),
       },
     );

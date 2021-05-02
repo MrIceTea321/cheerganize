@@ -80,12 +80,10 @@ class DbInitiator {
   init() async {
     String path = await getDatabasesPath();
     path = join(path, _databaseName);
-    print('Entered path $path');
-
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-          //-----------------RoutineTable------------------------
-          await db.execute('''
+      //-----------------RoutineTable------------------------
+      await db.execute('''
           CREATE TABLE $TABLE_ROUTINE_NAME (
             $COLUMN_ROUTINE_ID INTEGER PRIMARY KEY,
             $COLUMN_ROUTINE_MUSIC_ID INTEGER,
@@ -104,8 +102,8 @@ class DbInitiator {
             $TABLE_COUNT_SHEET_NAME
             ($COLUMN_COUNT_SHEET_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )
           ''');
-          //--------------CountSheetTable------------------------
-          await db.execute('''
+      //--------------CountSheetTable------------------------
+      await db.execute('''
           CREATE TABLE $TABLE_COUNT_SHEET_NAME (
             $COLUMN_COUNT_SHEET_ID INTEGER PRIMARY KEY,
             $COLUMN_COUNT_SHEET_MUSIC_ID INTEGER,
@@ -115,15 +113,15 @@ class DbInitiator {
            $TABLE_MUSIC_NAME
             ($COLUMN_MUSIC_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )
           ''');
-          //---------------MusicTable----------------------------
-          await db.execute('''
+      //---------------MusicTable----------------------------
+      await db.execute('''
           CREATE TABLE $TABLE_MUSIC_NAME (
             $COLUMN_MUSIC_ID INTEGER PRIMARY KEY,
             $COLUMN_MUSIC_TITLE TEXT NOT NULL,
             $COLUMN_MUSIC_DURATION DOUBLE PRECISION NOT NULL )
           ''');
-          //---------------FormationTable------------------------
-          await db.execute('''
+      //---------------FormationTable------------------------
+      await db.execute('''
            CREATE TABLE $TABLE_FORMATION_NAME (
            $COLUMN_FORMATION_ID INTEGER PRIMARY KEY,
            $COLUMN_FORMATION_ROUTINE_ID  INTEGER,
@@ -144,8 +142,8 @@ class DbInitiator {
              $TABLE_PATTERN_NAME
             ($COLUMN_PATTERN_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )
           ''');
-          //---------------AthletesTable-------------------------
-          await db.execute('''
+      //---------------AthletesTable-------------------------
+      await db.execute('''
           CREATE TABLE $TABLE_ATHLETES_NAME (
             $COLUMN_ATHLETES_ID INTEGER PRIMARY KEY,
             $COLUMN_ATHLETES_X_COORDINATE DOUBLE PRECISION,
@@ -153,8 +151,8 @@ class DbInitiator {
             $COLUMN_ATHLETES_NAME TEXT NOT NULL,
             $COLUMN_ATHLETES_COLOR TEXT NOT NULL )
           ''');
-          //---------------MatTable------------------------------
-          await db.execute('''
+      //---------------MatTable------------------------------
+      await db.execute('''
           CREATE TABLE $TABLE_MAT_NAME (
             $COLUMN_MAT_ID INTEGER PRIMARY KEY,
             $COLUMN_MAT_PATTERN_ID INTEGER,
@@ -164,8 +162,8 @@ class DbInitiator {
              $TABLE_PATTERN_NAME
             ($COLUMN_PATTERN_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )
           ''');
-          //---------------PatternTable--------------------------
-          await db.execute('''
+      //---------------PatternTable--------------------------
+      await db.execute('''
           CREATE TABLE $TABLE_PATTERN_NAME (
             $COLUMN_PATTERN_ID INTEGER PRIMARY KEY,
             $COLUMN_PATTERN_URL TEXT )
