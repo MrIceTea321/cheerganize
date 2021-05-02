@@ -1,7 +1,7 @@
 import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+//TODO DELTE CLASS ASAP
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
