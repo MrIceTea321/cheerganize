@@ -1,15 +1,15 @@
 import 'dart:convert';
 import '../BuildDbObjectsInterface.dart';
 
-class Rountine implements BuildDbObjectsInterface {
+class Routine implements BuildDbObjectsInterface {
   @override
-  Rountine buildDbObjectModel(String str) =>
-      Rountine.fromJson(json.decode(str));
+  Routine buildDbObjectModel(String str) =>
+      Routine.fromJson(json.decode(str));
 
   @override
   String buildDbObjectModelToJson(data) => json.encode(data.toJson());
 
-  Rountine({
+  Routine({
     this.routineid,
     this.musicid,
     this.athletesid,
@@ -24,7 +24,7 @@ class Rountine implements BuildDbObjectsInterface {
   int countsheetid;
 
   @override
-  factory Rountine.fromJson(Map<String, dynamic> json) => Rountine(
+  factory Routine.fromJson(Map<String, dynamic> json) => Routine(
         routineid: json["routineid"],
         musicid: json["musicid"],
         athletesid: json["athletesid"],
@@ -67,7 +67,7 @@ class Rountine implements BuildDbObjectsInterface {
   }
 
 //to be used when converting the row into object
-  factory Rountine.fromMap(Map<String, dynamic> data) => new Rountine(
+  factory Routine.fromMap(Map<String, dynamic> data) => new Routine(
       routineid: data['routineid'],
       musicid: data['musicid'],
       athletesid: data['athletesid'],
