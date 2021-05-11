@@ -1,23 +1,21 @@
-import 'dart:collection';
-
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
-import 'package:cheerganize/screens/CountsPlan.dart';
+import 'package:cheerganize/screens/NewRoutine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NewRoutine extends StatefulWidget {
+class CountsPlan extends StatefulWidget {
+  String eingabe;
+
+  String get getEingabe => eingabe;
+
   @override
-  _NewRoutine createState() => _NewRoutine();
+  _CountsPlan createState() => _CountsPlan();
 }
 
-class _NewRoutine extends State<NewRoutine> {
-  DbInitiator db;
-  Map<String, dynamic> row = new HashMap();
-
+class _CountsPlan extends State<CountsPlan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,49 +47,32 @@ class _NewRoutine extends State<NewRoutine> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 40.0),
-            BlackPawsCircleAvatar(radius: 125.0),
-            SizedBox(height: 50.0),
+            SizedBox(height: 30.0),
+            BlackPawsCircleAvatar(radius: 100.0),
+            SizedBox(height: 30.0),
             ConstTextField(
               hintText: 'Name der Routine',
               onSubmitted: (value) {
-                row.putIfAbsent(DbInitiator.COLUMN_ROUTINE_NAME, () => value);
+                widget.eingabe = value;
               },
             ),
             ConstTextField(
               hintText: 'Kategorie / Sportart',
               onSubmitted: (value) {
-                row.putIfAbsent(
-                    DbInitiator.COLUMN_ROUTINE_TYPE_OF_SPORT, () => value);
+                widget.eingabe = value;
               },
             ),
-            SizedBox(height: 40.0),
+            SizedBox(height: 30.0),
             BigFunctionButton(
               text: '8 - Counts Planung',
               onPress: () {
-                DbInitiator.db.insert(row, DbInitiator.TABLE_ROUTINE_NAME);
-                //Navigator.pushNamed(context, 'CountsPlan');
-              },
-              marginLTRB: [10.0, 10.0, 10.0, 10.0],
-            ),
-            BigFunctionButton(
-              text: 'Print Rows',
-              onPress: () async {
-                printALl();
+
               },
               marginLTRB: [10.0, 10.0, 10.0, 10.0],
             ),
           ],
-        ),
-      ),
+        ),)
+      ,
     );
-  }
-
-  void printALl() async {
-    final allRows =
-        await DbInitiator.db.queryAllRows(DbInitiator.TABLE_ROUTINE_NAME);
-    allRows.forEach((element) {
-      print(element);
-    });
   }
 }

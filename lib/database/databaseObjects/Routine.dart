@@ -1,27 +1,31 @@
 import 'dart:convert';
+import 'package:cheerganize/database/DbInitiator.dart';
+
 import '../BuildDbObjectsInterface.dart';
 
 class Routine implements BuildDbObjectsInterface {
   @override
-  Routine buildDbObjectModel(String str) =>
-      Routine.fromJson(json.decode(str));
+  Routine buildDbObjectModel(String str) => Routine.fromJson(json.decode(str));
 
   @override
   String buildDbObjectModelToJson(data) => json.encode(data.toJson());
 
-  Routine({
-    this.routineid,
-    this.musicid,
-    this.athletesid,
-    this.formationid,
-    this.countsheetid,
-  });
+  Routine(
+      {this.routineid,
+      this.musicid,
+      this.athletesid,
+      this.formationid,
+      this.countsheetid,
+      this.name,
+      this.typeofsport});
 
   int routineid;
   int musicid;
   int athletesid;
   int formationid;
   int countsheetid;
+  String name;
+  String typeofsport;
 
   @override
   factory Routine.fromJson(Map<String, dynamic> json) => Routine(
@@ -30,6 +34,8 @@ class Routine implements BuildDbObjectsInterface {
         athletesid: json['athletesid'],
         formationid: json['formationid'],
         countsheetid: json['countsheetid'],
+        name: json['name'],
+        typeofsport: json['typeofsport'],
       );
 
   @override
@@ -39,6 +45,8 @@ class Routine implements BuildDbObjectsInterface {
         'athletesid': athletesid,
         'formationid': formationid,
         'countsheetid': countsheetid,
+        'name': name,
+        'typeofsport': typeofsport
       };
 
 //to be used when inserting a row in the table
@@ -49,6 +57,8 @@ class Routine implements BuildDbObjectsInterface {
     map['athletesid'] = athletesid;
     map['formationid'] = formationid;
     map['countsheetid'] = countsheetid;
+    map['name'] = name;
+    map['typeofsport'] = typeofsport;
 
     return map;
   }
@@ -72,5 +82,9 @@ class Routine implements BuildDbObjectsInterface {
       musicid: data['musicid'],
       athletesid: data['athletesid'],
       formationid: data['formationid'],
-      countsheetid: data['countsheetid']);
+      countsheetid: data['countsheetid'],
+      name: data['name'],
+      typeofsport: data['typeofsport']);
+
+
 }

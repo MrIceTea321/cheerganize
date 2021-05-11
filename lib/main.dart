@@ -1,4 +1,5 @@
 import 'package:cheerganize/screens/AllRoutines.dart';
+import 'package:cheerganize/screens/CountsPlan.dart';
 import 'package:cheerganize/screens/MyHomePage.dart';
 import 'package:cheerganize/screens/NewRoutine.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class _Cheerganize extends State<Cheerganize> {
         'Settings': (context) => Settings(),
         'NewRoutine': (context) => NewRoutine(),
         'AllRoutines': (context) => AllRoutines(),
+        'CountsPlan': (context) => CountsPlan(),
         //TODO DELETE CLASS MyHomePage ASAP
         'MyHomePage': (context) => MyHomePage(),
       },

@@ -20,6 +20,8 @@ class DbInitiator {
   static const COLUMN_ROUTINE_ATHLETES_ID = 'athletesid';
   static const COLUMN_ROUTINE_FORMATION_ID = 'formationid';
   static const COLUMN_ROUTINE_COUNT_SHEET_ID = 'countsheetid';
+  static const COLUMN_ROUTINE_NAME ='name';
+  static const COLUMN_ROUTINE_TYPE_OF_SPORT = 'typeofsport';
 
   //--------------CountSheetTable------------------------
   static const COLUMN_COUNT_SHEET_ID = 'countsheetid';
@@ -90,6 +92,8 @@ class DbInitiator {
             $COLUMN_ROUTINE_ATHLETES_ID INTEGER,
             $COLUMN_ROUTINE_FORMATION_ID INTEGER,
             $COLUMN_ROUTINE_COUNT_SHEET_ID INTEGER,
+            $COLUMN_ROUTINE_NAME TEXT,
+            $COLUMN_ROUTINE_TYPE_OF_SPORT TEXT,
             FOREIGN KEY ($COLUMN_ROUTINE_MUSIC_ID) REFERENCES $TABLE_MUSIC_NAME
             ($COLUMN_MUSIC_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
             FOREIGN KEY ($COLUMN_ROUTINE_ATHLETES_ID) REFERENCES 
