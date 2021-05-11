@@ -64,13 +64,6 @@ class _HomeScreen extends State<HomeScreen> {
                       },
                       marginLTRB: [10.0,10.0,10.0,10.0]
                     ),
-                    BigFunctionButton(
-                        text: 'DB Init',
-                        onPress: () {
-                          Navigator.pushNamed(context, 'MyHomePage');
-                        },
-                        marginLTRB: [10.0,10.0,10.0,10.0]
-                    ),
                   ],
                 ),
               ),

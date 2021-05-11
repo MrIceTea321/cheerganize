@@ -85,6 +85,4 @@ class Routine implements BuildDbObjectsInterface {
       countsheetid: data['countsheetid'],
       name: data['name'],
       typeofsport: data['typeofsport']);
-
-
 }

@@ -3,10 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ConstTextField extends StatelessWidget {
-  ConstTextField({@required this.hintText, @required this.onSubmitted});
+  ConstTextField(
+      {@required this.hintText,
+      @required this.controller,
+      @required this.onSubmitted});
 
   final String hintText;
   Function onSubmitted;
+  TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +20,7 @@ class ConstTextField extends StatelessWidget {
         //TODO redesign TextField
         textAlign: TextAlign.center,
         onSubmitted: onSubmitted,
+        controller: controller,
         style: BlackPawsTextFieldTextStyle,
         decoration: InputDecoration(
           hintText: hintText,

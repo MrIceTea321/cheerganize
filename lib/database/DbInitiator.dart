@@ -20,7 +20,7 @@ class DbInitiator {
   static const COLUMN_ROUTINE_ATHLETES_ID = 'athletesid';
   static const COLUMN_ROUTINE_FORMATION_ID = 'formationid';
   static const COLUMN_ROUTINE_COUNT_SHEET_ID = 'countsheetid';
-  static const COLUMN_ROUTINE_NAME ='name';
+  static const COLUMN_ROUTINE_NAME = 'name';
   static const COLUMN_ROUTINE_TYPE_OF_SPORT = 'typeofsport';
 
   //--------------CountSheetTable------------------------
@@ -194,5 +194,12 @@ class DbInitiator {
     Database db = await instance.database;
     return Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM $tableName'));
+  }
+
+  void printALl(String tableName) async {
+    final allRows = await DbInitiator.db.queryAllRows(tableName);
+    allRows.forEach((element) {
+      print(element);
+    });
   }
 }

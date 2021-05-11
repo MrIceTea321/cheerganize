@@ -2,14 +2,19 @@ import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
+import 'package:cheerganize/database/DbInitiator.dart';
+import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:cheerganize/screens/NewRoutine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CountsPlan extends StatefulWidget {
-  String eingabe;
+  CountsPlan({@required this.routineName, @required this.typeOfSport});
 
-  String get getEingabe => eingabe;
+  String routineName;
+  String typeOfSport;
+  Routine routine;
 
   @override
   _CountsPlan createState() => _CountsPlan();
@@ -50,29 +55,28 @@ class _CountsPlan extends State<CountsPlan> {
             SizedBox(height: 30.0),
             BlackPawsCircleAvatar(radius: 100.0),
             SizedBox(height: 30.0),
-            ConstTextField(
-              hintText: 'Name der Routine',
-              onSubmitted: (value) {
-                widget.eingabe = value;
-              },
-            ),
-            ConstTextField(
-              hintText: 'Kategorie / Sportart',
-              onSubmitted: (value) {
-                widget.eingabe = value;
-              },
-            ),
             SizedBox(height: 30.0),
             BigFunctionButton(
               text: '8 - Counts Planung',
+              //TODO find out why the routine objects doesent let me use his
+              // setter methods
               onPress: () {
-
+                widget.routine.name = widget.routineName;
+                print(widget.routine.toJson());
+                // DbInitiator.db.insert(
+                 //   widget.routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
+                //DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
               },
               marginLTRB: [10.0, 10.0, 10.0, 10.0],
             ),
           ],
-        ),)
-      ,
+        ),
+      ),
     );
+  }
+
+  void setRoutineObject() {
+    widget.routine.name = widget.routineName;
+    widget.routine.typeofsport = widget.typeOfSport;
   }
 }
