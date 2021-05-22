@@ -3,31 +3,19 @@ import 'dart:convert';
 import '../BuildDbObjectsInterface.dart';
 
 class Pattern implements BuildDbObjectsInterface {
-  @override
-  Pattern buildDbObjectModel(String str) => Pattern.fromJson(json.decode(str));
+  int _patternid;
+  String _url;
 
-  @override
-  String buildDbObjectModelToJson(data) => json.encode(data.toJson());
-
-  Pattern({
-    this.patternid,
-    this.url,
-  });
-  
-  int patternid;
-  String url;
-
-  @override
-  factory Pattern.fromJson(Map<String, dynamic> json) => Pattern(
-    patternid: json['patternid'],
-    url: json['url'],
-  );
+  Pattern(String url) {
+    this._patternid = _patternid;
+    this._url = url;
+  }
 
   @override
   Map<String, dynamic> toJson() => {
-    'patternid': patternid,
-    'url': url,
-  };
+        'patternid': patternid,
+        'url': url,
+      };
 
 //to be used when inserting a row in the table
   @override
@@ -49,8 +37,7 @@ class Pattern implements BuildDbObjectsInterface {
     return map;
   }
 
-//to be used when converting the row into object
-  factory Pattern.fromMap(Map<String, dynamic> data) => new Pattern(
-      patternid: data['patternid'],
-      url: data['url']);
+  int get patternid => _patternid;
+
+  String get url => _url;
 }

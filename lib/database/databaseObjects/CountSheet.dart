@@ -3,32 +3,19 @@ import 'dart:convert';
 import '../BuildDbObjectsInterface.dart';
 
 class CountSheet implements BuildDbObjectsInterface {
-  @override
-  CountSheet buildDbObjectModel(String str) =>
-      CountSheet.fromJson(json.decode(str));
+  int _countsheetid;
+  int _musicid;
+  String _skills;
+  int _bpm;
 
-  @override
-  String buildDbObjectModelToJson(data) => json.encode(data.toJson());
+  CountSheet(int musicid, String skills, int bpm){
+    this._countsheetid = _countsheetid;
+    this._musicid = musicid;
+    this._skills = skills;
+    this._bpm = bpm;
+  }
 
-  CountSheet({
-    this.countsheetid,
-    this.musicid,
-    this.skills,
-    this.bpm,
-  });
 
-  int countsheetid;
-  int musicid;
-  String skills;
-  int bpm;
-
-  @override
-  factory CountSheet.fromJson(Map<String, dynamic> json) => CountSheet(
-        countsheetid: json['countsheetid'],
-        musicid: json['musicid'],
-        skills: json['skills'],
-        bpm: json['bpm'],
-      );
 
   @override
   Map<String, dynamic> toJson() => {
@@ -61,10 +48,15 @@ class CountSheet implements BuildDbObjectsInterface {
     return map;
   }
 
-//to be used when converting the row into object
-  factory CountSheet.fromMap(Map<String, dynamic> data) => new CountSheet(
-      countsheetid: data['countsheetid'],
-      musicid: data['musicid'],
-      skills: data['skills'],
-      bpm: data['bpm']);
+  int get countsheetid => _countsheetid;
+
+  int get musicid => _musicid;
+
+
+  String get skills => _skills;
+
+
+  int get bpm => _bpm;
+
+
 }

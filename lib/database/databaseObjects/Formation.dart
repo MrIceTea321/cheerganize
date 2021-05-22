@@ -3,38 +3,22 @@ import 'dart:convert';
 import '../BuildDbObjectsInterface.dart';
 
 class Formation implements BuildDbObjectsInterface {
-  @override
-  Formation buildDbObjectModel(String str) =>
-      Formation.fromJson(json.decode(str));
+  int _formationid;
+  int _routineid;
+  int _athletesid;
+  int _matid;
+  int _patternid;
+  String _name;
 
-  @override
-  String buildDbObjectModelToJson(data) => json.encode(data.toJson());
-
-  Formation({
-    this.formationid,
-    this.routineid,
-    this.athletesid,
-    this.matid,
-    this.patternid,
-    this.name,
-  });
-
-  int formationid;
-  int routineid;
-  int athletesid;
-  int matid;
-  int patternid;
-  String name;
-
-  @override
-  factory Formation.fromJson(Map<String, dynamic> json) => Formation(
-        formationid: json['formationid'],
-        routineid: json['routineid'],
-        athletesid: json['athletesid'],
-        matid: json['matid'],
-        patternid: json['patternid'],
-        name: json['name'],
-      );
+  Formation(
+      int routineid, int athletsid, int matid, int patternid, String name) {
+    this._formationid = _formationid;
+    this._routineid = routineid;
+    this._athletesid = athletsid;
+    this._matid = matid;
+    this._patternid = patternid;
+    this._name = name;
+  }
 
   @override
   Map<String, dynamic> toJson() => {
@@ -72,12 +56,15 @@ class Formation implements BuildDbObjectsInterface {
     return map;
   }
 
-//to be used when converting the row into object
-  factory Formation.fromMap(Map<String, dynamic> data) => new Formation(
-      formationid: data['formationid'],
-      routineid: data['routineid'],
-      athletesid: data['athletesid'],
-      matid: data['matid'],
-      patternid: data['patternid'],
-      name: data['name']);
+  int get formationid => _formationid;
+
+  int get routineid => _routineid;
+
+  int get athletesid => _athletesid;
+
+  int get matid => _matid;
+
+  int get patternid => _patternid;
+
+  String get name => _name;
 }

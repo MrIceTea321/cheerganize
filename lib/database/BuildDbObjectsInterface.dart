@@ -1,15 +1,9 @@
 import 'dart:convert';
 
 class BuildDbObjectsInterface {
-  BuildDbObjectsInterface buildDbObjectModel(String str) =>
-      BuildDbObjectsInterface.fromJson(json.decode(str));
-
-  String buildDbObjectModelToJson(dynamic data) => json.encode(data.toJson());
 
   BuildDbObjectsInterface({exampleId});
 
-  factory BuildDbObjectsInterface.fromJson(Map<String, dynamic> json) =>
-      BuildDbObjectsInterface();
 
   Map<String, dynamic> toJson() => {};
 
@@ -27,8 +21,4 @@ class BuildDbObjectsInterface {
     return map;
   }
 
-//insert factory manually by every object which implements the interface
-  factory BuildDbObjectsInterface.fromMap(Map<String, dynamic> data) =>
-      //to be used when converting the row into object
-      new BuildDbObjectsInterface();
 }

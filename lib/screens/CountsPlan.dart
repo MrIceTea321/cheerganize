@@ -19,6 +19,7 @@ class CountsPlan extends StatefulWidget {
 }
 
 class _CountsPlan extends State<CountsPlan> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,10 +58,11 @@ class _CountsPlan extends State<CountsPlan> {
             BigFunctionButton(
               text: '8 - Counts Planung',
               onPress: () {
-                print(widget.routine.toJson());
-                // DbInitiator.db.insert(
-                 //   widget.routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
-                //DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
+                print('routineObject' + widget.routine.toString());
+                DbInitiator.db.insert(
+                    widget.routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
+                DbInitiator.db.printALl(
+                    DbInitiator.TABLE_ROUTINE_NAME);
               },
               marginLTRB: [10.0, 10.0, 10.0, 10.0],
             ),
@@ -69,5 +71,4 @@ class _CountsPlan extends State<CountsPlan> {
       ),
     );
   }
-
 }

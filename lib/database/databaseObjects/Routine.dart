@@ -5,14 +5,7 @@ import 'package:cheerganize/database/DbInitiator.dart';
 
 import '../BuildDbObjectsInterface.dart';
 
-class Routine  {
-
-  @override
-  //Routine buildDbObjectModel(String str) => Routine.fromJson(json.decode
-  // (str));
-
-  @override
-  String buildDbObjectModelToJson(data) => json.encode(data.toJson());
+class Routine {
 
   int _routineid;
   int _musicid;
@@ -33,27 +26,8 @@ class Routine  {
   }
 
 
-  int get routineid => _routineid;
-
-  set routineid(int value) {
-    _routineid = value;
-  }
-
-  //@override
-  //factory Routine.fromJson(Map<String, dynamic> json) =>
-      //Routine(
-      //  routineid: json['_routineid'],
-       // musicid: json['_musicid'],
-       // athletesid: json['_athletesid'],
-       // formationid: json['formationid'],
-        //countsheetid: json['countsheetid'],
-       // name: json['name'],
-      //  typeofsport: json['typeofsport'],
-     // );
-
   @override
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'routineid': routineid,
         'musicid': musicid,
         'athletesid': athletesid,
@@ -81,25 +55,21 @@ class Routine  {
   @override
   Map<String, dynamic> toMap() {
     final map = new Map<String, dynamic>();
-    map['routineid'] = routineid;
-    map['musicid'] = musicid;
-    map['athletesid'] = athletesid;
-    map['formationid'] = formationid;
-    map['countsheetid'] = countsheetid;
-
+    map['routineid'] = _routineid;
+    map['musicid'] = _musicid;
+    map['athletesid'] = _athletesid;
+    map['formationid'] = _formationid;
+    map['countsheetid'] = _countsheetid;
+    map['name'] = _name;
+    map['typeofsport'] = _typeofsport;
     return map;
   }
 
-//to be used when converting the row into object
-  //factory Routine.fromMap(Map<String, dynamic> data) =>
-     // new Routine(
-        //  routineid: data['routineid'],
-         // musicid: data['musicid'],
-         // athletesid: data['athletesid'],
-        //  formationid: data['formationid'],
-        //  countsheetid: data['countsheetid'],
-       //   name: data['name'],
-       //   typeofsport: data['typeofsport']);
+  int get routineid => _routineid;
+
+  set routineid(int value) {
+    _routineid = value;
+  }
 
   int get musicid => _musicid;
 

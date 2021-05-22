@@ -3,31 +3,20 @@ import 'dart:convert';
 import '../BuildDbObjectsInterface.dart';
 
 class Mat implements BuildDbObjectsInterface {
-  @override
-  Mat buildDbObjectModel(String str) => Mat.fromJson(json.decode(str));
 
-  @override
-  String buildDbObjectModelToJson(data) => json.encode(data.toJson());
+  int _matid;
+  int _patternid;
+  double _xcoordinate;
+  double _ycoordinate;
 
-  Mat({
-    this.matid,
-    this.patternid,
-    this.xcoordinate,
-    this.ycoordinate,
-  });
+  Mat(int patternid, double xcoordinate, double ycoordinate)
+      {
+    this._matid = _matid;
+    this._patternid = patternid;
+    this._xcoordinate = xcoordinate;
+    this._ycoordinate = ycoordinate;
+  }
 
-  int matid;
-  int patternid;
-  double xcoordinate;
-  double ycoordinate;
-
-  @override
-  factory Mat.fromJson(Map<String, dynamic> json) => Mat(
-        matid: json['matid'],
-        patternid: json['patternid'],
-        xcoordinate: json['xcoordinate'],
-        ycoordinate: json['ycoordinate'],
-      );
 
   @override
   Map<String, dynamic> toJson() => {
@@ -60,10 +49,12 @@ class Mat implements BuildDbObjectsInterface {
     return map;
   }
 
-//to be used when converting the row into object
-  factory Mat.fromMap(Map<String, dynamic> data) => new Mat(
-      matid: data['matid'],
-      patternid: data['patternid'],
-      xcoordinate: data['xcoordinate'],
-      ycoordinate: data['ycoordinate']);
+
+  int get matid => _matid;
+
+  double get ycoordinate => _ycoordinate;
+
+  double get xcoordinate => _xcoordinate;
+
+  int get patternid => _patternid;
 }

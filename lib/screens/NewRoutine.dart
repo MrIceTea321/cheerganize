@@ -75,6 +75,8 @@ class _NewRoutine extends State<NewRoutine> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => CountsPlan(
+                      //TODO alle objekte nach dem schema umbauen und ids
+                      // über autoinsert generieren lassen
                       routine: buildRoutineObject(name, typeOfSport),
                     ),
                   ),

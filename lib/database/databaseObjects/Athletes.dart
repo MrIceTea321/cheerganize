@@ -3,35 +3,20 @@ import 'dart:convert';
 import '../BuildDbObjectsInterface.dart';
 
 class Athletes implements BuildDbObjectsInterface {
-  @override
-  Athletes buildDbObjectModel(String str) =>
-      Athletes.fromJson(json.decode(str));
 
-  @override
-  String buildDbObjectModelToJson(data) => json.encode(data.toJson());
+  int _athletesid;
+  double _xcoordinate;
+  double _ycoordinate;
+  String _name;
+  String _color;
 
-  Athletes({
-    this.athletesid,
-    this.xcoordinate,
-    this.ycoordinate,
-    this.name,
-    this.color,
-  });
-
-  int athletesid;
-  double xcoordinate;
-  double ycoordinate;
-  String name;
-  String color;
-
-  @override
-  factory Athletes.fromJson(Map<String, dynamic> json) => Athletes(
-        athletesid: json['athletesid'],
-        xcoordinate: json['xcoordinate'],
-        ycoordinate: json['ycoordinate'],
-        name: json['name'],
-        color: json['color'],
-      );
+  Athletes(double xcoordinate, double ycoordinate, String name, String color){
+    this._athletesid = _athletesid;
+    this._xcoordinate = xcoordinate;
+    this._ycoordinate = ycoordinate;
+    this._name = name;
+    this._color = color;
+  }
 
   @override
   Map<String, dynamic> toJson() => {
@@ -66,11 +51,17 @@ class Athletes implements BuildDbObjectsInterface {
     return map;
   }
 
-//to be used when converting the row into object
-  factory Athletes.fromMap(Map<String, dynamic> data) => new Athletes(
-      athletesid: data['athletesid'],
-      xcoordinate: data['xcoordinate'],
-      ycoordinate: data['ycoordinate'],
-      name: data['name'],
-      color: data['color']);
+  int get athletesid => _athletesid;
+
+  double get xcoordinate => _xcoordinate;
+
+
+  double get ycoordinate => _ycoordinate;
+
+
+  String get name => _name;
+
+
+  String get color => _color;
+
 }

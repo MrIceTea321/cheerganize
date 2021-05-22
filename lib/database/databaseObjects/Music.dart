@@ -3,27 +3,18 @@ import 'dart:convert';
 import '../BuildDbObjectsInterface.dart';
 
 class Music implements BuildDbObjectsInterface {
-  @override
-  Music buildDbObjectModel(String str) => Music.fromJson(json.decode(str));
 
-  @override
-  String buildDbObjectModelToJson(data) => json.encode(data.toJson());
+  int _musicid;
+  String _title;
+  double _duration;
 
-  Music({
-    this.musicid,
-    this.title,
-    this.duration,
-  });
+  Music(String title, double duration){
+    this._musicid = _musicid;
+    this._title = title;
+    this._duration = duration;
+  }
 
-  int musicid;
-  String title;
-  double duration;
 
-  @override
-  factory Music.fromJson(Map<String, dynamic> json) => Music(
-      musicid: json['musicid'],
-      title: json['title'],
-      duration: json['duration']);
 
   @override
   Map<String, dynamic> toJson() =>
@@ -50,9 +41,9 @@ class Music implements BuildDbObjectsInterface {
     return map;
   }
 
-//to be used when converting the row into object
-  factory Music.fromMap(Map<String, dynamic> data) => new Music(
-      musicid: data['musicid'],
-      title: data['title'],
-      duration: data['duration']);
+  int get musicid => _musicid;
+
+  String get title => _title;
+
+  double get duration => _duration;
 }
