@@ -11,7 +11,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewRoutine extends StatefulWidget {
-
   @override
   _NewRoutine createState() => _NewRoutine();
 }
@@ -19,6 +18,7 @@ class NewRoutine extends StatefulWidget {
 class _NewRoutine extends State<NewRoutine> {
   String name;
   String typeOfSport;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,14 +56,12 @@ class _NewRoutine extends State<NewRoutine> {
             ConstTextField(
               hintText: 'Name der Routine',
               onSubmitted: (String value) {
-                print('Value before set name: $value');
                 name = value;
               },
             ),
             ConstTextField(
               hintText: 'Kategorie / Sportart',
               onSubmitted: (String value) {
-                print('Value before set Kategorie: $value');
                 typeOfSport = value;
               },
             ),
@@ -71,13 +69,14 @@ class _NewRoutine extends State<NewRoutine> {
             BigFunctionButton(
               text: '8 - Counts Planung',
               onPress: () {
-                Navigator.push(
-                  context,
+                Routine routine = buildRoutineObject(name, typeOfSport);
+                DbInitiator.db
+                    .insert(routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
+                DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
+                Navigator.push(context,
                   MaterialPageRoute(
                     builder: (context) => CountsPlan(
-                      //TODO alle objekte nach dem schema umbauen und ids
-                      // über autoinsert generieren lassen
-                      routine: buildRoutineObject(name, typeOfSport),
+                      routine: routine,
                     ),
                   ),
                 );
@@ -89,8 +88,8 @@ class _NewRoutine extends State<NewRoutine> {
       ),
     );
   }
-  
-  Routine buildRoutineObject(String name, String typeOfSport){
-   return new Routine(name, typeOfSport);
+
+  Routine buildRoutineObject(String name, String typeOfSport) {
+    return new Routine(name, typeOfSport);
   }
 }

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CountsPlan extends StatefulWidget {
-  CountsPlan({@required this.routine});
+  CountsPlan({this.routine});
 
   final Routine routine;
 
@@ -51,21 +51,7 @@ class _CountsPlan extends State<CountsPlan> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 30.0),
-            BlackPawsCircleAvatar(radius: 100.0),
-            SizedBox(height: 30.0),
-            SizedBox(height: 30.0),
-            BigFunctionButton(
-              text: '8 - Counts Planung',
-              onPress: () {
-                print('routineObject' + widget.routine.toString());
-                DbInitiator.db.insert(
-                    widget.routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
-                DbInitiator.db.printALl(
-                    DbInitiator.TABLE_ROUTINE_NAME);
-              },
-              marginLTRB: [10.0, 10.0, 10.0, 10.0],
-            ),
+
           ],
         ),
       ),

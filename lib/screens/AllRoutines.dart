@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 class AllRoutines extends StatefulWidget {
   @override
   _AllRoutines createState() => _AllRoutines();
+
+  AllRoutines({this.rowCount});
+  int rowCount;
+
 }
 
 class _AllRoutines extends State<AllRoutines> {
@@ -59,7 +63,7 @@ class _AllRoutines extends State<AllRoutines> {
               child: Scrollbar(
                 thickness: 5.5,
                 child: new ListView.builder(
-                  itemCount: 10,
+                  itemCount: widget.rowCount,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, index) {
                     return RoutineButton(
@@ -79,4 +83,5 @@ class _AllRoutines extends State<AllRoutines> {
       ),
     );
   }
+
 }

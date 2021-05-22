@@ -190,7 +190,7 @@ class DbInitiator {
     return await db.query(tableName);
   }
 
-  Future<int> queryRowCount(String tableName) async {
+    Future<int> queryRowCount(String tableName) async {
     Database db = await instance.database;
     return Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM $tableName'));

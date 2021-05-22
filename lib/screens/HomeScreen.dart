@@ -1,10 +1,12 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
-import 'package:cheerganize/consts/buttons/RoutineButton.dart';
 import 'package:cheerganize/consts/Constants.dart';
+import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'AllRoutines.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+  int rowCount;
+
   @override
   Widget build(BuildContext context) {
     //TODO insert drop down menu list
@@ -53,16 +57,20 @@ class _HomeScreen extends State<HomeScreen> {
                     BigFunctionButton(
                       text: 'Routines',
                       onPress: () {
-                        Navigator.pushNamed(context, 'AllRoutines');
+                        setRowCount();
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>
+                              AllRoutines(rowCount: rowCount,),
+                          ),);
                       },
-                      marginLTRB: [10.0,10.0,10.0,10.0],
+                      marginLTRB: [10.0, 10.0, 10.0, 10.0],
                     ),
                     BigFunctionButton(
-                      text: 'Neue Routine',
-                      onPress: () {
-                        Navigator.pushNamed(context, 'NewRoutine');
-                      },
-                      marginLTRB: [10.0,10.0,10.0,10.0]
+                        text: 'Neue Routine',
+                        onPress: () {
+                          Navigator.pushNamed(context, 'NewRoutine');
+                        },
+                        marginLTRB: [10.0, 10.0, 10.0, 10.0]
                     ),
                   ],
                 ),
@@ -72,5 +80,11 @@ class _HomeScreen extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void setRowCount() async {
+    rowCount =
+    await DbInitiator.db.queryRowCount(DbInitiator.TABLE_ROUTINE_NAME);
+    print(rowCount);
   }
 }
