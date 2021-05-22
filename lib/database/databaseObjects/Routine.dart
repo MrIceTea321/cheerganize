@@ -1,45 +1,59 @@
 import 'dart:convert';
+import 'dart:core';
+import 'dart:core';
 import 'package:cheerganize/database/DbInitiator.dart';
 
 import '../BuildDbObjectsInterface.dart';
 
-class Routine implements BuildDbObjectsInterface {
+class Routine  {
+
   @override
-  Routine buildDbObjectModel(String str) => Routine.fromJson(json.decode(str));
+  //Routine buildDbObjectModel(String str) => Routine.fromJson(json.decode
+  // (str));
 
   @override
   String buildDbObjectModelToJson(data) => json.encode(data.toJson());
 
-  Routine(
-      {this.routineid,
-      this.musicid,
-      this.athletesid,
-      this.formationid,
-      this.countsheetid,
-      this.name,
-      this.typeofsport});
+  int _routineid;
+  int _musicid;
+  int _athletesid;
+  int _formationid;
+  int _countsheetid;
+  String _name;
+  String _typeofsport;
 
-  int routineid;
-  int musicid;
-  int athletesid;
-  int formationid;
-  int countsheetid;
-  String name;
-  String typeofsport;
+  Routine(String name, String typeofsport) {
+    this._routineid = routineid;
+    this._musicid = musicid;
+    this._athletesid = athletesid;
+    this._formationid = formationid;
+    this._countsheetid = countsheetid;
+    this._name = name;
+    this._typeofsport = typeofsport;
+  }
+
+
+  int get routineid => _routineid;
+
+  set routineid(int value) {
+    _routineid = value;
+  }
+
+  //@override
+  //factory Routine.fromJson(Map<String, dynamic> json) =>
+      //Routine(
+      //  routineid: json['_routineid'],
+       // musicid: json['_musicid'],
+       // athletesid: json['_athletesid'],
+       // formationid: json['formationid'],
+        //countsheetid: json['countsheetid'],
+       // name: json['name'],
+      //  typeofsport: json['typeofsport'],
+     // );
 
   @override
-  factory Routine.fromJson(Map<String, dynamic> json) => Routine(
-        routineid: json['routineid'],
-        musicid: json['musicid'],
-        athletesid: json['athletesid'],
-        formationid: json['formationid'],
-        countsheetid: json['countsheetid'],
-        name: json['name'],
-        typeofsport: json['typeofsport'],
-      );
-
-  @override
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         'routineid': routineid,
         'musicid': musicid,
         'athletesid': athletesid,
@@ -77,12 +91,49 @@ class Routine implements BuildDbObjectsInterface {
   }
 
 //to be used when converting the row into object
-  factory Routine.fromMap(Map<String, dynamic> data) => new Routine(
-      routineid: data['routineid'],
-      musicid: data['musicid'],
-      athletesid: data['athletesid'],
-      formationid: data['formationid'],
-      countsheetid: data['countsheetid'],
-      name: data['name'],
-      typeofsport: data['typeofsport']);
+  //factory Routine.fromMap(Map<String, dynamic> data) =>
+     // new Routine(
+        //  routineid: data['routineid'],
+         // musicid: data['musicid'],
+         // athletesid: data['athletesid'],
+        //  formationid: data['formationid'],
+        //  countsheetid: data['countsheetid'],
+       //   name: data['name'],
+       //   typeofsport: data['typeofsport']);
+
+  int get musicid => _musicid;
+
+  set musicid(int value) {
+    _musicid = value;
+  }
+
+  int get athletesid => _athletesid;
+
+  set athletesid(int value) {
+    _athletesid = value;
+  }
+
+  int get formationid => _formationid;
+
+  set formationid(int value) {
+    _formationid = value;
+  }
+
+  int get countsheetid => _countsheetid;
+
+  set countsheetid(int value) {
+    _countsheetid = value;
+  }
+
+  String get name => _name;
+
+  set name(String value) {
+    _name = value;
+  }
+
+  String get typeofsport => _typeofsport;
+
+  set typeofsport(String value) {
+    _typeofsport = value;
+  }
 }

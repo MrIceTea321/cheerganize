@@ -11,18 +11,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewRoutine extends StatefulWidget {
-  String name;
-  String typeOfSport;
-
-  String get getName => name;
-
-  String get getTypeOfSport => typeOfSport;
 
   @override
   _NewRoutine createState() => _NewRoutine();
 }
 
 class _NewRoutine extends State<NewRoutine> {
+  String name;
+  String typeOfSport;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,13 +57,14 @@ class _NewRoutine extends State<NewRoutine> {
               hintText: 'Name der Routine',
               onSubmitted: (String value) {
                 print('Value before set name: $value');
-                widget.name = value;
+                name = value;
               },
             ),
             ConstTextField(
               hintText: 'Kategorie / Sportart',
               onSubmitted: (String value) {
-                widget.typeOfSport = value;
+                print('Value before set Kategorie: $value');
+                typeOfSport = value;
               },
             ),
             SizedBox(height: 40.0),
@@ -78,8 +75,8 @@ class _NewRoutine extends State<NewRoutine> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => CountsPlan(
-                        routineName: widget.name,
-                        typeOfSport: widget.typeOfSport),
+                      routine: buildRoutineObject(name, typeOfSport),
+                    ),
                   ),
                 );
               },
@@ -89,5 +86,9 @@ class _NewRoutine extends State<NewRoutine> {
         ),
       ),
     );
+  }
+  
+  Routine buildRoutineObject(String name, String typeOfSport){
+   return new Routine(name, typeOfSport);
   }
 }

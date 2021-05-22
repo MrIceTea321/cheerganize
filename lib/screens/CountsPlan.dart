@@ -10,11 +10,9 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CountsPlan extends StatefulWidget {
-  CountsPlan({@required this.routineName, @required this.typeOfSport});
+  CountsPlan({@required this.routine});
 
-  String routineName;
-  String typeOfSport;
-  Routine routine;
+  final Routine routine;
 
   @override
   _CountsPlan createState() => _CountsPlan();
@@ -58,10 +56,7 @@ class _CountsPlan extends State<CountsPlan> {
             SizedBox(height: 30.0),
             BigFunctionButton(
               text: '8 - Counts Planung',
-              //TODO find out why the routine objects doesent let me use his
-              // setter methods
               onPress: () {
-                widget.routine.name = widget.routineName;
                 print(widget.routine.toJson());
                 // DbInitiator.db.insert(
                  //   widget.routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
@@ -75,8 +70,4 @@ class _CountsPlan extends State<CountsPlan> {
     );
   }
 
-  void setRoutineObject() {
-    widget.routine.name = widget.routineName;
-    widget.routine.typeofsport = widget.typeOfSport;
-  }
 }
