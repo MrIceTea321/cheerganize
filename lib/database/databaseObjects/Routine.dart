@@ -24,6 +24,15 @@ class Routine {
     this._name = name;
     this._typeofsport = typeofsport;
   }
+  Routine.buildFromMap(Map<String, dynamic> routines) {
+    this._routineid = routines.values.elementAt(0);
+    this._musicid = routines.values.elementAt(1);
+    this._athletesid = routines.values.elementAt(2);
+    this._formationid = routines.values.elementAt(3);
+    this._countsheetid = routines.values.elementAt(4);
+    this._name = routines.values.elementAt(5);
+    this._typeofsport = routines.values.elementAt(6);
+  }
 
 
   @override

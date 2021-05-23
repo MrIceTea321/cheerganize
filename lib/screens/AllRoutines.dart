@@ -9,7 +9,6 @@ import 'RoutineStatus.dart';
 
 class AllRoutines extends StatefulWidget {
   final List<Map<String, dynamic>> routines;
-
   const AllRoutines({this.routines});
 
   @override
@@ -17,7 +16,8 @@ class AllRoutines extends StatefulWidget {
 }
 
 class _AllRoutines extends State<AllRoutines> {
-int routineNameIndex = 5;
+  int routineNameIndex = 5;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,16 +70,22 @@ int routineNameIndex = 5;
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, index) {
                       return RoutineButton(
-                          text: widget.routines.elementAt(index).entries
-                              .elementAt(routineNameIndex).value,
-                          onPress: (){
-                        Navigator.push(
+                        text: widget.routines
+                            .elementAt(index)
+                            .entries.elementAt(routineNameIndex).value,
+                        onPress: () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    RoutineStatus(routines:
-                                    widget.routines.elementAt(index))));
-                      },);
+                              builder: (context) => RoutineStatus(
+                                routine: new Routine.buildFromMap(
+                                   widget.routines.elementAt(index),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     }),
               ),
             ),
@@ -88,6 +94,4 @@ int routineNameIndex = 5;
       ),
     );
   }
-
-
 }

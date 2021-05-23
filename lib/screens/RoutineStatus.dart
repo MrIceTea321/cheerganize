@@ -10,18 +10,14 @@ import 'package:flutter/material.dart';
 import 'OverhaulRoutine.dart';
 
 class RoutineStatus extends StatefulWidget {
+  final Routine routine;
 
-  Routine routine;
-  final Map<String, Routine> routines;
-
-  RoutineStatus({@required this.routines});
-
+  const RoutineStatus({Key key, @required this.routine}) : super(key: key);
   @override
   RoutineStatusState createState() => RoutineStatusState();
 }
 
 class RoutineStatusState extends State<RoutineStatus> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,12 +73,11 @@ class RoutineStatusState extends State<RoutineStatus> {
               child: RoutineButton(
                 text: 'Zur Routine',
                 onPress: () {
-                  if (widget.routines.length > 0)
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CountsPlan(routine: widget.routine)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CountsPlan(routine: widget.routine)));
                 },
               ),
             ),
@@ -91,13 +86,12 @@ class RoutineStatusState extends State<RoutineStatus> {
               child: RoutineButton(
                 text: 'Bearbeiten',
                 onPress: () {
-                  if (widget.routines.length > 0)
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => OverhaulRoutine(
-                                  routine: widget.routine,
-                                )));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OverhaulRoutine(
+                                routine: widget.routine,
+                              )));
                 },
               ),
             ),
