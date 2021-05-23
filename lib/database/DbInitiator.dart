@@ -1,6 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'databaseObjects/Routine.dart';
+
 class DbInitiator {
   static const String TABLE = 'table';
   static const _databaseName = 'cheerganize.db';
@@ -189,6 +191,13 @@ class DbInitiator {
   Future<List<Map<String, dynamic>>> queryAllRows(String tableName) async {
     Database db = await instance.database;
     return await db.query(tableName);
+  }
+
+  Future<int> updateRoutineObject(Routine routine) async {
+    Database db = await instance.database;
+    return await db.update(TABLE_ROUTINE_NAME, routine.toMapWithoutId(),
+        where: "routineid =?",
+        whereArgs: [routine.routineid]);
   }
 
     Future<int> queryRowCount(String tableName) async {

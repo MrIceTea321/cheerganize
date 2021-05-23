@@ -103,8 +103,6 @@ class RoutineStatusState extends State<RoutineStatus> {
   }
 
   void _delete() async {
-    print(widget.routine.routineid);
-    DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
     await DbInitiator.db.delete(widget.routine.routineid,
         DbInitiator.TABLE_ROUTINE_NAME);
   }

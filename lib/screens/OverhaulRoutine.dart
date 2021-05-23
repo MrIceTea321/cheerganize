@@ -13,19 +13,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OverhaulRoutine extends StatefulWidget {
-
   final Routine routine;
 
   const OverhaulRoutine({Key key, this.routine}) : super(key: key);
 
   @override
   _OverhaulRoutine createState() => _OverhaulRoutine();
-
-
 }
 
 class _OverhaulRoutine extends State<OverhaulRoutine> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,13 +57,13 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
             BlackPawsCircleAvatar(radius: 125.0),
             SizedBox(height: 50.0),
             ConstTextField(
-              hintText: 'Name der Routine',
+              hintText: 'Neuer Name',
               onSubmitted: (String value) {
                 widget.routine.name = value;
               },
             ),
             ConstTextField(
-              hintText: 'Kategorie / Sportart',
+              hintText: 'Neue Kategorie',
               onSubmitted: (String value) {
                 widget.routine.typeofsport = value;
               },
@@ -76,14 +72,9 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
             BigFunctionButton(
               text: 'Routine bearbeitet',
               onPress: () {
-
+                DbInitiator.db.updateRoutineObject(widget.routine);
                 DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
-                Navigator.push(context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        AllRoutines(routines: [],)
-                  ),
-                );
+                Navigator.pushNamed(context, 'HomeScreen');
               },
               marginLTRB: [10.0, 10.0, 10.0, 10.0],
             ),
