@@ -6,7 +6,9 @@ import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
+import 'package:cheerganize/screens/AllRoutines.dart';
 import 'package:cheerganize/screens/CountsPlan.dart';
+import 'package:cheerganize/screens/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +25,6 @@ class OverhaulRoutine extends StatefulWidget {
 }
 
 class _OverhaulRoutine extends State<OverhaulRoutine> {
-  String name;
-  String typeOfSport;
 
   @override
   Widget build(BuildContext context) {
@@ -63,28 +63,25 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
             ConstTextField(
               hintText: 'Name der Routine',
               onSubmitted: (String value) {
-                name = value;
+                widget.routine.name = value;
               },
             ),
             ConstTextField(
               hintText: 'Kategorie / Sportart',
               onSubmitted: (String value) {
-                typeOfSport = value;
+                widget.routine.typeofsport = value;
               },
             ),
             SizedBox(height: 40.0),
             BigFunctionButton(
-              text: '8 - Counts Planung',
+              text: 'Routine bearbeitet',
               onPress: () {
-                Routine routine = buildRoutineObject(name, typeOfSport);
-                DbInitiator.db
-                    .insert(routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
+
                 DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
                 Navigator.push(context,
                   MaterialPageRoute(
-                    builder: (context) => CountsPlan(
-                      routine: routine,
-                    ),
+                    builder: (context) =>
+                        AllRoutines(routines: [],)
                   ),
                 );
               },

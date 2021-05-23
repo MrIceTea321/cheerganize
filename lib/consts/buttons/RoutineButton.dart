@@ -21,10 +21,12 @@ class RoutineButton extends StatelessWidget {
         width: 250.0,
         height: 60.0,
         child: Center(
-          child: Text(
+          child: AutoSizeText(
             text,
             textAlign: TextAlign.center,
             style: RoutineButtonTextStyle,
+            stepGranularity: 1.5,
+            softWrap: true,
           ),
         ),
         margin: EdgeInsets.all(8.0),

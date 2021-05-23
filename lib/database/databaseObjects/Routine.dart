@@ -24,6 +24,7 @@ class Routine {
     this._name = name;
     this._typeofsport = typeofsport;
   }
+
   Routine.buildFromMap(Map<String, dynamic> routines) {
     this._routineid = routines.values.elementAt(0);
     this._musicid = routines.values.elementAt(1);

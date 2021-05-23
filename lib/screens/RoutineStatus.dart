@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/RoutineButton.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
@@ -13,6 +14,7 @@ class RoutineStatus extends StatefulWidget {
   final Routine routine;
 
   const RoutineStatus({Key key, @required this.routine}) : super(key: key);
+
   @override
   RoutineStatusState createState() => RoutineStatusState();
 }
@@ -26,15 +28,17 @@ class RoutineStatusState extends State<RoutineStatus> {
             child: AutoSizeText(
               widget.routine.name,
               textAlign: TextAlign.center,
-              minFontSize: 6,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+              style: BlackPawsAppBarTextStyle,
             ),
           ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+            icon: Icon(
+              Icons.home,
+              color: IconColorWhite,
+              size: 40.0,
+            ),
             onPressed: () {
-              Navigator.pushNamed(context, 'AllRoutines');
+              Navigator.pushNamed(context, 'HomeScreen');
             },
           ),
           actions: <Widget>[
@@ -52,11 +56,8 @@ class RoutineStatusState extends State<RoutineStatus> {
                             CupertinoDialogAction(
                               child: Text('Routine löschen'),
                               onPressed: () async {
-                                await _loeschen();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AllRoutines()));
+                                await _delete();
+                                Navigator.pushNamed(context, 'HomeScreen');
                               },
                             ),
                           ],
@@ -101,9 +102,10 @@ class RoutineStatusState extends State<RoutineStatus> {
     );
   }
 
-  void _loeschen() async {
+  void _delete() async {
     print(widget.routine.routineid);
+    DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
     await DbInitiator.db.delete(widget.routine.routineid,
-        DbInitiator.TABLE_ROUTINE_NAME, widget.routine.name);
+        DbInitiator.TABLE_ROUTINE_NAME);
   }
 }

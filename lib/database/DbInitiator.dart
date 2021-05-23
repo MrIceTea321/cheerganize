@@ -180,9 +180,10 @@ class DbInitiator {
     return await db.insert(tableName, row);
   }
 
-  Future<int> delete(int id, String tableName, String tableRow) async {
+  Future<int> delete(int id, String tableName) async {
     Database db = await instance.database;
-    return await db.delete(tableName, where: '$tableRow = ?', whereArgs: [id]);
+    return await db.delete(tableName, where: 'routineid = ?',
+        whereArgs: [id]);
   }
 
   Future<List<Map<String, dynamic>>> queryAllRows(String tableName) async {
