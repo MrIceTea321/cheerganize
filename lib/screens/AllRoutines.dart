@@ -1,20 +1,23 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/Constants.dart';
-import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/consts/buttons/RoutineButton.dart';
+import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'RoutineStatus.dart';
+
 class AllRoutines extends StatefulWidget {
+  final List<Map<String, dynamic>> routines;
+
+  const AllRoutines({this.routines});
+
   @override
   _AllRoutines createState() => _AllRoutines();
-
-  AllRoutines({this.rowCount});
-  int rowCount;
-
 }
 
 class _AllRoutines extends State<AllRoutines> {
+int routineNameIndex = 5;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,19 +66,21 @@ class _AllRoutines extends State<AllRoutines> {
               child: Scrollbar(
                 thickness: 5.5,
                 child: new ListView.builder(
-                  itemCount: widget.rowCount,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) {
-                    return RoutineButton(
-                      text: 'Routine',
-                      onPress: () {
-                        Navigator.pushNamed(context, 'NewRoutine');
-                        //TODO insert different Routines (maybe steal code from
-                        //TODO studycards project - but refactor first)
-                      },
-                    );
-                  },
-                ),
+                    itemCount: widget.routines.length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, index) {
+                      return RoutineButton(
+                          text: widget.routines.elementAt(index).entries
+                              .elementAt(routineNameIndex).value,
+                          onPress: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    RoutineStatus(routines:
+                                    widget.routines.elementAt(index))));
+                      },);
+                    }),
               ),
             ),
           ],
@@ -83,5 +88,6 @@ class _AllRoutines extends State<AllRoutines> {
       ),
     );
   }
+
 
 }

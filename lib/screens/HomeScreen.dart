@@ -2,6 +2,7 @@ import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
+import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,12 +15,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  int rowCount;
 
   @override
   Widget build(BuildContext context) {
-    //TODO insert drop down menu list
-    //TODO make routines in drop down? or single page
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -56,12 +54,17 @@ class _HomeScreen extends State<HomeScreen> {
                   children: [
                     BigFunctionButton(
                       text: 'Routines',
-                      onPress: () {
-                        setRowCount();
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) =>
-                              AllRoutines(rowCount: rowCount,),
-                          ),);
+                      onPress: () async {
+                        List<Map<String, dynamic>> routines =
+                            await getAllRoutines();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AllRoutines(
+                              routines: routines,
+                            ),
+                          ),
+                        );
                       },
                       marginLTRB: [10.0, 10.0, 10.0, 10.0],
                     ),
@@ -70,8 +73,7 @@ class _HomeScreen extends State<HomeScreen> {
                         onPress: () {
                           Navigator.pushNamed(context, 'NewRoutine');
                         },
-                        marginLTRB: [10.0, 10.0, 10.0, 10.0]
-                    ),
+                        marginLTRB: [10.0, 10.0, 10.0, 10.0]),
                   ],
                 ),
               ),
@@ -82,9 +84,8 @@ class _HomeScreen extends State<HomeScreen> {
     );
   }
 
-  void setRowCount() async {
-    rowCount =
-    await DbInitiator.db.queryRowCount(DbInitiator.TABLE_ROUTINE_NAME);
-    print(rowCount);
+  static Future<List<Map<String, dynamic>>> getAllRoutines() async {
+    return await DbInitiator.db.queryAllRows(DbInitiator.TABLE_ROUTINE_NAME);
   }
+
 }
