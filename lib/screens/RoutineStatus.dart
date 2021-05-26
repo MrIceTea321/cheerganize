@@ -23,81 +23,82 @@ class RoutineStatusState extends State<RoutineStatus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: AutoSizeText(
-            widget.routine.name,
-            textAlign: TextAlign.center,
-            style: BlackPawsAppBarTextStyle,
+        appBar: AppBar(
+          title: Center(
+            child: AutoSizeText(
+              widget.routine.name,
+              textAlign: TextAlign.center,
+              style: BlackPawsAppBarTextStyle,
+            ),
           ),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.home,
-            color: IconColorWhite,
-            size: 40.0,
-          ),
-          onPressed: () {
-            Navigator.pushNamed(context, 'HomeScreen');
-          },
-        ),
-        actions: <Widget>[
-          // action button
-          IconButton(
-            icon: Icon(Icons.delete, color: Colors.redAccent, size: 40),
-            onPressed: () async {
-              showDialog(
-                context: context,
-                builder: (_) => CupertinoAlertDialog(
-                  content: Text('Soll die aktuelle Routine wirklich gelöscht '
-                      'werden?'),
-                  actions: <Widget>[
-                    CupertinoDialogAction(
-                      child: Text('Routine löschen'),
-                      onPressed: () async {
-                        _delete();
-                        Navigator.pushNamed(context, 'HomeScreen');
-                      },
-                    ),
-                  ],
-                ),
-                barrierDismissible: true,
-              );
+          leading: IconButton(
+            icon: Icon(
+              Icons.home,
+              color: IconColorWhite,
+              size: 40.0,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, 'HomeScreen');
             },
           ),
-        ],
-      ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: 40.0),
-            BlackPawsCircleAvatar(radius: 100.0),
-            RoutineButton(
-              text: '8 - Count',
-              onPress: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            CountsPlan(routine: widget.routine)));
-              },
-            ),
-            RoutineButton(
-              text: 'Bearbeiten',
-              onPress: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => OverhaulRoutine(
-                              routine: widget.routine,
-                            )));
+          actions: <Widget>[
+            // action button
+            IconButton(
+              icon: Icon(Icons.delete, color: Colors.redAccent, size: 40),
+              onPressed: () async {
+                showDialog(
+                  context: context,
+                  builder: (_) => CupertinoAlertDialog(
+                    content: Text('Soll die aktuelle Routine wirklich gelöscht '
+                        'werden?'),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                        child: Text('Routine löschen'),
+                        onPressed: () async {
+                          _delete();
+                          Navigator.pushNamed(context, 'HomeScreen');
+                        },
+                      ),
+                    ],
+                  ),
+                  barrierDismissible: true,
+                );
               },
             ),
           ],
         ),
-      ),
-    );
+        body: SafeArea(
+            child: Align(
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BlackPawsCircleAvatar(radius: 125.0),
+              SizedBox(height:80.0),
+              RoutineButton(
+                text: '8 - Count bearbeiten',
+                onPress: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CountsPlan(routine: widget.routine)));
+                },
+              ),
+              RoutineButton(
+                text: 'Routine bearbeiten',
+                onPress: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OverhaulRoutine(
+                                routine: widget.routine,
+                              )));
+                },
+              ),
+            ],
+          ),
+        )));
   }
 
   void _delete() async {

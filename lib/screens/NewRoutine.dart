@@ -51,8 +51,8 @@ class _NewRoutine extends State<NewRoutine> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 40.0),
-            BlackPawsCircleAvatar(radius: 125.0),
-            SizedBox(height: 50.0),
+            Expanded(child: BlackPawsCircleAvatar(radius: 125.0)),
+            SizedBox(height: 20.0),
             ConstTextField(
               hintText: 'Name der Routine',
               onSubmitted: (String value) {
@@ -60,28 +60,31 @@ class _NewRoutine extends State<NewRoutine> {
               },
             ),
             ConstTextField(
-              hintText: 'Kategorie / Sportart',
+              hintText: 'Kategorie',
               onSubmitted: (String value) {
                 typeOfSport = value;
               },
             ),
             SizedBox(height: 40.0),
-            BigFunctionButton(
-              text: '8 - Counts Planung',
-              onPress: () {
-                Routine routine = buildRoutineObject(name, typeOfSport);
-                DbInitiator.db
-                    .insert(routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
-                DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
-                Navigator.push(context,
-                  MaterialPageRoute(
-                    builder: (context) => CountsPlan(
-                      routine: routine,
+            Expanded(
+              child: BigFunctionButton(
+                text: '8 - Counts Planung',
+                onPress: () {
+                  Routine routine = buildRoutineObject(name, typeOfSport);
+                  DbInitiator.db
+                      .insert(routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
+                  DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CountsPlan(
+                        routine: routine,
+                      ),
                     ),
-                  ),
-                );
-              },
-              marginLTRB: [10.0, 10.0, 10.0, 10.0],
+                  );
+                },
+                marginLTRB: [10.0, 10.0, 10.0, 10.0],
+              ),
             ),
           ],
         ),
