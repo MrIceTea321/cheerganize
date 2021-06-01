@@ -8,7 +8,7 @@ class ConstTextField extends StatelessWidget {
       @required this.onSubmitted});
 
   final String hintText;
-  Function onSubmitted;
+  final Function onSubmitted;
 
   @override
   Widget build(BuildContext context) {

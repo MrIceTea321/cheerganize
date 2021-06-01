@@ -1,8 +1,10 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
+import 'package:cheerganize/consts/TableCellTextField.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
+import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:cheerganize/screens/NewRoutine.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,6 +23,8 @@ class CountsPlan extends StatefulWidget {
 class _CountsPlan extends State<CountsPlan> {
   @override
   Widget build(BuildContext context) {
+    List<String> skills;
+    int bpm;
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -52,54 +56,69 @@ class _CountsPlan extends State<CountsPlan> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(height: 10.0),
+              BlackPawsCircleAvatar(radius: 80.0),
+              SizedBox(height: 20.0),
               Table(
-                border: TableBorder.all(),
-                columnWidths: const <int, TableColumnWidth>{
-                  0: IntrinsicColumnWidth(),
-                  1: FlexColumnWidth(),
-                  2: FixedColumnWidth(64),
-                },
+                border: TableBorder.all(color: BasicBlackColor, width: 2.0),
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: <TableRow>[
                   TableRow(
                     children: <Widget>[
-                      Container(
-                        height: 32,
-                        color: Colors.green,
-                      ),
                       TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.top,
-                        child: Container(
-                          height: 32,
-                          width: 32,
-                          color: Colors.red,
+                        child: TableCellTextField(
+                          onSubmitted: (String value) {
+                            skills.insert(0, value);
+                          },
                         ),
                       ),
-                      Container(
-                        height: 64,
-                        color: Colors.blue,
+                      TableCell(
+                        child: TableCellTextField(
+                          onSubmitted: (String value) {
+                            skills.insert(1, value);
+                          },
+                        ),
                       ),
-                    ],
-                  ),
-                  TableRow(
-                    decoration: const BoxDecoration(
-                      color: Colors.grey,
-                    ),
-                    children: <Widget>[
-                      Container(
-                        height: 64,
-                        width: 128,
-                        color: Colors.purple,
+                      TableCell(
+                        child: TableCellTextField(
+                          onSubmitted: (String value) {
+                            skills.insert(2, value);
+                          },
+                        ),
                       ),
-                      Container(
-                        height: 32,
-                        color: Colors.yellow,
+                      TableCell(
+                        child: TableCellTextField(
+                          onSubmitted: (String value) {
+                            skills.insert(3, value);
+                          },
+                        ),
                       ),
-                      Center(
-                        child: Container(
-                          height: 32,
-                          width: 32,
-                          color: Colors.orange,
+                      TableCell(
+                        child: TableCellTextField(
+                          onSubmitted: (String value) {
+                            skills.insert(4, value);
+                          },
+                        ),
+                      ),
+                      TableCell(
+                        child: TableCellTextField(
+                          onSubmitted: (String value) {
+                            skills.insert(5, value);
+                          },
+                        ),
+                      ),
+                      TableCell(
+                        child: TableCellTextField(
+                          onSubmitted: (String value) {
+                            skills.insert(6, value);
+                          },
+                        ),
+                      ),
+                      TableCell(
+                        child: TableCellTextField(
+                          onSubmitted: (String value) {
+                            skills.insert(7, value);
+                          },
                         ),
                       ),
                     ],
@@ -111,5 +130,9 @@ class _CountsPlan extends State<CountsPlan> {
         ),
       ),
     );
+  }
+
+  CountSheet buildCountSheetObject(List<String> skills, int bpm) {
+    return new CountSheet(skills, bpm);
   }
 }

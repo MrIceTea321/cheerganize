@@ -5,17 +5,15 @@ import '../BuildDbObjectsInterface.dart';
 class CountSheet implements BuildDbObjectsInterface {
   int _countsheetid;
   int _musicid;
-  String _skills;
+  List<String> _skills;
   int _bpm;
 
-  CountSheet(int musicid, String skills, int bpm){
+  CountSheet(List<String> skills, int bpm){
     this._countsheetid = _countsheetid;
     this._musicid = musicid;
     this._skills = skills;
     this._bpm = bpm;
   }
-
-
 
   @override
   Map<String, dynamic> toJson() => {
@@ -53,7 +51,7 @@ class CountSheet implements BuildDbObjectsInterface {
   int get musicid => _musicid;
 
 
-  String get skills => _skills;
+  List<String> get skills => _skills;
 
 
   int get bpm => _bpm;

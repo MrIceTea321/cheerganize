@@ -37,6 +37,8 @@ class _HomeScreen extends State<HomeScreen> {
         ],
       ),
       body: Center(
+        widthFactor: MediaQuery.of(context).size.width * 0.9,
+        heightFactor: MediaQuery.of(context).size.height * 0.9,
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
