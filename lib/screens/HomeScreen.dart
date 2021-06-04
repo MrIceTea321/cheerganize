@@ -37,18 +37,16 @@ class _HomeScreen extends State<HomeScreen> {
         ],
       ),
       body: Center(
-        widthFactor: MediaQuery.of(context).size.width * 0.9,
-        heightFactor: MediaQuery.of(context).size.height * 0.9,
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 30.0,
+                height: 60.0,
               ),
               BlackPawsCircleAvatar(
-                radius: 125.0,
+                radius: 150.0,
               ),
               Expanded(
                 child: Column(

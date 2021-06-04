@@ -5,17 +5,24 @@ import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
+import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:cheerganize/screens/CountsPlan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NewRoutine extends StatefulWidget {
+class FormationScreen extends StatefulWidget {
+  FormationScreen(
+  {this.routine, this.countSheet,});
+
+  final Routine routine;
+  final CountSheet countSheet;
+
   @override
-  _NewRoutine createState() => _NewRoutine();
+  _FormationScreen createState() => _FormationScreen();
 }
 
-class _NewRoutine extends State<NewRoutine> {
+class _FormationScreen extends State<FormationScreen> {
   String name;
   String typeOfSport;
 
