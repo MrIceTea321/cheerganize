@@ -1,9 +1,6 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/TableCellTextField.dart';
-import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:cheerganize/screens/FormationScreen.dart';
@@ -29,8 +26,7 @@ class _CountsPlan extends State<CountsPlan> {
     print('rows : $rows');
     int numberIndicator = rows.toInt();
     print('number indicator: $numberIndicator');
-    List<String> skills = new List(numberIndicator);
-    setupTableRows(numberIndicator, widget.tableRows, skills);
+    setupTableRows(numberIndicator, widget.tableRows);
   }
 
   @override
@@ -61,14 +57,14 @@ class _CountsPlan extends State<CountsPlan> {
           style: BlackPawsAppBarTextStyle,
         ),
       ),
-      body: SafeArea(
-        child: Align(
-          alignment: Alignment.center,
-          child: Column(
+      body: ListView(
+        children: [
+          Column(
             children: [
               SizedBox(
                 height: 20.0,
               ),
+              // header Row
               Row(
                 children: [
                   SizedBox(
@@ -130,92 +126,82 @@ class _CountsPlan extends State<CountsPlan> {
                   )
                 ],
               ),
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  Expanded(
-                    child: Table(
-                      border: TableBorder.all(color: BasicBlackColor, width: 2.0),
-                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                      children: widget.tableRows,
-                    ),
-                  ),
-                ],
+              SizedBox(
+                height: 20.0,
+              ),
+              // table
+              Table(
+                border: TableBorder.all(color: BasicBlackColor, width: 2.0),
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                children: widget.tableRows,
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
 
-  void setupTableRows(
-      int numberIndicator, List<TableRow> countRows, List<String> skills) {
-    for (int i = 0; i < numberIndicator / 8; i++) {
-      for (int j = 0; j < numberIndicator; j++) {
+  void setupTableRows(int numberIndicator, List<TableRow> countRows) {
+    int cellNumber = numberIndicator * 8;
+    List<String> skills = new List(cellNumber);
+    for (int i = 0; i < numberIndicator; i++) {
         countRows.add(
           TableRow(
             children: <Widget>[
               TableCell(
                 child: TableCellTextField(
                   onSubmitted: (String value) {
-                    skills.insert(j, value);
+                    skills.insert(cellNumber, value);
                   },
                 ),
               ),
               TableCell(
                 child: TableCellTextField(
                   onSubmitted: (String value) {
-                    skills.insert(j, value);
-                  },
+                    skills.insert(cellNumber, value);                  },
                 ),
               ),
               TableCell(
                 child: TableCellTextField(
                   onSubmitted: (String value) {
-                    skills.insert(j, value);
-                  },
+                    skills.insert(cellNumber, value);                  },
                 ),
               ),
               TableCell(
                 child: TableCellTextField(
                   onSubmitted: (String value) {
-                    skills.insert(j, value);
-                  },
+                    skills.insert(cellNumber, value);
+                    },
                 ),
               ),
               TableCell(
                 child: TableCellTextField(
                   onSubmitted: (String value) {
-                    skills.insert(j, value);
-                  },
+                    skills.insert(cellNumber, value);                  },
                 ),
               ),
               TableCell(
                 child: TableCellTextField(
                   onSubmitted: (String value) {
-                    skills.insert(j, value);
-                  },
+                    skills.insert(cellNumber, value);                  },
                 ),
               ),
               TableCell(
                 child: TableCellTextField(
                   onSubmitted: (String value) {
-                    skills.insert(j, value);
-                  },
+                    skills.insert(cellNumber, value);                  },
                 ),
               ),
               TableCell(
                 child: TableCellTextField(
                   onSubmitted: (String value) {
-                    skills.insert(j, value);
-                  },
+                    skills.insert(cellNumber, value);                  },
                 ),
               ),
             ],
           ),
         );
       }
-    }
   }
 }
