@@ -70,13 +70,13 @@ class _NewRoutine extends State<NewRoutine> {
               },
             ),
             ConstTextField(
-              hintText: 'Bpm z.B. 150',
+              hintText: 'Bpm: z.B. 150',
               onChanged: (String value) {
                 bpm = int.parse(value);
               },
             ),
             ConstTextField(
-              hintText: 'Dauer der Routine z.B. 1.45',
+              hintText: 'Dauer der Routine in Minuten: z.B. 1.45',
               onChanged: (String value) {
                 duration = double.parse(value);
               },

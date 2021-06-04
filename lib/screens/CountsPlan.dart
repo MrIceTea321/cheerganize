@@ -1,6 +1,7 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/TableCellTextField.dart';
+import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:cheerganize/screens/FormationScreen.dart';
@@ -19,13 +20,12 @@ class CountsPlan extends StatefulWidget {
 }
 
 class _CountsPlan extends State<CountsPlan> {
+  //TODO sqllite kann kein List<List<String>> speichern FML
   @override
   void initState() {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
-    print('rows : $rows');
     int numberIndicator = rows.toInt();
-    print('number indicator: $numberIndicator');
     setupTableRows(numberIndicator, widget.tableRows);
   }
 
@@ -58,6 +58,7 @@ class _CountsPlan extends State<CountsPlan> {
         ),
       ),
       body: ListView(
+        shrinkWrap: true,
         children: [
           Column(
             children: [
@@ -109,13 +110,19 @@ class _CountsPlan extends State<CountsPlan> {
                             ),
                           ),
                           onPressed: () {
+                            DbInitiator.db.insert(widget.countSheet.toMapWithoutId(),
+                            DbInitiator.TABLE_COUNT_SHEET_NAME);
+                            DbInitiator.db.printALl(DbInitiator.TABLE_COUNT_SHEET_NAME);
+                            DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FormationScreen(
-                                          routine: widget.routine,
-                                          countSheet: widget.countSheet,
-                                        )));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FormationScreen(
+                                  routine: widget.routine,
+                                  countSheet: widget.countSheet,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ],
@@ -143,65 +150,68 @@ class _CountsPlan extends State<CountsPlan> {
   }
 
   void setupTableRows(int numberIndicator, List<TableRow> countRows) {
-    int cellNumber = numberIndicator * 8;
-    List<String> skills = new List(cellNumber);
+    widget.countSheet.skills = [];
     for (int i = 0; i < numberIndicator; i++) {
-        countRows.add(
-          TableRow(
-            children: <Widget>[
-              TableCell(
-                child: TableCellTextField(
-                  onSubmitted: (String value) {
-                    skills.insert(cellNumber, value);
-                  },
-                ),
+      print('skills');
+      print(widget.countSheet.skills);
+      print('int i: $i');
+      widget.countSheet.skills.insert(i, new List());
+      countRows.add(
+        TableRow(
+          children: <Widget>[
+            TableCell(
+              child: TableCellTextField(
+                onSubmitted: (String value) {
+                  widget.countSheet.skills.elementAt(i).insert(0, value);
+                },
               ),
-              TableCell(
-                child: TableCellTextField(
-                  onSubmitted: (String value) {
-                    skills.insert(cellNumber, value);                  },
-                ),
+            ),
+            TableCell(
+              child: TableCellTextField(
+                onSubmitted: (String value) {
+                  widget.countSheet.skills.elementAt(i).insert(1, value);
+                },
               ),
-              TableCell(
-                child: TableCellTextField(
-                  onSubmitted: (String value) {
-                    skills.insert(cellNumber, value);                  },
-                ),
+            ),
+            TableCell(
+              child: TableCellTextField(onSubmitted: (String value) {
+                widget.countSheet.skills.elementAt(i).insert(2, value);
+              }),
+            ),
+            TableCell(
+              child: TableCellTextField(
+                onSubmitted: (String value) {
+                  widget.countSheet.skills.elementAt(i).insert(3, value);
+                },
               ),
-              TableCell(
-                child: TableCellTextField(
-                  onSubmitted: (String value) {
-                    skills.insert(cellNumber, value);
-                    },
-                ),
+            ),
+            TableCell(
+              child: TableCellTextField(
+                onSubmitted: (String value) {
+                  widget.countSheet.skills.elementAt(i).insert(4, value);
+                },
               ),
-              TableCell(
-                child: TableCellTextField(
-                  onSubmitted: (String value) {
-                    skills.insert(cellNumber, value);                  },
-                ),
+            ),
+            TableCell(
+              child: TableCellTextField(onSubmitted: (String value) {
+                widget.countSheet.skills.elementAt(i).insert(5, value);
+              }),
+            ),
+            TableCell(
+              child: TableCellTextField(onSubmitted: (String value) {
+                widget.countSheet.skills.elementAt(i).insert(6, value);
+              }),
+            ),
+            TableCell(
+              child: TableCellTextField(
+                onSubmitted: (String value) {
+                  widget.countSheet.skills.elementAt(i).insert(7, value);
+                },
               ),
-              TableCell(
-                child: TableCellTextField(
-                  onSubmitted: (String value) {
-                    skills.insert(cellNumber, value);                  },
-                ),
-              ),
-              TableCell(
-                child: TableCellTextField(
-                  onSubmitted: (String value) {
-                    skills.insert(cellNumber, value);                  },
-                ),
-              ),
-              TableCell(
-                child: TableCellTextField(
-                  onSubmitted: (String value) {
-                    skills.insert(cellNumber, value);                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      }
+            ),
+          ],
+        ),
+      );
+    }
   }
 }
