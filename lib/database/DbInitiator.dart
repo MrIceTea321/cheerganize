@@ -30,6 +30,7 @@ class DbInitiator {
   static const COLUMN_COUNT_SHEET_MUSIC_ID = 'musicid';
   static const COLUMN_COUNT_SHEET_SKILLS = 'skills';
   static const COLUMN_COUNT_SHEET_BPM = 'bpm';
+  static const COLUMN_COUNT_SHEET_DURATION  = 'duration';
 
   //---------------MusicTable---------------------------
   static const COLUMN_MUSIC_ID = 'musicid';
@@ -113,8 +114,9 @@ class DbInitiator {
           CREATE TABLE $TABLE_COUNT_SHEET_NAME (
             $COLUMN_COUNT_SHEET_ID INTEGER PRIMARY KEY,
             $COLUMN_COUNT_SHEET_MUSIC_ID INTEGER,
-            $COLUMN_COUNT_SHEET_SKILLS TEXT NOT NULL,
-            $COLUMN_COUNT_SHEET_BPM INTEGER NOT NULL,       
+            $COLUMN_COUNT_SHEET_SKILLS TEXT,
+            $COLUMN_COUNT_SHEET_BPM INTEGER NOT NULL,  
+            $COLUMN_COUNT_SHEET_DURATION DOUBLE PRECISION NOT NULL,            
            FOREIGN KEY ($COLUMN_COUNT_SHEET_MUSIC_ID) REFERENCES 
            $TABLE_MUSIC_NAME
             ($COLUMN_MUSIC_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )

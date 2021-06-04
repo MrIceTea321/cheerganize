@@ -7,12 +7,14 @@ class CountSheet implements BuildDbObjectsInterface {
   int _musicid;
   List<String> _skills;
   int _bpm;
+  double _duration;
 
-  CountSheet(List<String> skills, int bpm){
+  CountSheet(int bpm, double duration){
     this._countsheetid = _countsheetid;
-    this._musicid = musicid;
-    this._skills = skills;
+    this._musicid = _musicid;
+    this._skills = _skills;
     this._bpm = bpm;
+    this._duration = duration;
   }
 
   @override
@@ -21,15 +23,18 @@ class CountSheet implements BuildDbObjectsInterface {
         'musicid': musicid,
         'skills': skills,
         'bpm': bpm,
-      };
+        'duration': duration,
 
-//to be used when inserting a row in the table
+  };
+
+   //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
     map['musicid'] = musicid;
     map['skills'] = skills;
     map['bpm'] = bpm;
+    map['duration'] = duration;
 
     return map;
   }
@@ -42,6 +47,7 @@ class CountSheet implements BuildDbObjectsInterface {
     map['musicid'] = musicid;
     map['skills'] = skills;
     map['bpm'] = bpm;
+    map['duration'] = duration;
 
     return map;
   }
@@ -56,5 +62,9 @@ class CountSheet implements BuildDbObjectsInterface {
 
   int get bpm => _bpm;
 
+  double get duration => _duration;
 
+  set duration(double value) {
+    _duration = value;
+  }
 }

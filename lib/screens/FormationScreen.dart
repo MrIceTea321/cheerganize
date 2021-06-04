@@ -63,13 +63,13 @@ class _FormationScreen extends State<FormationScreen> {
             SizedBox(height: 20.0),
             ConstTextField(
               hintText: 'Name der Routine',
-              onSubmitted: (String value) {
+              onChanged: (String value) {
                 name = value;
               },
             ),
             ConstTextField(
               hintText: 'Kategorie',
-              onSubmitted: (String value) {
+              onChanged: (String value) {
                 typeOfSport = value;
               },
             ),

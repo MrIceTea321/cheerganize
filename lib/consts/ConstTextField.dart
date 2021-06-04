@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 class ConstTextField extends StatelessWidget {
   ConstTextField(
       {@required this.hintText,
-      @required this.onSubmitted});
+      @required this.onChanged});
 
   final String hintText;
-  final Function onSubmitted;
+  final Function onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 5.0),
+      padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
       child: TextField(
         textAlign: TextAlign.center,
-        onSubmitted: onSubmitted,
+        onChanged: onChanged,
         style: BlackPawsTextFieldTextStyle,
         decoration: InputDecoration(
           hintText: hintText,

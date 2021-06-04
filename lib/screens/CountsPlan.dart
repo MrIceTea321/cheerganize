@@ -10,11 +10,12 @@ import 'package:cheerganize/screens/FormationScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class CountsPlan extends StatefulWidget {
-  CountsPlan({this.routine});
+  CountsPlan({this.routine, this.countSheet});
 
   final Routine routine;
+  final CountSheet countSheet;
+  List<TableRow> tableRows = [];
 
   @override
   _CountsPlan createState() => _CountsPlan();
@@ -22,9 +23,18 @@ class CountsPlan extends StatefulWidget {
 
 class _CountsPlan extends State<CountsPlan> {
   @override
+  void initState() {
+    super.initState();
+    var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
+    print('rows : $rows');
+    int numberIndicator = rows.toInt();
+    print('number indicator: $numberIndicator');
+    List<String> skills = new List(numberIndicator);
+    setupTableRows(numberIndicator, widget.tableRows, skills);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<String> skills = new List();
-    int bpm;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +57,7 @@ class _CountsPlan extends State<CountsPlan> {
           },
         ),
         title: Text(
-          "Cheerganize",
+          widget.routine.name,
           style: BlackPawsAppBarTextStyle,
         ),
       ),
@@ -56,19 +66,27 @@ class _CountsPlan extends State<CountsPlan> {
           alignment: Alignment.center,
           child: Column(
             children: [
+              SizedBox(
+                height: 20.0,
+              ),
               Row(
                 children: [
-                  SizedBox(width: size.width * 0.15,),
+                  SizedBox(
+                    width: size.width * 0.15,
+                  ),
                   BlackPawsCircleAvatar(radius: 80.0),
-                  SizedBox(width: size.width * 0.125,),
+                  SizedBox(
+                    width: size.width * 0.125,
+                  ),
                   Expanded(
                     child: Column(
                       children: [
-                        ConstTextField(
-                          hintText: 'bpm',
-                          onSubmitted: (value) {
-                            bpm = value;
-                          },
+                        Text(
+                          'Bpm: ' + widget.countSheet.bpm.toString(),
+                          style: BlackPawsTextFieldTextStyle,
+                        ),
+                        SizedBox(
+                          height: 10.0,
                         ),
                         TextButton(
                           child: Container(
@@ -77,7 +95,7 @@ class _CountsPlan extends State<CountsPlan> {
                             height: 60.0,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                  width: 2.0,
+                                  width: 1.5,
                                   color: BlackPawsColor,
                                 ),
                                 borderRadius: BorderRadius.all(
@@ -95,99 +113,32 @@ class _CountsPlan extends State<CountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            CountSheet sheet = buildCountSheetObject(skills, bpm);
-                            DbInitiator.db.insert(
-                                sheet.toMap(), DbInitiator.TABLE_COUNT_SHEET_NAME);
-                            DbInitiator.db
-                                .printALl(DbInitiator.TABLE_COUNT_SHEET_NAME);
-                            DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => FormationScreen(
-                                      routine: widget.routine,
-                                      countSheet: sheet,
-                                    )));
+                                          routine: widget.routine,
+                                          countSheet: widget.countSheet,
+                                        )));
                           },
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(width: size.width * 0.15,)
+                  SizedBox(
+                    width: size.width * 0.15,
+                  )
                 ],
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              ListView(
+                shrinkWrap: true,
                 children: [
-                  SizedBox(height: 10.0),
-                  SizedBox(height: 20.0),
-                  Table(
-                    border:
-                    TableBorder.all(color: BasicBlackColor, width: 2.0),
-                    defaultVerticalAlignment:
-                    TableCellVerticalAlignment.middle,
-                    children: <TableRow>[
-                      TableRow(
-                        children: <Widget>[
-                          TableCell(
-                            child: TableCellTextField(
-                              onSubmitted: (String value) {
-                                skills.insert(0, value);
-                              },
-                            ),
-                          ),
-                          TableCell(
-                            child: TableCellTextField(
-                              onSubmitted: (String value) {
-                                skills.insert(1, value);
-                              },
-                            ),
-                          ),
-                          TableCell(
-                            child: TableCellTextField(
-                              onSubmitted: (String value) {
-                                skills.insert(2, value);
-                              },
-                            ),
-                          ),
-                          TableCell(
-                            child: TableCellTextField(
-                              onSubmitted: (String value) {
-                                skills.insert(3, value);
-                              },
-                            ),
-                          ),
-                          TableCell(
-                            child: TableCellTextField(
-                              onSubmitted: (String value) {
-                                skills.insert(4, value);
-                              },
-                            ),
-                          ),
-                          TableCell(
-                            child: TableCellTextField(
-                              onSubmitted: (String value) {
-                                skills.insert(5, value);
-                              },
-                            ),
-                          ),
-                          TableCell(
-                            child: TableCellTextField(
-                              onSubmitted: (String value) {
-                                skills.insert(6, value);
-                              },
-                            ),
-                          ),
-                          TableCell(
-                            child: TableCellTextField(
-                              onSubmitted: (String value) {
-                                skills.insert(7, value);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  Expanded(
+                    child: Table(
+                      border: TableBorder.all(color: BasicBlackColor, width: 2.0),
+                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                      children: widget.tableRows,
+                    ),
                   ),
                 ],
               ),
@@ -198,9 +149,73 @@ class _CountsPlan extends State<CountsPlan> {
     );
   }
 
-  CountSheet buildCountSheetObject(List<String> skills, int bpm) {
-    CountSheet sheet = new CountSheet(skills, bpm);
-    widget.routine.countsheetid = sheet.countsheetid;
-    return sheet;
+  void setupTableRows(
+      int numberIndicator, List<TableRow> countRows, List<String> skills) {
+    for (int i = 0; i < numberIndicator / 8; i++) {
+      for (int j = 0; j < numberIndicator; j++) {
+        countRows.add(
+          TableRow(
+            children: <Widget>[
+              TableCell(
+                child: TableCellTextField(
+                  onSubmitted: (String value) {
+                    skills.insert(j, value);
+                  },
+                ),
+              ),
+              TableCell(
+                child: TableCellTextField(
+                  onSubmitted: (String value) {
+                    skills.insert(j, value);
+                  },
+                ),
+              ),
+              TableCell(
+                child: TableCellTextField(
+                  onSubmitted: (String value) {
+                    skills.insert(j, value);
+                  },
+                ),
+              ),
+              TableCell(
+                child: TableCellTextField(
+                  onSubmitted: (String value) {
+                    skills.insert(j, value);
+                  },
+                ),
+              ),
+              TableCell(
+                child: TableCellTextField(
+                  onSubmitted: (String value) {
+                    skills.insert(j, value);
+                  },
+                ),
+              ),
+              TableCell(
+                child: TableCellTextField(
+                  onSubmitted: (String value) {
+                    skills.insert(j, value);
+                  },
+                ),
+              ),
+              TableCell(
+                child: TableCellTextField(
+                  onSubmitted: (String value) {
+                    skills.insert(j, value);
+                  },
+                ),
+              ),
+              TableCell(
+                child: TableCellTextField(
+                  onSubmitted: (String value) {
+                    skills.insert(j, value);
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    }
   }
 }
