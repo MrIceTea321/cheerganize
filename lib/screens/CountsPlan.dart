@@ -109,9 +109,8 @@ class _CountsPlan extends State<CountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            DbInitiator.db.insert(widget.countSheet
-                                .toMapWithoutId(),  DbInitiator.TABLE_COUNT_SHEET_NAME);
-                            DbInitiator.db.printALl(DbInitiator.TABLE_COUNT_SHEET_NAME);
+                            print('CountSheet Skills : ');
+                            print(widget.countSheet.skills);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -151,15 +150,9 @@ class _CountsPlan extends State<CountsPlan> {
     widget.countSheet.skills = {};
     for (int i = 0; i < numberIndicator; i++) {
       widget.countSheet.skills[i] = [];
-      widget.countSheet.skills.values.elementAt(i).insert(0, "");
-      widget.countSheet.skills.values.elementAt(i).insert(1, "");
-      widget.countSheet.skills.values.elementAt(i).insert(2, "");
-      widget.countSheet.skills.values.elementAt(i).insert(3, "");
-      widget.countSheet.skills.values.elementAt(i).insert(4, "");
-      widget.countSheet.skills.values.elementAt(i).insert(5, "");
-      widget.countSheet.skills.values.elementAt(i).insert(6, "");
-      widget.countSheet.skills.values.elementAt(i).insert(7, "");
-
+      for (int j = 0; j < 8; j++) {
+        widget.countSheet.skills.values.elementAt(i).insert(j, "");
+      }
       countRows.add(
         TableRow(
           children: <Widget>[
@@ -209,8 +202,7 @@ class _CountsPlan extends State<CountsPlan> {
             TableCell(
               child: TableCellTextField(
                 onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(7,
-                      value);
+                  widget.countSheet.skills.values.elementAt(i).insert(7, value);
                 },
               ),
             ),

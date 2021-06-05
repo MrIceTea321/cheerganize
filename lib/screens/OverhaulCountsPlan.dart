@@ -30,7 +30,9 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -110,15 +112,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                           ),
                           onPressed: () {
                             DbInitiator.db.insert(widget.countSheet
-                                .toMapWithoutId(),  DbInitiator.TABLE_COUNT_SHEET_NAME);
-                            DbInitiator.db.printALl(DbInitiator.TABLE_COUNT_SHEET_NAME);
+                                .toMapWithoutId(),
+                                DbInitiator.TABLE_COUNT_SHEET_NAME);
+                            DbInitiator.db.printALl(DbInitiator
+                                .TABLE_COUNT_SHEET_NAME);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => FormationScreen(
-                                  routine: widget.routine,
-                                  countSheet: widget.countSheet,
-                                ),
+                                builder: (context) =>
+                                    FormationScreen(
+                                      routine: widget.routine,
+                                      countSheet: widget.countSheet,
+                                    ),
                               ),
                             );
                           },
@@ -219,3 +224,4 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
       );
     }
   }
+}
