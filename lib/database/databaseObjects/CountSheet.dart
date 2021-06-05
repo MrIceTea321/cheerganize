@@ -5,7 +5,7 @@ import '../BuildDbObjectsInterface.dart';
 class CountSheet implements BuildDbObjectsInterface {
   int _countsheetid;
   int _musicid;
-  List<List<String>> _skills;
+  Map<int, List<String>> _skills;
   int _bpm;
   double _duration;
 
@@ -57,10 +57,9 @@ class CountSheet implements BuildDbObjectsInterface {
   int get musicid => _musicid;
 
 
-  List<List<String>> get skills => _skills;
+  Map<int, List<String>> get skills => _skills;
 
-
-  set skills(List<List<String>> value) {
+  set skills(Map<int, List<String>> value) {
     _skills = value;
   }
 

@@ -3,8 +3,10 @@ import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/RoutineButton.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
+import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:cheerganize/screens/CountsPlan.dart';
+import 'package:cheerganize/screens/OverhaulCountsPlan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +14,10 @@ import 'OverhaulRoutine.dart';
 
 class RoutineStatus extends StatefulWidget {
   final Routine routine;
+  final CountSheet countSheet;
 
-  const RoutineStatus({Key key, @required this.routine}) : super(key: key);
+  const RoutineStatus({Key key, @required this.routine, @required this.countSheet}) :
+super(key: key);
 
   @override
   RoutineStatusState createState() => RoutineStatusState();
@@ -82,7 +86,8 @@ class RoutineStatusState extends State<RoutineStatus> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              CountsPlan(routine: widget.routine)));
+                              OverhaulCountsPlan(routine: widget.routine,
+                              countSheet: widget.countSheet,)));
                 },
               ),
               RoutineButton(

@@ -8,18 +8,18 @@ import 'package:cheerganize/screens/FormationScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CountsPlan extends StatefulWidget {
-  CountsPlan({this.routine, this.countSheet});
+class OverhaulCountsPlan extends StatefulWidget {
+  OverhaulCountsPlan({this.routine, this.countSheet});
 
   final Routine routine;
   final CountSheet countSheet;
   List<TableRow> tableRows = [];
 
   @override
-  _CountsPlan createState() => _CountsPlan();
+  _OverhaulCountsPlan createState() => _OverhaulCountsPlan();
 }
 
-class _CountsPlan extends State<CountsPlan> {
+class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
   @override
   void initState() {
     super.initState();
@@ -219,4 +219,3 @@ class _CountsPlan extends State<CountsPlan> {
       );
     }
   }
-}
