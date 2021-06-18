@@ -1,10 +1,13 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:cheerganize/consts/buttons/HomeScreenButton.dart';
-import 'package:cheerganize/consts/buttons/RoutineButton.dart';
+import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/consts/Constants.dart';
+import 'package:cheerganize/database/DbInitiator.dart';
+import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'AllRoutines.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,12 +15,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
-    //TODO insert drop down menu list
-    //TODO make routines in drop down? or single page
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           "Cheerganize",
           style: BlackPawsAppBarTextStyle,
@@ -40,27 +43,37 @@ class _HomeScreen extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 30.0,
+                height: 60.0,
               ),
               BlackPawsCircleAvatar(
-                radius: 125.0,
+                radius: 150.0,
               ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    HomeScreenButton(
+                    BigFunctionButton(
                       text: 'Routines',
-                      onPress: () {
-                        Navigator.pushNamed(context, 'AllRoutines');
+                      onPress: () async {
+                        List<Map<String, dynamic>> routines =
+                            await getAllRoutines();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AllRoutines(
+                              routines: routines,
+                            ),
+                          ),
+                        );
                       },
+                      marginLTRB: [10.0, 10.0, 10.0, 10.0],
                     ),
-                    HomeScreenButton(
-                      text: 'Neue Routine',
-                      onPress: () {
-                        Navigator.pushNamed(context, 'NewRoutine');
-                      },
-                    ),
+                    BigFunctionButton(
+                        text: 'Neue Routine',
+                        onPress: () {
+                          Navigator.pushNamed(context, 'NewRoutine');
+                        },
+                        marginLTRB: [10.0, 10.0, 10.0, 10.0]),
                   ],
                 ),
               ),
@@ -70,4 +83,9 @@ class _HomeScreen extends State<HomeScreen> {
       ),
     );
   }
+
+  static Future<List<Map<String, dynamic>>> getAllRoutines() async {
+    return await DbInitiator.db.queryAllRows(DbInitiator.TABLE_ROUTINE_NAME);
+  }
+
 }

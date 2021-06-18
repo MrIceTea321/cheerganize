@@ -5,22 +5,29 @@ import 'package:flutter/material.dart';
 
 import '../Constants.dart';
 
-class HomeScreenButton extends StatelessWidget {
-  HomeScreenButton({
+// ignore: must_be_immutable
+class BigFunctionButton extends StatelessWidget {
+  BigFunctionButton({
     @required this.text,
     @required this.onPress,
+    @required this.marginLTRB,
+    this.width,
+    this.height,
   });
 
   final String text;
   final Function onPress;
+  final List<double> marginLTRB;
+  double width;
+  double height;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPress,
       child: Container(
-        width: 300.0,
-        height: 80.0,
+        width: (width == null) ? width = 300.0 : this.width,
+        height: (height == null) ? height = 80.0 : this.height,
         child: Center(
           child: Text(
             text,
@@ -28,7 +35,9 @@ class HomeScreenButton extends StatelessWidget {
             style: HomeScreenButtonTextStyle,
           ),
         ),
-        margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 60.0),
+        margin: EdgeInsets.fromLTRB(marginLTRB.elementAt(0), marginLTRB
+            .elementAt(1),
+            marginLTRB.elementAt(2), marginLTRB.elementAt(3)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(

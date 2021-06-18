@@ -3,22 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ConstTextField extends StatelessWidget {
-  ConstTextField({@required this.hintText});
+  ConstTextField(
+      {@required this.hintText,
+      @required this.onChanged});
 
   final String hintText;
-  String eingabe;
+  final Function onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-      width: 500.0,
+      padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
       child: TextField(
         textAlign: TextAlign.center,
-        autocorrect: true,
-        onChanged: (value) {
-          value = eingabe;
-        },
+        onChanged: onChanged,
+        style: BlackPawsTextFieldTextStyle,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: BlackPawsTextFieldTextStyle,
