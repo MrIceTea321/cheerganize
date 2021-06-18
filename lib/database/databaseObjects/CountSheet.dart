@@ -1,18 +1,39 @@
 import 'dart:convert';
 
+import 'package:sqflite/sqflite.dart';
+
 import '../BuildDbObjectsInterface.dart';
 
 class CountSheet implements BuildDbObjectsInterface {
   int _countsheetid;
   int _musicid;
-  Map<int, List<String>> _skills;
+  String _skills;
+  String _label;
   int _bpm;
   double _duration;
 
-  CountSheet(int bpm, double duration){
+  CountSheet(int bpm, double duration, String skills, String
+  label){
     this._countsheetid = _countsheetid;
     this._musicid = _musicid;
-    this._skills = _skills;
+    this._skills = skills;
+    this._label = label;
+    this._bpm = bpm;
+    this._duration = duration;
+  }
+
+
+  @override
+  String toString() {
+    return 'CountSheet{_countsheetid: $_countsheetid, _musicid: $_musicid, _skills: $_skills, _bpm: $_bpm, _duration: $_duration}';
+  }
+
+  CountSheet.build(int countsheetid, int bpm, double duration, String skills,
+      String label){
+    this._countsheetid = countsheetid;
+    this._musicid = _musicid;
+    this._skills = skills;
+    this._label = label;
     this._bpm = bpm;
     this._duration = duration;
   }
@@ -22,17 +43,20 @@ class CountSheet implements BuildDbObjectsInterface {
         'countsheetid': countsheetid,
         'musicid': musicid,
         'skills': skills,
+        'label': label,
         'bpm': bpm,
         'duration': duration,
 
   };
 
-   //to be used when inserting a row in the table
+  set countsheetid(int value) {
+    _countsheetid = value;
+  } //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
     map['musicid'] = musicid;
-    map['skills'] = skills;
+    map['label'] = label;
     map['bpm'] = bpm;
     map['duration'] = duration;
 
@@ -46,6 +70,7 @@ class CountSheet implements BuildDbObjectsInterface {
     map['countsheetid'] = countsheetid;
     map['musicid'] = musicid;
     map['skills'] = skills;
+    map['label'] = label;
     map['bpm'] = bpm;
     map['duration'] = duration;
 
@@ -56,11 +81,17 @@ class CountSheet implements BuildDbObjectsInterface {
 
   int get musicid => _musicid;
 
+  String get skills => _skills;
 
-  Map<int, List<String>> get skills => _skills;
-
-  set skills(Map<int, List<String>> value) {
+  set skills(String value) {
     _skills = value;
+  }
+
+
+  String get label => _label;
+
+  set label(String value) {
+    _label = value;
   }
 
   int get bpm => _bpm;
@@ -69,5 +100,9 @@ class CountSheet implements BuildDbObjectsInterface {
 
   set duration(double value) {
     _duration = value;
+  }
+
+  set bpm(int value) {
+    _bpm = value;
   }
 }

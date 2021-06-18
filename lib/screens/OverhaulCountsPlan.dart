@@ -1,19 +1,23 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/TableCellTextField.dart';
+import 'package:cheerganize/consts/TableCellTextOutputField.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
-import 'package:cheerganize/screens/FormationScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+
+import 'RoutineStatus.dart';
 
 class OverhaulCountsPlan extends StatefulWidget {
-  OverhaulCountsPlan({this.routine, this.countSheet});
+  OverhaulCountsPlan({@required this.routine, @required this.countSheet});
 
-  final Routine routine;
-  final CountSheet countSheet;
-  List<TableRow> tableRows = [];
+  CountSheet countSheet;
+  Routine routine;
+  final List<TableRow> tableRows = [];
 
   @override
   _OverhaulCountsPlan createState() => _OverhaulCountsPlan();
@@ -23,16 +27,13 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
   @override
   void initState() {
     super.initState();
-    var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
-    int numberIndicator = rows.toInt();
-    setupTableRows(numberIndicator, widget.tableRows);
+
+    //var split = countSheet.skills.split("([0-9]|[1-9][0-9]|[1-9][0-9][0-9])");
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -79,9 +80,11 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                   Expanded(
                     child: Column(
                       children: [
-                        Text(
-                          'Bpm: ' + widget.countSheet.bpm.toString(),
-                          style: BlackPawsTextFieldTextStyle,
+                        ConstTextField(
+                          hintText: 'Bpm: ' + widget.countSheet.bpm.toString(),
+                          onChanged: (String value) {
+                            widget.countSheet.bpm = int.parse(value);
+                          },
                         ),
                         SizedBox(
                           height: 10.0,
@@ -102,7 +105,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                                   ),
                                 )),
                             child: Text(
-                              '8 - Count anlegen',
+                              '8 - Count bearbeitet',
                               style: TextStyle(
                                 fontSize: 20.0,
                                 color: BlackPawsColor,
@@ -111,19 +114,13 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            DbInitiator.db.insert(widget.countSheet
-                                .toMapWithoutId(),
-                                DbInitiator.TABLE_COUNT_SHEET_NAME);
-                            DbInitiator.db.printALl(DbInitiator
-                                .TABLE_COUNT_SHEET_NAME);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    FormationScreen(
-                                      routine: widget.routine,
-                                      countSheet: widget.countSheet,
-                                    ),
+                                builder: (context) => RoutineStatus(
+                                  routine: widget.routine,
+                                  countSheet: widget.countSheet,
+                                ),
                               ),
                             );
                           },
@@ -150,78 +147,5 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
         ],
       ),
     );
-  }
-
-  void setupTableRows(int numberIndicator, List<TableRow> countRows) {
-    widget.countSheet.skills = {};
-    for (int i = 0; i < numberIndicator; i++) {
-      widget.countSheet.skills[i] = [];
-      widget.countSheet.skills.values.elementAt(i).insert(0, "");
-      widget.countSheet.skills.values.elementAt(i).insert(1, "");
-      widget.countSheet.skills.values.elementAt(i).insert(2, "");
-      widget.countSheet.skills.values.elementAt(i).insert(3, "");
-      widget.countSheet.skills.values.elementAt(i).insert(4, "");
-      widget.countSheet.skills.values.elementAt(i).insert(5, "");
-      widget.countSheet.skills.values.elementAt(i).insert(6, "");
-      widget.countSheet.skills.values.elementAt(i).insert(7, "");
-
-      countRows.add(
-        TableRow(
-          children: <Widget>[
-            TableCell(
-              child: TableCellTextField(
-                onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(0, value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(1, value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
-                widget.countSheet.skills.values.elementAt(i).insert(2, value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(3, value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(4, value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
-                widget.countSheet.skills.values.elementAt(i).insert(5, value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
-                widget.countSheet.skills.values.elementAt(i).insert(6, value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(7,
-                      value);
-                },
-              ),
-            ),
-          ],
-        ),
-      );
-    }
   }
 }

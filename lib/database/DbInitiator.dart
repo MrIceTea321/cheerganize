@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'databaseObjects/CountSheet.dart';
 import 'databaseObjects/Routine.dart';
 
 class DbInitiator {
@@ -29,8 +30,9 @@ class DbInitiator {
   static const COLUMN_COUNT_SHEET_ID = 'countsheetid';
   static const COLUMN_COUNT_SHEET_MUSIC_ID = 'musicid';
   static const COLUMN_COUNT_SHEET_SKILLS = 'skills';
+  static const COLUMN_COUNT_SHEET_LABEL = 'label';
   static const COLUMN_COUNT_SHEET_BPM = 'bpm';
-  static const COLUMN_COUNT_SHEET_DURATION  = 'duration';
+  static const COLUMN_COUNT_SHEET_DURATION = 'duration';
 
   //---------------MusicTable---------------------------
   static const COLUMN_MUSIC_ID = 'musicid';
@@ -114,9 +116,10 @@ class DbInitiator {
           CREATE TABLE $TABLE_COUNT_SHEET_NAME (
             $COLUMN_COUNT_SHEET_ID INTEGER PRIMARY KEY,
             $COLUMN_COUNT_SHEET_MUSIC_ID INTEGER,
-            $COLUMN_COUNT_SHEET_SKILLS BLOB,
-            $COLUMN_COUNT_SHEET_BPM INTEGER NOT NULL,  
-            $COLUMN_COUNT_SHEET_DURATION DOUBLE PRECISION NOT NULL,            
+            $COLUMN_COUNT_SHEET_SKILLS TEXT,
+            $COLUMN_COUNT_SHEET_LABEL TEXT,
+            $COLUMN_COUNT_SHEET_BPM INTEGER,  
+            $COLUMN_COUNT_SHEET_DURATION DOUBLE PRECISION,            
            FOREIGN KEY ($COLUMN_COUNT_SHEET_MUSIC_ID) REFERENCES 
            $TABLE_MUSIC_NAME
             ($COLUMN_MUSIC_ID)ON DELETE NO ACTION ON UPDATE NO ACTION )
@@ -125,8 +128,8 @@ class DbInitiator {
       await db.execute('''
           CREATE TABLE $TABLE_MUSIC_NAME (
             $COLUMN_MUSIC_ID INTEGER PRIMARY KEY,
-            $COLUMN_MUSIC_TITLE TEXT NOT NULL,
-            $COLUMN_MUSIC_DURATION DOUBLE PRECISION NOT NULL )
+            $COLUMN_MUSIC_TITLE TEXT,
+            $COLUMN_MUSIC_DURATION DOUBLE PRECISION )
           ''');
       //---------------FormationTable------------------------
       await db.execute('''
@@ -136,7 +139,7 @@ class DbInitiator {
            $COLUMN_FORMATION_ATHLETES_ID INTEGER,
            $COLUMN_FORMATION_MAT_ID INTEGER,
            $COLUMN_FORMATION_PATTERN_ID INTEGER,
-            $COLUMN_FORMATION_NAME TEXT NOT NULL,
+            $COLUMN_FORMATION_NAME TEXT,
              FOREIGN KEY ($COLUMN_FORMATION_ROUTINE_ID) REFERENCES 
              $TABLE_ROUTINE_NAME
             ($COLUMN_ROUTINE_ID)ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -156,8 +159,8 @@ class DbInitiator {
             $COLUMN_ATHLETES_ID INTEGER PRIMARY KEY,
             $COLUMN_ATHLETES_X_COORDINATE DOUBLE PRECISION,
             $COLUMN_ATHLETES_Y_COORDINATE DOUBLE PRECISION,
-            $COLUMN_ATHLETES_NAME TEXT NOT NULL,
-            $COLUMN_ATHLETES_COLOR TEXT NOT NULL )
+            $COLUMN_ATHLETES_NAME TEXT,
+            $COLUMN_ATHLETES_COLOR TEXT)
           ''');
       //---------------MatTable------------------------------
       await db.execute('''
@@ -184,10 +187,9 @@ class DbInitiator {
     return await db.insert(tableName, row);
   }
 
-  Future<int> delete(int id, String tableName) async {
+  Future<int> delete(String idName, int id, String tableName) async {
     Database db = await instance.database;
-    return await db.delete(tableName, where: 'routineid = ?',
-        whereArgs: [id]);
+    return await db.delete(tableName, where: '$idName = ?', whereArgs: [id]);
   }
 
   Future<List<Map<String, dynamic>>> queryAllRows(String tableName) async {
@@ -196,13 +198,80 @@ class DbInitiator {
   }
 
   Future<int> updateRoutineObject(Routine routine) async {
+    print(routine);
+    print('routineId in update MEthode');
+    print(routine.routineid);
     Database db = await instance.database;
     return await db.update(TABLE_ROUTINE_NAME, routine.toMapWithoutId(),
-        where: "routineid =?",
-        whereArgs: [routine.routineid]);
+        where: 'routineid =?', whereArgs: [routine.routineid]);
   }
 
-    Future<int> queryRowCount(String tableName) async {
+  Future<List<CountSheet>> getCountSheetObjects() async {
+    Database db = await instance.database;
+    // Query the table
+    final List<Map<String, dynamic>> maps =
+        await db.query(TABLE_COUNT_SHEET_NAME);
+    // Convert the List<Map<String, dynamic> into a List<CountSheet>.
+    return List.generate(maps.length, (i) {
+      return CountSheet.build(maps[i]['countsheetid'], maps[i]['bpm'],
+          maps[i]['duration'], maps[i]['skills'], maps[i]['label']);
+    });
+  }
+
+  Future<CountSheet> getCountSheetObjectFromDb(String countSheetLabel) async {
+    CountSheet relevantCountSheet;
+    List<CountSheet> countSheetObject = await db.getCountSheetObjects();
+    countSheetObject.forEach((element) {
+      if (element.label == countSheetLabel) {
+        relevantCountSheet = CountSheet.build(element.countsheetid, element.bpm,
+            element.duration, element.skills, element.label);
+      }
+    });
+    return relevantCountSheet;
+  }
+
+  Future<List<Routine>> getRoutineObjects() async {
+    Database db = await instance.database;
+    // Query the table
+    final List<Map<String, dynamic>> maps = await db.query(TABLE_ROUTINE_NAME);
+    // Convert the List<Map<String, dynamic> into a List<CountSheet>.
+    return List.generate(maps.length, (i) {
+      return Routine.buildFromDb(
+          maps[i]['routineid'],
+          maps[i]['musicid'],
+          maps[i]['athletesid'],
+          maps[i]['formationid'],
+          maps[i]['countsheetid'],
+          maps[i]['name'],
+          maps[i]['typeofsport']);
+    });
+  }
+
+  Future<Routine> getRoutineObjectFromDb(String routineName) async {
+    Routine updateRoutine;
+    List<Routine> routineObjectlist = await db.getRoutineObjects();
+    routineObjectlist.forEach((element) {
+      if (element.name == routineName) {
+        updateRoutine = Routine.buildFromDb(
+            element.routineid,
+            element.musicid,
+            element.athletesid,
+            element.formationid,
+            element.countsheetid,
+            element.name,
+            element.typeofsport);
+      }
+    });
+    return updateRoutine;
+  }
+
+  Future<int> updateCountSheetObject(CountSheet countSheet) async {
+    Database db = await instance.database;
+    return await db.update(TABLE_COUNT_SHEET_NAME, countSheet.toMapWithoutId(),
+        where: 'countsheetid =?', whereArgs: [countSheet.countsheetid]);
+  }
+
+  Future<int> queryRowCount(String tableName) async {
     Database db = await instance.database;
     return Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM $tableName'));

@@ -5,8 +5,13 @@ import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:cheerganize/screens/FormationScreen.dart';
+import 'package:cheerganize/screens/HomeScreen.dart';
+import 'package:cheerganize/screens/RoutineStatus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'OverhaulCountsPlan.dart';
 
 class CountsPlan extends StatefulWidget {
   CountsPlan({this.routine, this.countSheet});
@@ -14,6 +19,7 @@ class CountsPlan extends StatefulWidget {
   final Routine routine;
   final CountSheet countSheet;
   List<TableRow> tableRows = [];
+  Map<int, List<String>> table = {};
 
   @override
   _CountsPlan createState() => _CountsPlan();
@@ -25,12 +31,16 @@ class _CountsPlan extends State<CountsPlan> {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     int numberIndicator = rows.toInt();
-    setupTableRows(numberIndicator, widget.tableRows);
+    print('numberIndicator: $numberIndicator');
+    widget.table = getTableRows(numberIndicator, widget.tableRows, widget
+        .table);
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -52,7 +62,7 @@ class _CountsPlan extends State<CountsPlan> {
           },
         ),
         title: Text(
-          widget.routine.name,
+          widget.countSheet.label,
           style: BlackPawsAppBarTextStyle,
         ),
       ),
@@ -108,16 +118,24 @@ class _CountsPlan extends State<CountsPlan> {
                               ),
                             ),
                           ),
-                          onPressed: () {
-                            print('CountSheet Skills : ');
+                          onPressed: () async {
+                            widget.countSheet.skills = widget.table.toString();
+                            print('widget skills');
                             print(widget.countSheet.skills);
+                            print('widget id');
+                            print(widget.countSheet.countsheetid);
+                            DbInitiator.db.updateCountSheetObject(widget.countSheet);
+                            print('countSheetObject mit skills');
+                            DbInitiator.db.printALl(DbInitiator
+                                .TABLE_COUNT_SHEET_NAME);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => FormationScreen(
-                                  routine: widget.routine,
-                                  countSheet: widget.countSheet,
-                                ),
+                                builder: (context) =>
+                                    RoutineStatus(
+                                      routine: widget.routine,
+                                      countSheet: widget.countSheet,
+                                    ),
                               ),
                             );
                           },
@@ -146,12 +164,12 @@ class _CountsPlan extends State<CountsPlan> {
     );
   }
 
-  void setupTableRows(int numberIndicator, List<TableRow> countRows) {
-    widget.countSheet.skills = {};
+  Map<int, List<String>> getTableRows(int numberIndicator,
+      List<TableRow>countRows, Map<int, List<String>> countTableMap) {
     for (int i = 0; i < numberIndicator; i++) {
-      widget.countSheet.skills[i] = [];
+      countTableMap[i] = [];
       for (int j = 0; j < 8; j++) {
-        widget.countSheet.skills.values.elementAt(i).insert(j, "");
+        countTableMap.values.elementAt(i).insert(j, "");
       }
       countRows.add(
         TableRow(
@@ -159,50 +177,50 @@ class _CountsPlan extends State<CountsPlan> {
             TableCell(
               child: TableCellTextField(
                 onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(0, value);
+                  countTableMap.values.elementAt(i).insert(0, value);
                 },
               ),
             ),
             TableCell(
               child: TableCellTextField(
                 onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(1, value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
-                widget.countSheet.skills.values.elementAt(i).insert(2, value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(3, value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(4, value);
+                  countTableMap.values.elementAt(i).insert(1, value);
                 },
               ),
             ),
             TableCell(
               child: TableCellTextField(onSubmitted: (String value) {
-                widget.countSheet.skills.values.elementAt(i).insert(5, value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
-                widget.countSheet.skills.values.elementAt(i).insert(6, value);
+                countTableMap.values.elementAt(i).insert(2, value);
               }),
             ),
             TableCell(
               child: TableCellTextField(
                 onSubmitted: (String value) {
-                  widget.countSheet.skills.values.elementAt(i).insert(7, value);
+                  countTableMap.values.elementAt(i).insert(3, value);
+                },
+              ),
+            ),
+            TableCell(
+              child: TableCellTextField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(4, value);
+                },
+              ),
+            ),
+            TableCell(
+              child: TableCellTextField(onSubmitted: (String value) {
+                countTableMap.values.elementAt(i).insert(5, value);
+              }),
+            ),
+            TableCell(
+              child: TableCellTextField(onSubmitted: (String value) {
+                countTableMap.values.elementAt(i).insert(6, value);
+              }),
+            ),
+            TableCell(
+              child: TableCellTextField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(7, value);
                 },
               ),
             ),
@@ -210,5 +228,6 @@ class _CountsPlan extends State<CountsPlan> {
         ),
       );
     }
+    return countTableMap;
   }
 }

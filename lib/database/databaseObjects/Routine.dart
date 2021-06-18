@@ -35,6 +35,16 @@ class Routine {
     this._typeofsport = routines.values.elementAt(6);
   }
 
+  Routine.buildFromDb(int routineid, int musicid, int athletesid,
+      int formationid, int countsheetid, String name, String typeofsport) {
+    this._routineid = routineid;
+    this._musicid = musicid;
+    this._athletesid = athletesid;
+    this._formationid = formationid;
+    this._countsheetid = countsheetid;
+    this._name = name;
+    this._typeofsport = typeofsport;
+  }
 
   @override
   Map<String, dynamic> toJson() => {
@@ -115,5 +125,10 @@ class Routine {
 
   set typeofsport(String value) {
     _typeofsport = value;
+  }
+
+  @override
+  String toString() {
+    return 'Routine{_routineid: $_routineid, _musicid: $_musicid, _athletesid: $_athletesid, _formationid: $_formationid, _countsheetid: $_countsheetid, _name: $_name, _typeofsport: $_typeofsport}';
   }
 }

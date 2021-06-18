@@ -16,8 +16,9 @@ class RoutineStatus extends StatefulWidget {
   final Routine routine;
   final CountSheet countSheet;
 
-  const RoutineStatus({Key key, @required this.routine, @required this.countSheet}) :
-super(key: key);
+  const RoutineStatus(
+      {Key key, @required this.routine, @required this.countSheet})
+      : super(key: key);
 
   @override
   RoutineStatusState createState() => RoutineStatusState();
@@ -78,16 +79,19 @@ class RoutineStatusState extends State<RoutineStatus> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               BlackPawsCircleAvatar(radius: 125.0),
-              SizedBox(height:80.0),
+              SizedBox(height: 80.0),
               RoutineButton(
                 text: '8 - Count bearbeiten',
                 onPress: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              OverhaulCountsPlan(routine: widget.routine,
-                              countSheet: widget.countSheet,)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OverhaulCountsPlan(
+                      routine: widget.routine,
+                        countSheet: widget.countSheet,
+                      ),
+                    ),
+                  );
                 },
               ),
               RoutineButton(
@@ -108,6 +112,9 @@ class RoutineStatusState extends State<RoutineStatus> {
 
   void _delete() async {
     await DbInitiator.db
-        .delete(widget.routine.routineid, DbInitiator.TABLE_ROUTINE_NAME);
+        .delete("routineid",widget.routine.routineid, DbInitiator
+        .TABLE_ROUTINE_NAME);
+    await DbInitiator.db.delete("countsheetid",widget.routine.countsheetid,
+        DbInitiator.TABLE_COUNT_SHEET_NAME);
   }
 }
