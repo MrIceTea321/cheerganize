@@ -81,7 +81,7 @@ class _FormationScreen extends State<FormationScreen> {
                   Routine routine = buildRoutineObject(name, typeOfSport);
                   DbInitiator.db
                       .insert(routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
-                  DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
+                  DbInitiator.db.printAll(DbInitiator.TABLE_ROUTINE_NAME);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

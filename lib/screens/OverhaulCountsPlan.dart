@@ -13,10 +13,10 @@ import 'package:sqflite/sqflite.dart';
 import 'RoutineStatus.dart';
 
 class OverhaulCountsPlan extends StatefulWidget {
-  OverhaulCountsPlan({@required this.routine, @required this.countSheet});
+  OverhaulCountsPlan({@required this.routine});
 
-  CountSheet countSheet;
-  Routine routine;
+  final Routine routine;
+  CountSheet countSheet = new CountSheet(0, 0.0, "", "");
   final List<TableRow> tableRows = [];
 
   @override
@@ -24,10 +24,14 @@ class OverhaulCountsPlan extends StatefulWidget {
 }
 
 class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
+
   @override
   void initState() {
     super.initState();
-
+    print('initSTate');
+    setCountSheetObject();
+    getTableRows();
+    //setUpCountSheetObject();
     //var split = countSheet.skills.split("([0-9]|[1-9][0-9]|[1-9][0-9][0-9])");
   }
 
@@ -83,7 +87,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                         ConstTextField(
                           hintText: 'Bpm: ' + widget.countSheet.bpm.toString(),
                           onChanged: (String value) {
-                            widget.countSheet.bpm = int.parse(value);
+                           widget.countSheet.bpm = int.parse(value);
                           },
                         ),
                         SizedBox(
@@ -118,8 +122,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => RoutineStatus(
-                                  routine: widget.routine,
-                                  countSheet: widget.countSheet,
+                                  routine: widget.routine, countSheet: widget.countSheet,
                                 ),
                               ),
                             );
@@ -147,5 +150,97 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
         ],
       ),
     );
+  }
+
+   void getTableRows() async {
+    List<TableRow> countRows = [];
+    Map<int, List<String>> countTableMap;
+    int numberIndicator =0;
+    for (int i = 0; i < numberIndicator; i++) {
+      countTableMap[i] = [];
+      for (int j = 0; j < 8; j++) {
+        countTableMap.values.elementAt(i).insert(j, "");
+      }
+      countRows.add(
+        TableRow(
+          children: <Widget>[
+            TableCell(
+              child: TableCellTextOutputField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(0, value);
+                },
+                hintText: countTableMap.values.elementAt(i).elementAt(0),
+              ),
+            ),
+            TableCell(
+              child: TableCellTextOutputField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(1, value);
+                },
+                hintText: countTableMap.values.elementAt(i).elementAt(1),
+              ),
+            ),
+            TableCell(
+              child: TableCellTextOutputField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(2, value);
+                },
+                hintText: countTableMap.values.elementAt(i).elementAt(2),
+              ),
+            ),
+            TableCell(
+              child: TableCellTextOutputField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(3, value);
+                },
+                hintText: countTableMap.values.elementAt(i).elementAt(3),
+              ),
+            ),
+            TableCell(
+              child: TableCellTextOutputField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(4, value);
+                },
+                hintText: countTableMap.values.elementAt(i).elementAt(4),
+              ),
+            ),
+            TableCell(
+              child: TableCellTextOutputField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(5, value);
+                },
+                hintText: countTableMap.values.elementAt(i).elementAt(5),
+              ),
+            ),
+            TableCell(
+              child: TableCellTextOutputField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(6, value);
+                },
+                hintText: countTableMap.values.elementAt(i).elementAt(6),
+              ),
+            ),
+            TableCell(
+              child: TableCellTextOutputField(
+                onSubmitted: (String value) {
+                  countTableMap.values.elementAt(i).insert(7, value);
+                },
+                hintText: countTableMap.values.elementAt(i).elementAt(7),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void setCountSheetObject() async {
+    CountSheet sheet = await DbInitiator.db.getCountSheetObjectFromDb(widget
+        .routine.name);
+    widget.countSheet.countsheetid = sheet.countsheetid;
+    widget.countSheet.musicid = sheet.musicid;
+    widget.countSheet.bpm = sheet.bpm;
+    widget.countSheet.duration = sheet.duration;
+    widget.countSheet.skills = sheet.skills;
   }
 }

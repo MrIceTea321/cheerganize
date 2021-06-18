@@ -17,11 +17,8 @@ class NewRoutine extends StatefulWidget {
 }
 
 class _NewRoutine extends State<NewRoutine> {
-  String name;
-  String typeOfSport;
-  int bpm;
-  double duration;
-  String label;
+  Routine routine = new Routine("", "");
+  CountSheet countSheet = new CountSheet(0, 0.0, "", "");
 
   @override
   Widget build(BuildContext context) {
@@ -60,45 +57,38 @@ class _NewRoutine extends State<NewRoutine> {
           ConstTextField(
             hintText: 'Name der Routine',
             onChanged: (String value) {
-              name = '"' + value + '"';
+              routine.name = '"' + value + '"';
             },
           ),
           ConstTextField(
             hintText: 'Kategorie',
             onChanged: (String value) {
-              typeOfSport = '"' + value + '"';
+              routine.typeofsport = '"' + value + '"';
             },
           ),
           ConstTextField(
             hintText: 'Bpm: z.B. 150',
             onChanged: (String value) {
-              bpm = int.parse(value);
+              countSheet.bpm = int.parse(value);
             },
           ),
           ConstTextField(
             hintText: 'Dauer der Routine in Minuten: z.B. 1.45',
             onChanged: (String value) {
-              duration = double.parse(value);
-            },
-          ),
-          ConstTextField(
-            hintText: 'Count name',
-            onChanged: (String value) {
-              label = '"' + value + '"';
+              countSheet.duration = double.parse(value);
             },
           ),
           BigFunctionButton(
             text: '8 - Counts Planung',
             onPress: () {
-              Routine routine = buildRoutineObject(name, typeOfSport);
-              CountSheet sheet = buildCountSheetObject(bpm, duration, label);
-              dbOperations(routine, sheet);
+              countSheet.label = routine.name;
+              dbOperations(routine, countSheet);
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CountsPlan(
                     routine: routine,
-                    countSheet: sheet,
+                    countSheet: countSheet,
                   ),
                 ),
               );
@@ -115,10 +105,17 @@ class _NewRoutine extends State<NewRoutine> {
     DbInitiator.db.insert(routine.toMap(), DbInitiator.TABLE_ROUTINE_NAME);
     Routine updateRoutine = await DbInitiator.db.getRoutineObjectFromDb
       (routine.name);
+    countSheet.label = updateRoutine.name;
     CountSheet relevantCountSheet = await DbInitiator.db.getCountSheetObjectFromDb(
         countSheet.label);
     updateRoutine.countsheetid = relevantCountSheet.countsheetid;
+    routine.countsheetid = relevantCountSheet.countsheetid;
+    countSheet.countsheetid = relevantCountSheet.countsheetid;
     DbInitiator.db.updateRoutineObject(updateRoutine);
+    DbInitiator.db.updateCountSheetObject(countSheet);
+    DbInitiator.db.printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
+    print('countSheet nach dem Update mit label');
+    DbInitiator.db.printAll(DbInitiator.TABLE_ROUTINE_NAME);
   }
 
   Routine buildRoutineObject(String name, String typeOfSport) {

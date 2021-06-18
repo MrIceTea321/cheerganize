@@ -28,14 +28,14 @@ class CountSheet implements BuildDbObjectsInterface {
     return 'CountSheet{_countsheetid: $_countsheetid, _musicid: $_musicid, _skills: $_skills, _bpm: $_bpm, _duration: $_duration}';
   }
 
-  CountSheet.build(int countsheetid, int bpm, double duration, String skills,
-      String label){
+  CountSheet.buildFromDb(int countsheetid, int bpm, double duration, String
+  skills, String label, int musicid){
     this._countsheetid = countsheetid;
-    this._musicid = _musicid;
-    this._skills = skills;
-    this._label = label;
     this._bpm = bpm;
     this._duration = duration;
+    this._skills = skills;
+    this._label = label;
+    this._musicid = musicid;
   }
 
   @override
@@ -49,17 +49,15 @@ class CountSheet implements BuildDbObjectsInterface {
 
   };
 
-  set countsheetid(int value) {
-    _countsheetid = value;
-  } //to be used when inserting a row in the table
+  //to be used when inserting a row in the table
   @override
   Map<String, dynamic> toMapWithoutId() {
     final map = new Map<String, dynamic>();
     map['musicid'] = musicid;
+    map['skills'] = skills;
     map['label'] = label;
     map['bpm'] = bpm;
     map['duration'] = duration;
-
     return map;
   }
 
@@ -78,6 +76,14 @@ class CountSheet implements BuildDbObjectsInterface {
   }
 
   int get countsheetid => _countsheetid;
+
+  set musicid(int value) {
+    _musicid = value;
+  }
+
+  set countsheetid(int value) {
+    _countsheetid = value;
+  }
 
   int get musicid => _musicid;
 

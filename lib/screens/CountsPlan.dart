@@ -31,7 +31,6 @@ class _CountsPlan extends State<CountsPlan> {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     int numberIndicator = rows.toInt();
-    print('numberIndicator: $numberIndicator');
     widget.table = getTableRows(numberIndicator, widget.tableRows, widget
         .table);
   }
@@ -120,14 +119,7 @@ class _CountsPlan extends State<CountsPlan> {
                           ),
                           onPressed: () async {
                             widget.countSheet.skills = widget.table.toString();
-                            print('widget skills');
-                            print(widget.countSheet.skills);
-                            print('widget id');
-                            print(widget.countSheet.countsheetid);
                             DbInitiator.db.updateCountSheetObject(widget.countSheet);
-                            print('countSheetObject mit skills');
-                            DbInitiator.db.printALl(DbInitiator
-                                .TABLE_COUNT_SHEET_NAME);
                             Navigator.push(
                               context,
                               MaterialPageRoute(

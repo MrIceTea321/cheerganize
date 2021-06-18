@@ -50,10 +50,9 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: [
-            SizedBox(height: 40.0),
+            Expanded(child: SizedBox(height: 40.0)),
             BlackPawsCircleAvatar(radius: 125.0),
             SizedBox(height: 50.0),
             ConstTextField(
@@ -73,7 +72,7 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
               text: 'Routine bearbeitet',
               onPress: () {
                 DbInitiator.db.updateRoutineObject(widget.routine);
-                DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
+                DbInitiator.db.printAll(DbInitiator.TABLE_ROUTINE_NAME);
                 Navigator.pushNamed(context, 'HomeScreen');
               },
               marginLTRB: [10.0, 10.0, 10.0, 10.0],

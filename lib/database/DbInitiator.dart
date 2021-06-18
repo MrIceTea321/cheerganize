@@ -198,9 +198,6 @@ class DbInitiator {
   }
 
   Future<int> updateRoutineObject(Routine routine) async {
-    print(routine);
-    print('routineId in update MEthode');
-    print(routine.routineid);
     Database db = await instance.database;
     return await db.update(TABLE_ROUTINE_NAME, routine.toMapWithoutId(),
         where: 'routineid =?', whereArgs: [routine.routineid]);
@@ -213,20 +210,27 @@ class DbInitiator {
         await db.query(TABLE_COUNT_SHEET_NAME);
     // Convert the List<Map<String, dynamic> into a List<CountSheet>.
     return List.generate(maps.length, (i) {
-      return CountSheet.build(maps[i]['countsheetid'], maps[i]['bpm'],
-          maps[i]['duration'], maps[i]['skills'], maps[i]['label']);
+      return CountSheet.buildFromDb(
+          maps[i]['countsheetid'],
+          maps[i]['bpm'],
+          maps[i]['duration'],
+          maps[i]['skills'],
+          maps[i]['label'],
+          maps[i]['musicid']);
     });
   }
 
   Future<CountSheet> getCountSheetObjectFromDb(String countSheetLabel) async {
     CountSheet relevantCountSheet;
     List<CountSheet> countSheetObject = await db.getCountSheetObjects();
-    countSheetObject.forEach((element) {
-      if (element.label == countSheetLabel) {
-        relevantCountSheet = CountSheet.build(element.countsheetid, element.bpm,
-            element.duration, element.skills, element.label);
+    countSheetObject.forEach((sheet) {
+      if (sheet.label == countSheetLabel) {
+        relevantCountSheet = CountSheet.buildFromDb(sheet.countsheetid, sheet.bpm,
+            sheet.duration, sheet.skills, sheet.label, sheet.musicid);
       }
     });
+    print('CountSheetObject from DB');
+    print(relevantCountSheet);
     return relevantCountSheet;
   }
 
@@ -277,7 +281,7 @@ class DbInitiator {
         await db.rawQuery('SELECT COUNT(*) FROM $tableName'));
   }
 
-  void printALl(String tableName) async {
+  void printAll(String tableName) async {
     final allRows = await DbInitiator.db.queryAllRows(tableName);
     allRows.forEach((element) {
       print(element);
