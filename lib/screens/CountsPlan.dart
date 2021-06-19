@@ -117,16 +117,10 @@ class _CountsPlan extends State<CountsPlan> {
                           ),
                           onPressed: () async {
                             widget.countSheet.skills = widget.table.toString();
+                            print('angelegter CountsPlan als String');
+                            print(widget.table.toString());
                             DbInitiator.db.updateCountSheetObject(widget.countSheet);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    RoutineStatus(
-                                      routine: widget.routine,
-                                    ),
-                              ),
-                            );
+                            Navigator.pushNamed(context,"HomeScreen");
                           },
                         ),
                       ],
@@ -165,50 +159,51 @@ class _CountsPlan extends State<CountsPlan> {
           children: <Widget>[
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
+                onChanged: (String value) {
                   countTableMap.values.elementAt(i).insert(0, value);
                 },
               ),
             ),
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
+                onChanged: (String value) {
                   countTableMap.values.elementAt(i).insert(1, value);
                 },
               ),
             ),
             TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
+              child: TableCellTextField(
+                  onChanged: (String value) {
                 countTableMap.values.elementAt(i).insert(2, value);
               }),
             ),
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
+                onChanged: (String value) {
                   countTableMap.values.elementAt(i).insert(3, value);
                 },
               ),
             ),
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
+                onChanged: (String value) {
                   countTableMap.values.elementAt(i).insert(4, value);
                 },
               ),
             ),
             TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
+              child: TableCellTextField(onChanged: (String value) {
                 countTableMap.values.elementAt(i).insert(5, value);
               }),
             ),
             TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
+              child: TableCellTextField(onChanged: (String value) {
                 countTableMap.values.elementAt(i).insert(6, value);
               }),
             ),
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
+                onChanged: (String value) {
                   countTableMap.values.elementAt(i).insert(7, value);
                 },
               ),

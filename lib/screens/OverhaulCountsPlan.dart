@@ -116,16 +116,11 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            widget.countSheet.skills = widget.countTableMap.toString();
-                            DbInitiator.db.updateCountSheetObject(widget.countSheet);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RoutineStatus(
-                                  routine: widget.routine,
-                                ),
-                              ),
-                            );
+                            widget.countSheet.skills =
+                                widget.countTableMap.toString();
+                            DbInitiator.db
+                                .updateCountSheetObject(widget.countSheet);
+                            Navigator.pushNamed(context, "HomeScreen");
                           },
                         ),
                       ],
@@ -155,10 +150,14 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
   void getTableRows() async {
     Map<int, List<String>> oldValuesMap = {};
     final regex = RegExp(r'[^a-zA-Z,äÄöÖüÜ]+');
+    print('countSheetSkills');
+    print(widget.countSheet.skills);
     String splitString = widget.countSheet.skills.replaceAll(regex, "");
+    print('splitSting: $splitString');
     List<String> splitList = splitString.split(",");
-    double rowCount = splitList.length / 8;
-    int numberIndicator = rowCount.toInt();
+    var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
+    int numberIndicator = rows.toInt();
+    print('numberIndicator: $numberIndicator');
     for (int i = 0; i < numberIndicator; i++) {
       oldValuesMap[i] = [];
       for (int j = 0; j < 8; j++) {
@@ -166,11 +165,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
       }
     }
     int start = 0;
-    int ende = 8;
+    int end = 8;
+    print('splitList: $splitList');
     for (int key = 0; key < numberIndicator; key++) {
-      oldValuesMap.update(key, (value) => splitList.sublist(start, ende));
-      start = ende + 2;
-      ende = ende + 10;
+      print('startBefore: $start');
+      print('endeBefore: $end');
+      print('oldValesMapbeforeUpdate: $oldValuesMap');
+      oldValuesMap.update(key, (value) => splitList.sublist(start, end));
+      start = end + 2;
+      end = end + 10;
+      print('oldValesMapAfterUpdate: $oldValuesMap');
+      print('startAfter: $start');
+      print('endeAfter: $end');
     }
     for (int i = 0; i < numberIndicator; i++) {
       widget.countTableMap[i] = [];
@@ -182,66 +188,106 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
           children: <Widget>[
             TableCell(
               child: TableCellTextOutputField(
-                onSubmitted: (String value) {
-                  widget.countTableMap.values.elementAt(i).insert(0, value);
+                onChanged: (String value) {
+                  if (value.isEmpty) {
+                    widget.countTableMap.values.elementAt(i).insert(
+                        0, oldValuesMap.values.elementAt(i).elementAt(0));
+                  } else {
+                    widget.countTableMap.values.elementAt(i).insert(0, value);
+                  }
                 },
                 hintText: oldValuesMap.values.elementAt(i).elementAt(0),
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onSubmitted: (String value) {
-                  widget.countTableMap.values.elementAt(i).insert(1, value.toString());
+                onChanged: (String value) {
+                  if (value.isEmpty) {
+                    widget.countTableMap.values.elementAt(i).insert(
+                        0, oldValuesMap.values.elementAt(i).elementAt(1));
+                  } else {
+                    widget.countTableMap.values.elementAt(i).insert(1, value);
+                  }
                 },
                 hintText: oldValuesMap.values.elementAt(i).elementAt(1),
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onSubmitted: (String value) {
-                  widget.countTableMap.values.elementAt(i).insert(2, value.toString());
+                onChanged: (String value) {
+                  if (value.isEmpty) {
+                    widget.countTableMap.values.elementAt(i).insert(
+                        0, oldValuesMap.values.elementAt(i).elementAt(2));
+                  } else {
+                    widget.countTableMap.values.elementAt(i).insert(2, value);
+                  }
                 },
                 hintText: oldValuesMap.values.elementAt(i).elementAt(2),
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onSubmitted: (String value) {
-                  widget.countTableMap.values.elementAt(i).insert(3, value.toString());
+                onChanged: (String value) {
+                  if (value.isEmpty) {
+                    widget.countTableMap.values.elementAt(i).insert(
+                        0, oldValuesMap.values.elementAt(i).elementAt(3));
+                  } else {
+                    widget.countTableMap.values.elementAt(i).insert(3, value);
+                  }
                 },
                 hintText: oldValuesMap.values.elementAt(i).elementAt(3),
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onSubmitted: (String value) {
-                  widget.countTableMap.values.elementAt(i).insert(4, value.toString());
+                onChanged: (String value) {
+                  if (value.isEmpty) {
+                    widget.countTableMap.values.elementAt(i).insert(
+                        0, oldValuesMap.values.elementAt(i).elementAt(4));
+                  } else {
+                    widget.countTableMap.values.elementAt(i).insert(4, value);
+                  }
                 },
                 hintText: oldValuesMap.values.elementAt(i).elementAt(4),
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onSubmitted: (String value) {
-                  widget.countTableMap.values.elementAt(i).insert(5, value.toString());
+                onChanged: (String value) {
+                  if (value.isEmpty) {
+                    widget.countTableMap.values.elementAt(i).insert(
+                        0, oldValuesMap.values.elementAt(i).elementAt(5));
+                  } else {
+                    widget.countTableMap.values.elementAt(i).insert(5, value);
+                  }
                 },
                 hintText: oldValuesMap.values.elementAt(i).elementAt(5),
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onSubmitted: (String value) {
-                  widget.countTableMap.values.elementAt(i).insert(6, value.toString());
+                onChanged: (String value) {
+                  if (value.isEmpty) {
+                    widget.countTableMap.values.elementAt(i).insert(
+                        0, oldValuesMap.values.elementAt(i).elementAt(6));
+                  } else {
+                    widget.countTableMap.values.elementAt(i).insert(6, value);
+                  }
                 },
                 hintText: oldValuesMap.values.elementAt(i).elementAt(6),
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onSubmitted: (String value) {
-                  widget.countTableMap.values.elementAt(i).insert(7, value.toString());
+                onChanged: (String value) {
+                  if (value.isEmpty) {
+                    widget.countTableMap.values.elementAt(i).insert(
+                        0, oldValuesMap.values.elementAt(i).elementAt(7));
+                  } else {
+                    widget.countTableMap.values.elementAt(i).insert(7, value);
+                  }
                 },
-                hintText: oldValuesMap.values.elementAt(i).elementAt(7).toString(),
+                hintText: oldValuesMap.values.elementAt(i).elementAt(7),
               ),
             ),
           ],
