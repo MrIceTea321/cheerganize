@@ -19,8 +19,8 @@ class OverhaulCountsPlan extends StatefulWidget {
 
   final Routine routine;
   final CountSheet countSheet;
-  List<TableRow> countRows = [];
-  Map<int, List<String>> countTableMap = {};
+  final List<TableRow> countRows = [];
+  final Map<int, List<String>> countTableMap = {};
 
   @override
   _OverhaulCountsPlan createState() => _OverhaulCountsPlan();
@@ -116,11 +116,8 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            print('********************************');
                             widget.countSheet.skills = widget.countTableMap.toString();
                             DbInitiator.db.updateCountSheetObject(widget.countSheet);
-                            DbInitiator.db.printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
-                            print('********************************');
                             Navigator.push(
                               context,
                               MaterialPageRoute(

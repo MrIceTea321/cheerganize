@@ -20,7 +20,7 @@ const BlackPawsAppBarTextStyle = TextStyle(
 );
 
 const BlackPawsTextFieldTextStyle = TextStyle(
-  color: Color(0xffb6a24f),
+  color: BlackPawsColor,
   fontSize: 20.0,
   fontFamily: 'Antonio-VariableFont',
 );

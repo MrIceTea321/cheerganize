@@ -15,10 +15,17 @@ class TableCellTextOutputField extends StatelessWidget {
       child: TextField(
         textAlign: TextAlign.center,
         onSubmitted: onSubmitted,
-        style: BlackPawsTextFieldTableTextStyle,
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'Antonio-VariableFont',
+        ),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: BlackPawsTextFieldTextStyle,
+          hintStyle: TextStyle(
+            color: BasicBlackColor,
+            fontSize: 20.0,
+            fontFamily: 'Antonio-VariableFont',
+          ),
           contentPadding: EdgeInsets.zero,
           border: OutlineInputBorder(
             borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
