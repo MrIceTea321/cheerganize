@@ -225,6 +225,8 @@ class DbInitiator {
     List<CountSheet> countSheetObject = await db.getCountSheetObjects();
     countSheetObject.forEach((sheet) {
       if (sheet.label == countSheetLabel) {
+        print('sheetLabe: ');
+        print(sheet.label);
         relevantCountSheet = CountSheet.buildFromDb(sheet.countsheetid, sheet.bpm,
             sheet.duration, sheet.skills, sheet.label, sheet.musicid);
       }

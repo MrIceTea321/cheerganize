@@ -5,6 +5,7 @@ import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
+import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:cheerganize/screens/AllRoutines.dart';
 import 'package:cheerganize/screens/CountsPlan.dart';
@@ -52,7 +53,7 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
       body: SafeArea(
         child: ListView(
           children: [
-            Expanded(child: SizedBox(height: 40.0)),
+            SizedBox(height: 40.0),
             BlackPawsCircleAvatar(radius: 125.0),
             SizedBox(height: 50.0),
             ConstTextField(

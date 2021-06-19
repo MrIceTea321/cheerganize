@@ -37,9 +37,7 @@ class _CountsPlan extends State<CountsPlan> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -126,7 +124,6 @@ class _CountsPlan extends State<CountsPlan> {
                                 builder: (context) =>
                                     RoutineStatus(
                                       routine: widget.routine,
-                                      countSheet: widget.countSheet,
                                     ),
                               ),
                             );

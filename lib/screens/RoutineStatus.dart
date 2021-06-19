@@ -14,9 +14,9 @@ import 'OverhaulRoutine.dart';
 
 class RoutineStatus extends StatefulWidget {
   final Routine routine;
-  final CountSheet countSheet;
+  final CountSheet countSheet = new CountSheet(0, 0.0, "","");
 
-  RoutineStatus({@required this.routine, @required this.countSheet});
+  RoutineStatus({@required this.routine});
 
   @override
   RoutineStatusState createState() => RoutineStatusState();
@@ -78,15 +78,19 @@ class RoutineStatusState extends State<RoutineStatus> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               BlackPawsCircleAvatar(radius: 125.0),
-              SizedBox(height: 60.0,),
+              SizedBox(
+                height: 60.0,
+              ),
               RoutineButton(
                 text: '8 - Count bearbeiten',
                 onPress: () {
+                  setUpCountSheetObject(widget.countSheet);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => OverhaulCountsPlan(
                         routine: widget.routine,
+                        countSheet: widget.countSheet,
                       ),
                     ),
                   );
@@ -110,7 +114,16 @@ class RoutineStatusState extends State<RoutineStatus> {
     );
   }
 
-
+  void setUpCountSheetObject(CountSheet sheet) async {
+    CountSheet dbSheet =
+        await DbInitiator.db.getCountSheetObjectFromDb(widget.routine.name);
+    sheet.skills = dbSheet.skills;
+    sheet.duration = dbSheet.duration;
+    sheet.musicid = dbSheet.musicid;
+    sheet.bpm = dbSheet.bpm;
+    sheet.countsheetid = dbSheet.countsheetid;
+    sheet.label = dbSheet.label;
+  }
 
   void _delete() async {
     print('tables before delete');
