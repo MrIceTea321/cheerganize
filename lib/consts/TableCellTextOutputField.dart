@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'Constants.dart';
 
 class TableCellTextOutputField extends StatelessWidget {
-  TableCellTextOutputField({@required this.onChanged, @required this.hintText});
+  TableCellTextOutputField({@required this.onSubmitted, @required this.hintText});
 
-  final Function onChanged;
+  final Function onSubmitted;
   final String hintText;
 
   @override
@@ -14,7 +14,7 @@ class TableCellTextOutputField extends StatelessWidget {
       color: BlackPawsColor,
       child: TextField(
         textAlign: TextAlign.center,
-        onSubmitted: onChanged,
+        onSubmitted: onSubmitted,
         style: TextStyle(
           fontSize: 20.0,
           fontFamily: 'Antonio-VariableFont',

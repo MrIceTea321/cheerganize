@@ -28,14 +28,6 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            iconSize: 40.0,
-            color: IconColorWhite,
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, 'Settings');
-            },
-          ),
         ],
         leading: IconButton(
           icon: Icon(Icons.home),
@@ -72,6 +64,7 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
             BigFunctionButton(
               text: 'Routine bearbeitet',
               onPress: () {
+                //DbInitiator.db.getCountSheetObjectFromDb(widget.routine.name);
                 DbInitiator.db.updateRoutineObject(widget.routine);
                 DbInitiator.db.printAll(DbInitiator.TABLE_ROUTINE_NAME);
                 Navigator.pushNamed(context, 'HomeScreen');

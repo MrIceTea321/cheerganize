@@ -41,14 +41,6 @@ class _CountsPlan extends State<CountsPlan> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            iconSize: 40.0,
-            color: IconColorWhite,
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, 'Settings');
-            },
-          ),
         ],
         leading: IconButton(
           icon: Icon(Icons.home),
@@ -212,6 +204,7 @@ class _CountsPlan extends State<CountsPlan> {
         ),
       );
     }
+    print('countTableMap before toString() table: $countTableMap');
     return countTableMap;
   }
 }

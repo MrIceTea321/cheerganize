@@ -21,6 +21,7 @@ class OverhaulCountsPlan extends StatefulWidget {
   final CountSheet countSheet;
   final List<TableRow> countRows = [];
   final Map<int, List<String>> countTableMap = {};
+  int numberIndicator;
 
   @override
   _OverhaulCountsPlan createState() => _OverhaulCountsPlan();
@@ -30,7 +31,9 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
   @override
   void initState() {
     super.initState();
-    getTableRows();
+    var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
+    widget.numberIndicator = rows.toInt();
+    getTableRows(widget.numberIndicator);
   }
 
   @override
@@ -38,16 +41,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            iconSize: 40.0,
-            color: IconColorWhite,
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, 'Settings');
-            },
-          ),
-        ],
+        actions: <Widget>[],
         leading: IconButton(
           icon: Icon(Icons.home),
           color: IconColorWhite,
@@ -82,6 +76,12 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                   Expanded(
                     child: Column(
                       children: [
+                        Text(
+                           'Anzahl der Reihen: ' + widget.numberIndicator
+                          .toString(),
+                            style: BlackPawsTextFieldTextStyle,
+                          ),
+
                         ConstTextField(
                           hintText: 'Bpm: ' + widget.countSheet.bpm.toString(),
                           onChanged: (String value) {
@@ -147,16 +147,21 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     );
   }
 
-  void getTableRows() async {
+  void getTableRows(int numberIndicator) async {
     Map<int, List<String>> oldValuesMap = {};
-    final regex = RegExp(r'[^a-zA-Z,äÄöÖüÜ]+');
-    print('countSheetSkills');
+    final regex = RegExp(r'[^a-zA-Z,äÄöÖüÜ]');
     print(widget.countSheet.skills);
-    String splitString = widget.countSheet.skills.replaceAll(regex, "");
-    print('splitSting: $splitString');
-    List<String> splitList = splitString.split(",");
-    var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
-    int numberIndicator = rows.toInt();
+    String regexString = widget.countSheet.skills.replaceAll(regex, "");
+    print('regexString: $regexString');
+    List<String> splitList = regexString.split(",");
+    List<String> helpList = [];
+    splitList.forEach((element) {
+      helpList.add(element);
+    });
+    helpList.removeWhere((element) => element.isEmpty);
+    print('splitList: $splitList');
+    print('helpList: $helpList');
+
     print('numberIndicator: $numberIndicator');
     for (int i = 0; i < numberIndicator; i++) {
       oldValuesMap[i] = [];
@@ -165,19 +170,27 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
       }
     }
     int start = 0;
-    int end = 8;
-    print('splitList: $splitList');
+    int end = 0;
+    int helperInt = 0;
     for (int key = 0; key < numberIndicator; key++) {
       print('startBefore: $start');
       print('endeBefore: $end');
       print('oldValesMapbeforeUpdate: $oldValuesMap');
+      print('helperIntBeforeUpdate: $helperInt');
+      print('SublistforUpdate: ');
+      print(splitList.sublist(start, end));
+
+      end = start + 8 + helperInt;
       oldValuesMap.update(key, (value) => splitList.sublist(start, end));
-      start = end + 2;
-      end = end + 10;
+      start = end;
+      helperInt = helpList.length ~/ 2;
+
       print('oldValesMapAfterUpdate: $oldValuesMap');
       print('startAfter: $start');
       print('endeAfter: $end');
+      print('helperIntAfterUpdate: $helperInt');
     }
+
     for (int i = 0; i < numberIndicator; i++) {
       widget.countTableMap[i] = [];
       for (int j = 0; j < 8; j++) {
@@ -188,7 +201,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
           children: <Widget>[
             TableCell(
               child: TableCellTextOutputField(
-                onChanged: (String value) {
+                onSubmitted: (String value) {
                   if (value.isEmpty) {
                     widget.countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(0));
@@ -201,7 +214,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onChanged: (String value) {
+                onSubmitted: (String value) {
                   if (value.isEmpty) {
                     widget.countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(1));
@@ -214,7 +227,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onChanged: (String value) {
+                onSubmitted: (String value) {
                   if (value.isEmpty) {
                     widget.countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(2));
@@ -227,7 +240,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onChanged: (String value) {
+                onSubmitted: (String value) {
                   if (value.isEmpty) {
                     widget.countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(3));
@@ -240,7 +253,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onChanged: (String value) {
+                onSubmitted: (String value) {
                   if (value.isEmpty) {
                     widget.countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(4));
@@ -253,7 +266,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onChanged: (String value) {
+                onSubmitted: (String value) {
                   if (value.isEmpty) {
                     widget.countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(5));
@@ -266,7 +279,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onChanged: (String value) {
+                onSubmitted: (String value) {
                   if (value.isEmpty) {
                     widget.countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(6));
@@ -279,7 +292,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                onChanged: (String value) {
+                onSubmitted: (String value) {
                   if (value.isEmpty) {
                     widget.countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(7));

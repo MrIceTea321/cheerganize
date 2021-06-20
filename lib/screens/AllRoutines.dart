@@ -23,14 +23,6 @@ class _AllRoutines extends State<AllRoutines> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            iconSize: 40.0,
-            color: IconColorWhite,
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, 'Settings');
-            },
-          ),
         ],
         leading: IconButton(
           icon: Icon(Icons.home),
