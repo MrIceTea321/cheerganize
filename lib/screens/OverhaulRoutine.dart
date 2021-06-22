@@ -7,22 +7,26 @@ import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
-import 'package:cheerganize/screens/AllRoutines.dart';
-import 'package:cheerganize/screens/CountsPlan.dart';
-import 'package:cheerganize/screens/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OverhaulRoutine extends StatefulWidget {
   final Routine routine;
-
-  const OverhaulRoutine({Key key, this.routine}) : super(key: key);
+  String nameHelper ="";
+   OverhaulRoutine({Key key, this.routine}) : super(key: key);
 
   @override
   _OverhaulRoutine createState() => _OverhaulRoutine();
 }
 
 class _OverhaulRoutine extends State<OverhaulRoutine> {
+
+  @override
+  void initState() {
+    widget.nameHelper = widget.routine.name;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,10 +67,13 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
             SizedBox(height: 40.0),
             BigFunctionButton(
               text: 'Routine bearbeitet',
-              onPress: () {
-                //DbInitiator.db.getCountSheetObjectFromDb(widget.routine.name);
+              onPress: () async {
+                CountSheet sheet = await DbInitiator.db.getCountSheetObjectFromDb(widget.nameHelper);
+                sheet.label = widget.routine.name;
+                DbInitiator.db.updateCountSheetObject(sheet);
                 DbInitiator.db.updateRoutineObject(widget.routine);
                 DbInitiator.db.printAll(DbInitiator.TABLE_ROUTINE_NAME);
+                DbInitiator.db.printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
                 Navigator.pushNamed(context, 'HomeScreen');
               },
               marginLTRB: [10.0, 10.0, 10.0, 10.0],

@@ -8,7 +8,6 @@ import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class CountsPlan extends StatefulWidget {
   CountsPlan({this.routine, this.countSheet});
 
@@ -28,7 +27,8 @@ class _CountsPlan extends State<CountsPlan> {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
-    widget.table = getTableRows(widget.numberIndicator, widget.tableRows,widget.table);
+    widget.table =
+        getTableRows(widget.numberIndicator, widget.tableRows, widget.table);
   }
 
   @override
@@ -137,10 +137,11 @@ class _CountsPlan extends State<CountsPlan> {
                             print('angelegter CountsPlan als String');
                             widget.countSheet.skills = widget.table.toString();
                             print(widget.countSheet.skills);
-                            DbInitiator.db.updateCountSheetObject(widget.countSheet);
-                            DbInitiator.db.printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
-                            Navigator.pushNamed(context,"HomeScreen");
-                          
+                            DbInitiator.db
+                                .updateCountSheetObject(widget.countSheet);
+                            DbInitiator.db
+                                .printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
+                            Navigator.pushNamed(context, "HomeScreen");
                           },
                         ),
                       ],
@@ -168,7 +169,7 @@ class _CountsPlan extends State<CountsPlan> {
   }
 
   Map<int, List<String>> getTableRows(int numberIndicator,
-      List<TableRow> countRows,Map<int, List<String>> countTableMap) {
+      List<TableRow> countRows, Map<int, List<String>> countTableMap) {
     for (int i = 0; i < numberIndicator; i++) {
       countTableMap[i] = [];
       for (int j = 0; j < 8; j++) {
@@ -232,6 +233,5 @@ class _CountsPlan extends State<CountsPlan> {
       );
     }
     return countTableMap;
-    
   }
 }

@@ -14,7 +14,7 @@ import 'OverhaulRoutine.dart';
 
 class RoutineStatus extends StatefulWidget {
   final Routine routine;
-  final CountSheet countSheet = new CountSheet(0, 0.0, "","");
+  CountSheet countSheet = new CountSheet(0, 0.0, "", "");
 
   RoutineStatus({@required this.routine});
 
@@ -84,7 +84,9 @@ class RoutineStatusState extends State<RoutineStatus> {
               RoutineButton(
                 text: '8 - Count bearbeiten',
                 onPress: () {
-                  setUpCountSheetObject(widget.countSheet);
+                  setUpCountSheetObject();
+                  print('widget.countSheet after update for push');
+                  print(widget.countSheet);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -114,17 +116,21 @@ class RoutineStatusState extends State<RoutineStatus> {
     );
   }
 
-  void setUpCountSheetObject(CountSheet sheet) async {
+  void setUpCountSheetObject() async {
     CountSheet dbSheet =
-        await DbInitiator.db.getCountSheetObjectFromDb(widget.routine.name);
-    sheet.skills = dbSheet.skills;
-    sheet.duration = dbSheet.duration;
-    sheet.musicid = dbSheet.musicid;
-    sheet.bpm = dbSheet.bpm;
-    sheet.countsheetid = dbSheet.countsheetid;
-    sheet.label = dbSheet.label;
-    print('countSheetObject: ');
-    print(sheet);
+        await DbInitiator.db.getCountSheetObjectFromDb(widget.countSheet.label);
+
+    print('countSheet label');
+    print(widget.countSheet.label);
+    print(widget.routine.name);
+    widget.countSheet.skills = dbSheet.skills;
+    widget.countSheet.duration = dbSheet.duration;
+    widget.countSheet.musicid = dbSheet.musicid;
+    widget.countSheet.bpm = dbSheet.bpm;
+    widget.countSheet.countsheetid = dbSheet.countsheetid;
+    widget.countSheet.label = dbSheet.label;
+    print('**************************');
+    print(widget.countSheet);
   }
 
   void _delete() async {
