@@ -55,13 +55,13 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
             ConstTextField(
               hintText: 'Neuer Name',
               onChanged: (String value) {
-                widget.routine.name = value;
+                widget.routine.name = '"' + value + '"';
               },
             ),
             ConstTextField(
               hintText: 'Neue Kategorie',
               onChanged: (String value) {
-                widget.routine.typeofsport = value;
+                widget.routine.typeofsport = '"' + value + '"';
               },
             ),
             SizedBox(height: 40.0),

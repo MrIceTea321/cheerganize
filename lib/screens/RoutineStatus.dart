@@ -23,6 +23,13 @@ class RoutineStatus extends StatefulWidget {
 }
 
 class RoutineStatusState extends State<RoutineStatus> {
+
+  @override
+  void initState() {
+    setUpCountSheetObject();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +91,7 @@ class RoutineStatusState extends State<RoutineStatus> {
               RoutineButton(
                 text: '8 - Count bearbeiten',
                 onPress: () {
-                  setUpCountSheetObject();
+                  
                   print('widget.countSheet after update for push');
                   print(widget.countSheet);
                   Navigator.push(
@@ -117,18 +124,16 @@ class RoutineStatusState extends State<RoutineStatus> {
   }
 
   void setUpCountSheetObject() async {
+  
     CountSheet dbSheet =
-        await DbInitiator.db.getCountSheetObjectFromDb(widget.countSheet.label);
+        await DbInitiator.db.getCountSheetObjectFromDb(widget.routine.name);
 
-    print('countSheet label');
-    print(widget.countSheet.label);
-    print(widget.routine.name);
     widget.countSheet.skills = dbSheet.skills;
     widget.countSheet.duration = dbSheet.duration;
     widget.countSheet.musicid = dbSheet.musicid;
     widget.countSheet.bpm = dbSheet.bpm;
     widget.countSheet.countsheetid = dbSheet.countsheetid;
-    widget.countSheet.label = dbSheet.label;
+    widget.countSheet.label = widget.routine.name;
     print('**************************');
     print(widget.countSheet);
   }

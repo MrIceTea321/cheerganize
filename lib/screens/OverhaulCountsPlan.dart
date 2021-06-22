@@ -8,7 +8,6 @@ import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class OverhaulCountsPlan extends StatefulWidget {
   OverhaulCountsPlan({@required this.routine, @required this.countSheet});
 
@@ -16,7 +15,7 @@ class OverhaulCountsPlan extends StatefulWidget {
   final CountSheet countSheet;
   final List<TableRow> countRows = [];
   final Map<int, List<String>> countTableMap = {};
-    Map<int, List<String>> table = {};
+  Map<int, List<String>> table = {};
 
   int numberIndicator;
 
@@ -30,7 +29,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
-    widget.table = getTableRows(widget.numberIndicator ,widget.countTableMap);
+    widget.table = getTableRows(widget.numberIndicator, widget.countTableMap);
   }
 
   @override
@@ -74,11 +73,10 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                     child: Column(
                       children: [
                         Text(
-                           'Anzahl der Reihen: ' + widget.numberIndicator
-                          .toString(),
-                            style: BlackPawsTextFieldTextStyle,
-                          ),
-
+                          'Anzahl der Reihen: ' +
+                              widget.numberIndicator.toString(),
+                          style: BlackPawsTextFieldTextStyle,
+                        ),
                         ConstTextField(
                           hintText: 'Bpm: ' + widget.countSheet.bpm.toString(),
                           onChanged: (String value) {
@@ -144,7 +142,8 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     );
   }
 
-   Map<int, List<String>> getTableRows(int numberIndicator, Map<int, List<String>> countTableMap) {
+  Map<int, List<String>> getTableRows(
+      int numberIndicator, Map<int, List<String>> countTableMap) {
     Map<int, List<String>> oldValuesMap = {};
     final regex = RegExp(r'[^a-zA-Z,äÄöÖüÜ]');
     print('countSheet skills in getTable method');
@@ -178,7 +177,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
       print('SublistforUpdate: ');
       print(splitList.sublist(start, end));
 
-      end = start + 8 + helperInt;
+      end = start + 8;
       oldValuesMap.update(key, (value) => splitList.sublist(start, end));
       start = end;
       helperInt = helpList.length ~/ 2;
@@ -192,7 +191,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     for (int i = 0; i < numberIndicator; i++) {
       countTableMap[i] = [];
       for (int j = 0; j < 8; j++) {
-       countTableMap.values.elementAt(i).insert(j, "");
+        countTableMap.values.elementAt(i).insert(j, "");
       }
       widget.countRows.add(
         TableRow(
@@ -200,7 +199,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value.isEmpty) {
+                  if (value=="") {
                     countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(0));
                   } else {
@@ -292,7 +291,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
                   if (value.isEmpty) {
-                   countTableMap.values.elementAt(i).insert(
+                    countTableMap.values.elementAt(i).insert(
                         7, oldValuesMap.values.elementAt(i).elementAt(7));
                   } else {
                     countTableMap.values.elementAt(i).insert(7, value);
