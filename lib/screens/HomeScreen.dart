@@ -26,14 +26,7 @@ class _HomeScreen extends State<HomeScreen> {
           style: BlackPawsAppBarTextStyle,
         ),
         actions: <Widget>[
-          IconButton(
-            iconSize: 40.0,
-            color: IconColorWhite,
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, 'Settings');
-            },
-          ),
+        
         ],
       ),
       body: Center(

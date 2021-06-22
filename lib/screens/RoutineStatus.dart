@@ -123,6 +123,8 @@ class RoutineStatusState extends State<RoutineStatus> {
     sheet.bpm = dbSheet.bpm;
     sheet.countsheetid = dbSheet.countsheetid;
     sheet.label = dbSheet.label;
+    print('countSheetObject: ');
+    print(sheet);
   }
 
   void _delete() async {

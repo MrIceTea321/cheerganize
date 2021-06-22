@@ -268,6 +268,8 @@ class DbInitiator {
   }
 
   Future<int> updateCountSheetObject(CountSheet countSheet) async {
+    print('countSheetOBjecti n update methode');
+    print(countSheet);
     Database db = await instance.database;
     return await db.update(TABLE_COUNT_SHEET_NAME, countSheet.toMapWithoutId(),
         where: 'countsheetid =?', whereArgs: [countSheet.countsheetid]);

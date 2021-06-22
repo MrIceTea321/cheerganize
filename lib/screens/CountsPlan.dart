@@ -4,14 +4,10 @@ import 'package:cheerganize/consts/TableCellTextField.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
-import 'package:cheerganize/screens/FormationScreen.dart';
-import 'package:cheerganize/screens/HomeScreen.dart';
-import 'package:cheerganize/screens/RoutineStatus.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'OverhaulCountsPlan.dart';
 
 class CountsPlan extends StatefulWidget {
   CountsPlan({this.routine, this.countSheet});
@@ -20,6 +16,7 @@ class CountsPlan extends StatefulWidget {
   final CountSheet countSheet;
   List<TableRow> tableRows = [];
   Map<int, List<String>> table = {};
+  int numberIndicator;
 
   @override
   _CountsPlan createState() => _CountsPlan();
@@ -30,9 +27,8 @@ class _CountsPlan extends State<CountsPlan> {
   void initState() {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
-    int numberIndicator = rows.toInt();
-    widget.table = getTableRows(numberIndicator, widget.tableRows, widget
-        .table);
+    widget.numberIndicator = rows.toInt();
+    widget.table = getTableRows(widget.numberIndicator, widget.tableRows,widget.table);
   }
 
   @override
@@ -40,8 +36,7 @@ class _CountsPlan extends State<CountsPlan> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-        ],
+        actions: <Widget>[],
         leading: IconButton(
           icon: Icon(Icons.home),
           color: IconColorWhite,
@@ -76,6 +71,37 @@ class _CountsPlan extends State<CountsPlan> {
                   Expanded(
                     child: Column(
                       children: [
+                        Container(
+                          padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
+                          child: TextField(
+                            readOnly: true,
+                            textAlign: TextAlign.center,
+                            style: BlackPawsTextFieldTextStyle,
+                            decoration: InputDecoration(
+                              hintText: 'Anzahl der Reihen: ' +
+                                  widget.numberIndicator.toString(),
+                              hintStyle: BlackPawsTextFieldTextStyle,
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 20.0),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32.0)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: BlackPawsColor, width: 1.0),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32.0)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: BlackPawsColor, width: 2.0),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32.0)),
+                              ),
+                            ),
+                          ),
+                        ),
                         Text(
                           'Bpm: ' + widget.countSheet.bpm.toString(),
                           style: BlackPawsTextFieldTextStyle,
@@ -108,11 +134,13 @@ class _CountsPlan extends State<CountsPlan> {
                             ),
                           ),
                           onPressed: () async {
-                            widget.countSheet.skills = widget.table.toString();
                             print('angelegter CountsPlan als String');
-                            print(widget.table.toString());
+                            widget.countSheet.skills = widget.table.toString();
+                            print(widget.countSheet.skills);
                             DbInitiator.db.updateCountSheetObject(widget.countSheet);
+                            DbInitiator.db.printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
                             Navigator.pushNamed(context,"HomeScreen");
+                          
                           },
                         ),
                       ],
@@ -140,7 +168,7 @@ class _CountsPlan extends State<CountsPlan> {
   }
 
   Map<int, List<String>> getTableRows(int numberIndicator,
-      List<TableRow>countRows, Map<int, List<String>> countTableMap) {
+      List<TableRow> countRows,Map<int, List<String>> countTableMap) {
     for (int i = 0; i < numberIndicator; i++) {
       countTableMap[i] = [];
       for (int j = 0; j < 8; j++) {
@@ -164,8 +192,7 @@ class _CountsPlan extends State<CountsPlan> {
               ),
             ),
             TableCell(
-              child: TableCellTextField(
-                  onChanged: (String value) {
+              child: TableCellTextField(onChanged: (String value) {
                 countTableMap.values.elementAt(i).insert(2, value);
               }),
             ),
@@ -204,7 +231,7 @@ class _CountsPlan extends State<CountsPlan> {
         ),
       );
     }
-    print('countTableMap before toString() table: $countTableMap');
     return countTableMap;
+    
   }
 }

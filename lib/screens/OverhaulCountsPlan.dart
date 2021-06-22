@@ -1,18 +1,13 @@
-import 'dart:convert';
-
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
-import 'package:cheerganize/consts/TableCellTextField.dart';
 import 'package:cheerganize/consts/TableCellTextOutputField.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
 import 'package:cheerganize/database/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 
-import 'RoutineStatus.dart';
 
 class OverhaulCountsPlan extends StatefulWidget {
   OverhaulCountsPlan({@required this.routine, @required this.countSheet});

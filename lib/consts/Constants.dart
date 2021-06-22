@@ -31,7 +31,7 @@ const BlackPawsTextFieldTableTextStyle = TextStyle(
   fontFamily: 'Antonio-VariableFont',
 );
 
-const BlackPawsColor = Color(0xffb6a24f);
+const BlackPawsColor = Color(0xffF7C824);
 
 const IconColorWhite = Colors.white70;
 
