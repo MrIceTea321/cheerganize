@@ -1,6 +1,7 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
+import 'package:cheerganize/consts/RoundedContainer.dart';
 import 'package:cheerganize/consts/TableCellTextOutputField.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
@@ -72,11 +73,9 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                   Expanded(
                     child: Column(
                       children: [
-                        Text(
-                          'Anzahl der Reihen: ' +
-                              widget.numberIndicator.toString(),
-                          style: BlackPawsTextFieldTextStyle,
-                        ),
+                        RoundedContainer(
+                            prefix: 'Anzahl der Reihen: ',
+                            suffix: widget.numberIndicator.toString()),
                         ConstTextField(
                           hintText: 'Bpm: ' + widget.countSheet.bpm.toString(),
                           onChanged: (String value) {
@@ -199,7 +198,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value=="") {
+                  if (value == "") {
                     countTableMap.values.elementAt(i).insert(
                         0, oldValuesMap.values.elementAt(i).elementAt(0));
                   } else {

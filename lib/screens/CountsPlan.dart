@@ -1,5 +1,6 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/Constants.dart';
+import 'package:cheerganize/consts/RoundedContainer.dart';
 import 'package:cheerganize/consts/TableCellTextField.dart';
 import 'package:cheerganize/database/DbInitiator.dart';
 import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
@@ -71,41 +72,12 @@ class _CountsPlan extends State<CountsPlan> {
                   Expanded(
                     child: Column(
                       children: [
-                        Container(
-                          padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
-                          child: TextField(
-                            readOnly: true,
-                            textAlign: TextAlign.center,
-                            style: BlackPawsTextFieldTextStyle,
-                            decoration: InputDecoration(
-                              hintText: 'Anzahl der Reihen: ' +
-                                  widget.numberIndicator.toString(),
-                              hintStyle: BlackPawsTextFieldTextStyle,
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 20.0),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(32.0)),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: BlackPawsColor, width: 1.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(32.0)),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: BlackPawsColor, width: 2.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(32.0)),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'Bpm: ' + widget.countSheet.bpm.toString(),
-                          style: BlackPawsTextFieldTextStyle,
-                        ),
+                        RoundedContainer(
+                            prefix: 'Anzahl der Reihen: ',
+                            suffix: widget.numberIndicator.toString()),
+                        RoundedContainer(
+                            prefix: 'Bpm: ',
+                            suffix: widget.countSheet.bpm.toString()),
                         SizedBox(
                           height: 10.0,
                         ),
