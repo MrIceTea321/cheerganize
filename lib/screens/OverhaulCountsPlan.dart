@@ -1,11 +1,11 @@
-import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:cheerganize/consts/ConstTextField.dart';
-import 'package:cheerganize/consts/Constants.dart';
-import 'package:cheerganize/consts/RoundedContainer.dart';
-import 'package:cheerganize/consts/TableCellTextOutputField.dart';
-import 'package:cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
-import 'package:cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
-import 'package:cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/ConstTextField.dart';
+import 'package:Cheerganize/consts/Constants.dart';
+import 'package:Cheerganize/consts/RoundedContainer.dart';
+import 'package:Cheerganize/consts/TableCellTextOutputField.dart';
+import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -141,7 +141,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
 
   Map<int, List<String>> getTableRows(
       int numberIndicator, Map<int, List<String>> countTableMap) {
-    Map<int, List<String>> oldValuesMap = {};
+    Map<String, List<String>> oldValuesMap = {};
 
     for (int i = 0; i < numberIndicator; i++) {
       countTableMap[i] = [];

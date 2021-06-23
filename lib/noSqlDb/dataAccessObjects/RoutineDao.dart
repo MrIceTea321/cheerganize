@@ -1,6 +1,7 @@
-import 'package:cheerganize/noSqlDb/AppDatabase.dart';
-import 'package:cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:sembast/sembast.dart';
+
+import '../DbInitiator.dart';
 
 class RoutineDao {
   static const String ROUTINE_STORE_NAME = 'routine';

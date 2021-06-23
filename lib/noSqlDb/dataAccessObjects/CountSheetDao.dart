@@ -1,5 +1,5 @@
-import 'package:cheerganize/noSqlDb/AppDatabase.dart';
-import 'package:cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/noSqlDb/DbInitiator.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:sembast/sembast.dart';
 
 class CountSheetDao {
@@ -16,10 +16,10 @@ class CountSheetDao {
     await _countSheetStore.add(await _db, countSheet.toMap());
   }
 
-  // Get a countSheet by name
+  // Get a countSheet by id
   Future<CountSheet> getCountSheet(int id) async {
     var map = await _countSheetStore.record(id).get(await _db);
-    return map == null ? null : CountSheet.buildFromMap(map);
+    return map == null ? null : CountSheet.buildFromDb(map);
   }
 
   Future update(CountSheet countSheet) async {
@@ -54,7 +54,7 @@ class CountSheetDao {
 
     // Making a List<Fruit> out of List<RecordSnapshot>
     return recordSnapshots.map((snapshot) {
-      final countSheet = CountSheet.buildFromMap(snapshot.value);
+      final countSheet = CountSheet.buildFromDb(snapshot.value);
       // An ID is a key of a record from the database.
       countSheet.id = snapshot.key;
       return countSheet;

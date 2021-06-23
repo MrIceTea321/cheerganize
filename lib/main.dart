@@ -1,9 +1,9 @@
-import 'package:cheerganize/noSqlDb/AppDatabase.dart';
-import 'package:cheerganize/screens/AllRoutines.dart';
-import 'package:cheerganize/screens/CountsPlan.dart';
-import 'package:cheerganize/screens/NewRoutine.dart';
+import 'package:Cheerganize/screens/AllRoutines.dart';
+import 'package:Cheerganize/screens/NewRoutine.dart';
 import 'package:flutter/material.dart';
 import 'consts/Constants.dart';
+import 'noSqlDb/DbInitiator.dart';
+import 'screens/CountsPlan.dart';
 import 'screens/HomeScreen.dart';
 import 'screens/Settings.dart';
 
@@ -19,6 +19,7 @@ class Cheerganize extends StatefulWidget {
 class _Cheerganize extends State<Cheerganize> {
   @override
   void initState() {
+    super.initState();
     AppDatabase.instance;
   }
 

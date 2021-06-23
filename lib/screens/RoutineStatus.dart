@@ -1,15 +1,15 @@
+import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/Constants.dart';
+import 'package:Cheerganize/consts/buttons/RoutineButton.dart';
+import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:cheerganize/consts/Constants.dart';
-import 'package:cheerganize/consts/buttons/RoutineButton.dart';
-import 'package:cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
-import 'package:cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
-import 'package:cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
-import 'package:cheerganize/noSqlDb/databaseObjects/Routine.dart';
-import 'package:cheerganize/screens/OverhaulCountsPlan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'OverhaulCountsPlan.dart';
 import 'OverhaulRoutine.dart';
 
 class RoutineStatus extends StatefulWidget {

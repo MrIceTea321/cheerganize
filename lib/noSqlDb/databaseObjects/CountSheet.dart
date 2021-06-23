@@ -44,7 +44,7 @@ class CountSheet {
     return map;
   }
 
-  static CountSheet buildFromMap(Map<String, dynamic> map) {
+  static CountSheet buildFromDb(Map<String, dynamic> map) {
     return CountSheet(
         bpm: map['bpm'],
         duration: map['duration'],
