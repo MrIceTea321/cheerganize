@@ -39,4 +39,9 @@ class Routine {
     map['typeofsport'] = typeofsport;
     return map;
   }
+
+  @override
+  String toString() {
+    return 'Routine{id: $id, name: $name, typeOfSport: $typeofsport}';
+  }
 }

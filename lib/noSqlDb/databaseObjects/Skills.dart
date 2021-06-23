@@ -28,4 +28,9 @@ class Skills {
   void setSkills(List<Skill> skillList) {
     skillRow = skillList;
   }
+
+  @override
+  String toString() {
+    return 'Skills{id: $id, skillRow: $skillRow}';
+  }
 }

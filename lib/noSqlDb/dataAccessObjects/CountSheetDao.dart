@@ -17,9 +17,27 @@ class CountSheetDao {
   }
 
   // Get a countSheet by id
-  Future<CountSheet> getCountSheet(int id) async {
+  Future<CountSheet> getCountSheetById(int id) async {
     var map = await _countSheetStore.record(id).get(await _db);
     return map == null ? null : CountSheet.fromMap(map);
+  }
+
+  // Get a countSheet by name
+  Future<CountSheet> getCountSheet(String name) async {
+    final finder = Finder(filter: Filter.equals('name', name));
+    final recordSnapshots = await _countSheetStore.find(
+      await _db,
+      finder: finder,
+    );
+
+    return recordSnapshots
+        .map((snapshot) => new CountSheet(
+            id: snapshot.key,
+            tableList: snapshot.value.entries.elementAt(1).value,
+            name: snapshot.value.entries.elementAt(2).value,
+            bpm: snapshot.value.entries.elementAt(3).value,
+            duration: snapshot.value.entries.elementAt(4).value))
+        .single;
   }
 
   Future update(CountSheet countSheet) async {

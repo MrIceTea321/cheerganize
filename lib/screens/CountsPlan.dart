@@ -107,7 +107,9 @@ class _CountsPlan extends State<CountsPlan> {
                             ),
                           ),
                           onPressed: () async {
-                            widget.table = widget.countSheet.tableList;
+                            widget.countSheet.tableList = widget.table;
+                            print('widget countsheet for update');
+                            print(widget.countSheet);
                             CountSheetDao().update(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
@@ -138,11 +140,14 @@ class _CountsPlan extends State<CountsPlan> {
 
   List<Skills> getTableRows(
       int numberIndicator, List<TableRow> countRows, List<Skills> skillsList) {
+    skillsList = new List.generate(
+        numberIndicator,
+        (index) => new Skills.build(
+            index.toString(),
+            new List.generate(
+                8, (index) => new Skill.build(index.toString(), ""))));
+
     for (int i = 0; i < numberIndicator; i++) {
-      skillsList = new List.generate(
-          numberIndicator,
-          (index) => new Skills.build(numberIndicator.toString(),
-              new List.generate(8, (index) => new Skill())));
       countRows.add(
         TableRow(
           children: <Widget>[
@@ -200,6 +205,8 @@ class _CountsPlan extends State<CountsPlan> {
         ),
       );
     }
+    print('**************** skills List *****************');
+    print(skillsList);
     return skillsList;
   }
 }

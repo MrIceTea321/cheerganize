@@ -13,15 +13,15 @@ import 'package:flutter/material.dart';
 import 'CountsPlan.dart';
 
 class NewRoutine extends StatefulWidget {
+  Routine routine = new Routine(name: "", typeofsport: "");
+  CountSheet countSheet =
+      new CountSheet(bpm: 0, tableList: [], name: '', duration: 0.0);
+
   @override
   _NewRoutine createState() => _NewRoutine();
 }
 
 class _NewRoutine extends State<NewRoutine> {
-  Routine routine = new Routine(name: "", typeofsport: "");
-  CountSheet countSheet =
-      new CountSheet(bpm: 0, tableList: [], name: '', duration: 0.0);
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -50,39 +50,42 @@ class _NewRoutine extends State<NewRoutine> {
           ConstTextField(
             hintText: 'Name der Routine',
             onChanged: (String value) {
-              routine.name = '"' + value + '"';
+              widget.routine.name = '"' + value + '"';
             },
           ),
           ConstTextField(
             hintText: 'Kategorie',
             onChanged: (String value) {
-              routine.typeofsport = '"' + value + '"';
+              widget.routine.typeofsport = '"' + value + '"';
             },
           ),
           ConstTextField(
             hintText: 'Bpm: z.B. 150',
             onChanged: (String value) {
-              countSheet.bpm = int.parse(value);
+              widget.countSheet.bpm = int.parse(value);
             },
           ),
           ConstTextField(
             hintText: 'Dauer der Routine in Minuten: z.B. 1.45',
             onChanged: (String value) {
-              countSheet.duration = double.parse(value);
+              widget.countSheet.duration = double.parse(value);
             },
           ),
           BigFunctionButton(
             text: '8 - Counts Planung',
             onPress: () {
-              countSheet.name = routine.name;
-              CountSheetDao().insert(countSheet);
-              RoutineDao().insert(routine);
+              widget.countSheet.name = widget.routine.name;
+              print('NewRoutineValues: ');
+              print(widget.countSheet);
+              print(widget.routine);
+              CountSheetDao().insert(widget.countSheet);
+              RoutineDao().insert(widget.routine);
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CountsPlan(
-                    routine: routine,
-                    countSheet: countSheet,
+                    routine: widget.routine,
+                    countSheet: widget.countSheet,
                   ),
                 ),
               );
@@ -92,29 +95,5 @@ class _NewRoutine extends State<NewRoutine> {
         ],
       ),
     );
-  }
-
-  Routine buildRoutineObject(String name, String typeOfSport) {
-    if (name == null) {
-      name = 'kein Name angegeben';
-    }
-    if (typeOfSport == null) {
-      typeOfSport = 'keine Kategorie angegeben';
-    }
-    return new Routine(name: name, typeofsport: typeOfSport);
-  }
-
-  CountSheet buildCountSheetObject(int bpm, double duration, String label) {
-    if (bpm == null) {
-      bpm = 1;
-    } else {
-      bpm = bpm;
-    }
-    if (duration == null) {
-      duration = 1;
-    } else {
-      duration = duration;
-    }
-    return new CountSheet(tableList: [], name: '', bpm: 0, duration: 0.0);
   }
 }

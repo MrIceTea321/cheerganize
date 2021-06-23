@@ -38,4 +38,9 @@ class CountSheet {
         bpm: map['bpm'],
         duration: map['duration']);
   }
+
+  @override
+  String toString() {
+    return 'CountSheet{id: $id, tableList: $tableList, name: $name, bpm: $bpm, duration: $duration}';
+  }
 }

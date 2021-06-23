@@ -43,11 +43,11 @@ class _AllRoutines extends State<AllRoutines> {
               height: 20.0,
             ),
             BlackPawsCircleAvatar(
-              radius: 100.0,
+              radius: 125.0,
             ),
             SizedBox(
               height: 40.0,
-              width: 325.0,
+              width: 375.0,
               child: Divider(
                 thickness: 0.5,
                 color: BlackPawsColor,

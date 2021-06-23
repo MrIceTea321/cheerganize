@@ -31,8 +31,6 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
-    widget.table = getTableRows(widget.numberIndicator, widget.tableRows,
-        widget.table, widget.oldTable);
   }
 
   @override
@@ -111,8 +109,12 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                               ),
                             ),
                           ),
-                          onPressed: () {
-                            widget.countSheet.tableList = widget.table;
+                          onPressed: () async {
+                            widget.countSheet.tableList = await getTableRows(
+                                widget.numberIndicator,
+                                widget.tableRows,
+                                widget.table,
+                                widget.oldTable);
                             CountSheetDao().update(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
@@ -141,16 +143,23 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     );
   }
 
-  List<Skills> getTableRows(int numberIndicator, List<TableRow> countRows,
-      List<Skills> skillsList, List<Skills> oldValues) {
-    print('oldValuesTableList');
-    print(widget.countSheet.tableList);
+  Future<List<Skills>> getTableRows(
+      int numberIndicator,
+      List<TableRow> countRows,
+      List<Skills> skillsList,
+      List<Skills> oldValues) async {
+    CountSheet oldSheet =
+        await CountSheetDao().getCountSheet(widget.routine.name);
+    oldValues = oldSheet.tableList;
+    skillsList = new List.generate(
+        numberIndicator,
+        (index) => new Skills.build(
+            index.toString(),
+            new List.generate(
+                8, (index) => new Skill.build(index.toString(), ""))));
+
     oldValues = widget.countSheet.tableList;
     for (int i = 0; i < numberIndicator; i++) {
-      skillsList = new List.generate(
-          numberIndicator,
-          (index) => new Skills.build(numberIndicator.toString(),
-              new List.generate(8, (index) => new Skill())));
       countRows.add(
         TableRow(
           children: <Widget>[

@@ -1,8 +1,12 @@
 class Skill {
-  final String id;
+  String id;
   String skill;
 
   Skill({this.id, this.skill});
+  Skill.build(String id, String skill) {
+    this.id = id;
+    this.skill = skill;
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -20,5 +24,10 @@ class Skill {
 
   void setSkill(String value) {
     skill = value;
+  }
+
+  @override
+  String toString() {
+    return 'Skill{id: $id, skillRow: $skill}';
   }
 }

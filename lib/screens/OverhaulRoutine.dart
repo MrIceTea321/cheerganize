@@ -69,7 +69,7 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
               text: 'Routine bearbeitet',
               onPress: () async {
                 CountSheet sheet =
-                    await CountSheetDao().getCountSheet(widget.routine.id);
+                    await CountSheetDao().getCountSheet(widget.nameHelper);
                 sheet.name = widget.routine.name;
                 RoutineDao().update(widget.routine);
                 Navigator.pushNamed(context, 'HomeScreen');
