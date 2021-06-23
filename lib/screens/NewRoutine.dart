@@ -20,7 +20,7 @@ class NewRoutine extends StatefulWidget {
 class _NewRoutine extends State<NewRoutine> {
   Routine routine = new Routine(name: "", typeofsport: "");
   CountSheet countSheet =
-      new CountSheet(bpm: 0, skills: {}, name: '', duration: 0.0);
+      new CountSheet(bpm: 0, tableList: [], name: '', duration: 0.0);
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +115,6 @@ class _NewRoutine extends State<NewRoutine> {
     } else {
       duration = duration;
     }
-    return new CountSheet(skills: {}, name: "", bpm: 0, duration: 0.0);
+    return new CountSheet(tableList: [], name: '', bpm: 0, duration: 0.0);
   }
 }

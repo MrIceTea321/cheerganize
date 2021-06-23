@@ -6,6 +6,8 @@ import 'package:Cheerganize/consts/TableCellTextOutputField.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Skill.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Skills.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +16,9 @@ class OverhaulCountsPlan extends StatefulWidget {
 
   final Routine routine;
   final CountSheet countSheet;
-  final List<TableRow> countRows = [];
-  final Map<int, List<String>> countTableMap = {};
-  Map<int, List<String>> table = {};
-
+  List<TableRow> tableRows = [];
+  List<Skills> table = [];
+  List<Skills> oldTable;
   int numberIndicator;
 
   @override
@@ -30,7 +31,8 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
-    widget.table = getTableRows(widget.numberIndicator, widget.countTableMap);
+    widget.table = getTableRows(widget.numberIndicator, widget.tableRows,
+        widget.table, widget.oldTable);
   }
 
   @override
@@ -110,7 +112,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            widget.countSheet.skills = widget.table;
+                            widget.countSheet.tableList = widget.table;
                             CountSheetDao().update(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
@@ -130,7 +132,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
               Table(
                 border: TableBorder.all(color: BasicBlackColor, width: 2.0),
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: widget.countRows,
+                children: widget.tableRows,
               ),
             ],
           ),
@@ -139,126 +141,87 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     );
   }
 
-  Map<int, List<String>> getTableRows(
-      int numberIndicator, Map<int, List<String>> countTableMap) {
-    Map<String, List<String>> oldValuesMap = {};
-
+  List<Skills> getTableRows(int numberIndicator, List<TableRow> countRows,
+      List<Skills> skillsList, List<Skills> oldValues) {
+    print('oldValuesTableList');
+    print(widget.countSheet.tableList);
+    oldValues = widget.countSheet.tableList;
     for (int i = 0; i < numberIndicator; i++) {
-      countTableMap[i] = [];
-      for (int j = 0; j < 8; j++) {
-        countTableMap.values.elementAt(i).insert(j, "");
-      }
-      widget.countRows.add(
+      skillsList = new List.generate(
+          numberIndicator,
+          (index) => new Skills.build(numberIndicator.toString(),
+              new List.generate(8, (index) => new Skill())));
+      countRows.add(
         TableRow(
           children: <Widget>[
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value == "") {
-                    countTableMap.values.elementAt(i).insert(
-                        0, oldValuesMap.values.elementAt(i).elementAt(0));
-                  } else {
-                    countTableMap.values.elementAt(i).insert(0, value);
-                  }
+                  skillsList.elementAt(i).skillRow.elementAt(0).setSkill(value);
                 },
-                hintText: oldValuesMap.values.elementAt(i).elementAt(0),
+                hintText: oldValues.elementAt(i).skillRow.elementAt(0).skill,
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value.isEmpty) {
-                    countTableMap.values.elementAt(i).insert(
-                        1, oldValuesMap.values.elementAt(i).elementAt(1));
-                  } else {
-                    countTableMap.values.elementAt(i).insert(1, value);
-                  }
+                  skillsList.elementAt(i).skillRow.elementAt(1).setSkill(value);
                 },
-                hintText: oldValuesMap.values.elementAt(i).elementAt(1),
+                hintText: oldValues.elementAt(i).skillRow.elementAt(1).skill,
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value.isEmpty) {
-                    countTableMap.values.elementAt(i).insert(
-                        2, oldValuesMap.values.elementAt(i).elementAt(2));
-                  } else {
-                    countTableMap.values.elementAt(i).insert(2, value);
-                  }
+                  skillsList.elementAt(i).skillRow.elementAt(2).setSkill(value);
                 },
-                hintText: oldValuesMap.values.elementAt(i).elementAt(2),
+                hintText: oldValues.elementAt(i).skillRow.elementAt(2).skill,
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value.isEmpty) {
-                    countTableMap.values.elementAt(i).insert(
-                        3, oldValuesMap.values.elementAt(i).elementAt(3));
-                  } else {
-                    countTableMap.values.elementAt(i).insert(3, value);
-                  }
+                  skillsList.elementAt(i).skillRow.elementAt(3).setSkill(value);
                 },
-                hintText: oldValuesMap.values.elementAt(i).elementAt(3),
+                hintText: oldValues.elementAt(i).skillRow.elementAt(3).skill,
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value.isEmpty) {
-                    countTableMap.values.elementAt(i).insert(
-                        4, oldValuesMap.values.elementAt(i).elementAt(4));
-                  } else {
-                    countTableMap.values.elementAt(i).insert(4, value);
-                  }
+                  skillsList.elementAt(i).skillRow.elementAt(4).setSkill(value);
                 },
-                hintText: oldValuesMap.values.elementAt(i).elementAt(4),
+                hintText: oldValues.elementAt(i).skillRow.elementAt(4).skill,
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value.isEmpty) {
-                    countTableMap.values.elementAt(i).insert(
-                        5, oldValuesMap.values.elementAt(i).elementAt(5));
-                  } else {
-                    countTableMap.values.elementAt(i).insert(5, value);
-                  }
+                  skillsList.elementAt(i).skillRow.elementAt(5).setSkill(value);
                 },
-                hintText: oldValuesMap.values.elementAt(i).elementAt(5),
+                hintText: oldValues.elementAt(i).skillRow.elementAt(5).skill,
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value.isEmpty) {
-                    countTableMap.values.elementAt(i).insert(
-                        6, oldValuesMap.values.elementAt(i).elementAt(6));
-                  } else {
-                    widget.countTableMap.values.elementAt(i).insert(6, value);
-                  }
+                  skillsList.elementAt(i).skillRow.elementAt(6).setSkill(value);
                 },
-                hintText: oldValuesMap.values.elementAt(i).elementAt(6),
+                hintText: oldValues.elementAt(i).skillRow.elementAt(6).skill,
               ),
             ),
             TableCell(
               child: TableCellTextOutputField(
                 onSubmitted: (String value) {
-                  if (value.isEmpty) {
-                    countTableMap.values.elementAt(i).insert(
-                        7, oldValuesMap.values.elementAt(i).elementAt(7));
-                  } else {
-                    countTableMap.values.elementAt(i).insert(7, value);
-                  }
+                  skillsList.elementAt(i).skillRow.elementAt(7).setSkill(value);
                 },
-                hintText: oldValuesMap.values.elementAt(i).elementAt(7),
+                hintText: oldValues.elementAt(i).skillRow.elementAt(7).skill,
               ),
             ),
           ],
         ),
       );
     }
-    return countTableMap;
+    return skillsList;
   }
 }

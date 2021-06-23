@@ -5,6 +5,8 @@ import 'package:Cheerganize/consts/TableCellTextField.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Skill.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Skills.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +16,7 @@ class CountsPlan extends StatefulWidget {
   final Routine routine;
   final CountSheet countSheet;
   List<TableRow> tableRows = [];
-  Map<int, List<String>> table = {};
+  List<Skills> table = [];
   int numberIndicator;
 
   @override
@@ -105,7 +107,7 @@ class _CountsPlan extends State<CountsPlan> {
                             ),
                           ),
                           onPressed: () async {
-                            widget.table = widget.countSheet.skills;
+                            widget.table = widget.countSheet.tableList;
                             CountSheetDao().update(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
@@ -134,63 +136,63 @@ class _CountsPlan extends State<CountsPlan> {
     );
   }
 
-  Map<int, List<String>> getTableRows(int numberIndicator,
-      List<TableRow> countRows, Map<int, List<String>> countTableMap) {
+  List<Skills> getTableRows(
+      int numberIndicator, List<TableRow> countRows, List<Skills> skillsList) {
     for (int i = 0; i < numberIndicator; i++) {
-      countTableMap[i] = [];
-      for (int j = 0; j < 8; j++) {
-        countTableMap.values.elementAt(i).insert(j, "");
-      }
+      skillsList = new List.generate(
+          numberIndicator,
+          (index) => new Skills.build(numberIndicator.toString(),
+              new List.generate(8, (index) => new Skill())));
       countRows.add(
         TableRow(
           children: <Widget>[
             TableCell(
               child: TableCellTextField(
                 onChanged: (String value) {
-                  countTableMap.values.elementAt(i).insert(0, value);
+                  skillsList.elementAt(i).skillRow.elementAt(0).setSkill(value);
                 },
               ),
             ),
             TableCell(
               child: TableCellTextField(
                 onChanged: (String value) {
-                  countTableMap.values.elementAt(i).insert(1, value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(onChanged: (String value) {
-                countTableMap.values.elementAt(i).insert(2, value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  countTableMap.values.elementAt(i).insert(3, value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  countTableMap.values.elementAt(i).insert(4, value);
+                  skillsList.elementAt(i).skillRow.elementAt(1).setSkill(value);
                 },
               ),
             ),
             TableCell(
               child: TableCellTextField(onChanged: (String value) {
-                countTableMap.values.elementAt(i).insert(5, value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(onChanged: (String value) {
-                countTableMap.values.elementAt(i).insert(6, value);
+                skillsList.elementAt(i).skillRow.elementAt(2).setSkill(value);
               }),
             ),
             TableCell(
               child: TableCellTextField(
                 onChanged: (String value) {
-                  countTableMap.values.elementAt(i).insert(7, value);
+                  skillsList.elementAt(i).skillRow.elementAt(3).setSkill(value);
+                },
+              ),
+            ),
+            TableCell(
+              child: TableCellTextField(
+                onChanged: (String value) {
+                  skillsList.elementAt(i).skillRow.elementAt(4).setSkill(value);
+                },
+              ),
+            ),
+            TableCell(
+              child: TableCellTextField(onChanged: (String value) {
+                skillsList.elementAt(i).skillRow.elementAt(5).setSkill(value);
+              }),
+            ),
+            TableCell(
+              child: TableCellTextField(onChanged: (String value) {
+                skillsList.elementAt(i).skillRow.elementAt(6).setSkill(value);
+              }),
+            ),
+            TableCell(
+              child: TableCellTextField(
+                onChanged: (String value) {
+                  skillsList.elementAt(i).skillRow.elementAt(7).setSkill(value);
                 },
               ),
             ),
@@ -198,6 +200,6 @@ class _CountsPlan extends State<CountsPlan> {
         ),
       );
     }
-    return countTableMap;
+    return skillsList;
   }
 }

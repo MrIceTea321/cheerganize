@@ -15,7 +15,7 @@ import 'OverhaulRoutine.dart';
 class RoutineStatus extends StatefulWidget {
   final Routine routine;
   CountSheet countSheet =
-      new CountSheet(bpm: 0, skills: {}, name: '', duration: 0.0);
+      new CountSheet(bpm: 0, tableList: [], name: '', duration: 0.0);
 
   RoutineStatus({@required this.routine});
 
@@ -124,7 +124,7 @@ class RoutineStatusState extends State<RoutineStatus> {
 
   void setUpCountSheetObject() async {
     CountSheet dbSheet = await CountSheetDao().getCountSheet(widget.routine.id);
-    widget.countSheet.skills = dbSheet.skills;
+    widget.countSheet.tableList = dbSheet.tableList;
     widget.countSheet.duration = dbSheet.duration;
     widget.countSheet.bpm = dbSheet.bpm;
     widget.countSheet.name = widget.routine.name;

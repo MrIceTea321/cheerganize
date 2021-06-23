@@ -19,7 +19,7 @@ class CountSheetDao {
   // Get a countSheet by id
   Future<CountSheet> getCountSheet(int id) async {
     var map = await _countSheetStore.record(id).get(await _db);
-    return map == null ? null : CountSheet.buildFromDb(map);
+    return map == null ? null : CountSheet.fromMap(map);
   }
 
   Future update(CountSheet countSheet) async {
@@ -54,7 +54,7 @@ class CountSheetDao {
 
     // Making a List<Fruit> out of List<RecordSnapshot>
     return recordSnapshots.map((snapshot) {
-      final countSheet = CountSheet.buildFromDb(snapshot.value);
+      final countSheet = CountSheet.fromMap(snapshot.value);
       // An ID is a key of a record from the database.
       countSheet.id = snapshot.key;
       return countSheet;

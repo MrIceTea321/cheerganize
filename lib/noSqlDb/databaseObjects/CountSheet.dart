@@ -1,54 +1,41 @@
 import 'package:flutter/material.dart';
 
+import 'Skills.dart';
+
 class CountSheet {
   int id;
-  Map<int, List<String>> skills;
+  List<Skills> tableList;
   String name;
   int bpm;
   double duration;
 
   CountSheet(
-      {@required this.skills,
+      {this.id,
+      @required this.tableList,
       @required this.name,
       @required this.bpm,
       @required this.duration});
 
-  @override
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'skills': skills,
-        'name': name,
-        'bpm': bpm,
-        'duration': duration,
-      };
-
-  //to be used when inserting a row in the table
-  Map<String, dynamic> toMapWithoutId() {
-    final map = new Map<String, dynamic>();
-    map['skills'] = skills;
-    map['name'] = name;
-    map['bpm'] = bpm;
-    map['duration'] = duration;
-    return map;
-  }
-
-  //to be used when updating a row in the table
   Map<String, dynamic> toMap() {
-    final map = new Map<String, dynamic>();
-    map['id'] = id;
-    map['skills'] = skills;
-    map['name'] = name;
-    map['bpm'] = bpm;
-    map['duration'] = duration;
-
-    return map;
+    return {
+      'id': id,
+      'tableList':
+          tableList.map((skills) => skills.toMap()).toList(growable: true),
+      'name': name,
+      'bpm': bpm,
+      'duration': duration,
+    };
   }
 
-  static CountSheet buildFromDb(Map<String, dynamic> map) {
+  static CountSheet fromMap(Map<String, dynamic> map) {
     return CountSheet(
+        id: map['id'],
+        tableList: map['tableList']
+            .map((mapping) => Skills.fromMap(mapping))
+            .toList()
+            .cast<Skills>(),
+        name: map['name'],
         bpm: map['bpm'],
-        duration: map['duration'],
-        skills: map['skills'],
-        name: map['name']);
+        duration: map['duration']);
   }
 }
