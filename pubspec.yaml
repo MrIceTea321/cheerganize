@@ -1,4 +1,4 @@
-name: cheerganize
+name: Cheerganize
 description: An app to organize and simulate the formations and lineups in cheerleading.
 
 # The following line prevents the package from being accidentally published to
@@ -13,10 +13,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.2
-  sqflite: ^2.0.0+3
-  path_provider: ^1.5.1
+  sembast: ^2.4.3
+  get_it: ^4.0.2
+  path_provider: ^1.6.7
+  equatable: ^0.2.3
   auto_size_text: ^2.1.0
   background_app_bar: ^1.0.0
 

@@ -2,10 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/RoutineButton.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
-import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
-import 'package:cheerganize/database/databaseObjects/Routine.dart';
-import 'package:cheerganize/screens/CountsPlan.dart';
+import 'package:cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:cheerganize/screens/OverhaulCountsPlan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,8 @@ import 'OverhaulRoutine.dart';
 
 class RoutineStatus extends StatefulWidget {
   final Routine routine;
-  CountSheet countSheet = new CountSheet(0, 0.0, "", "");
+  CountSheet countSheet =
+      new CountSheet(bpm: 0, skills: {}, name: '', duration: 0.0);
 
   RoutineStatus({@required this.routine});
 
@@ -23,7 +24,6 @@ class RoutineStatus extends StatefulWidget {
 }
 
 class RoutineStatusState extends State<RoutineStatus> {
-
   @override
   void initState() {
     setUpCountSheetObject();
@@ -91,7 +91,6 @@ class RoutineStatusState extends State<RoutineStatus> {
               RoutineButton(
                 text: '8 - Count bearbeiten',
                 onPress: () {
-                  
                   print('widget.countSheet after update for push');
                   print(widget.countSheet);
                   Navigator.push(
@@ -124,30 +123,17 @@ class RoutineStatusState extends State<RoutineStatus> {
   }
 
   void setUpCountSheetObject() async {
-  
-    CountSheet dbSheet =
-        await DbInitiator.db.getCountSheetObjectFromDb(widget.routine.name);
-
+    CountSheet dbSheet = await CountSheetDao().getCountSheet(widget.routine.id);
     widget.countSheet.skills = dbSheet.skills;
     widget.countSheet.duration = dbSheet.duration;
-    widget.countSheet.musicid = dbSheet.musicid;
     widget.countSheet.bpm = dbSheet.bpm;
-    widget.countSheet.countsheetid = dbSheet.countsheetid;
-    widget.countSheet.label = widget.routine.name;
+    widget.countSheet.name = widget.routine.name;
     print('**************************');
     print(widget.countSheet);
   }
 
   void _delete() async {
-    print('tables before delete');
-    DbInitiator.db.printAll(DbInitiator.TABLE_ROUTINE_NAME);
-    DbInitiator.db.printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
-    await DbInitiator.db.delete(DbInitiator.COLUMN_ROUTINE_ID,
-        widget.routine.routineid, DbInitiator.TABLE_ROUTINE_NAME);
-    await DbInitiator.db.delete(DbInitiator.COLUMN_COUNT_SHEET_ID,
-        widget.routine.countsheetid, DbInitiator.TABLE_COUNT_SHEET_NAME);
-    print('tables after delete');
-    DbInitiator.db.printAll(DbInitiator.TABLE_ROUTINE_NAME);
-    DbInitiator.db.printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
+    CountSheetDao().delete(widget.countSheet);
+    RoutineDao().delete(widget.routine);
   }
 }

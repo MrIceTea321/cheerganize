@@ -4,23 +4,24 @@ import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
-import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
-import 'package:cheerganize/database/databaseObjects/Routine.dart';
+import 'package:cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OverhaulRoutine extends StatefulWidget {
   final Routine routine;
-  String nameHelper ="";
-   OverhaulRoutine({Key key, this.routine}) : super(key: key);
+
+  String nameHelper = "";
+  OverhaulRoutine({Key key, this.routine}) : super(key: key);
 
   @override
   _OverhaulRoutine createState() => _OverhaulRoutine();
 }
 
 class _OverhaulRoutine extends State<OverhaulRoutine> {
-
   @override
   void initState() {
     widget.nameHelper = widget.routine.name;
@@ -31,8 +32,7 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-        ],
+        actions: <Widget>[],
         leading: IconButton(
           icon: Icon(Icons.home),
           color: IconColorWhite,
@@ -68,12 +68,10 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
             BigFunctionButton(
               text: 'Routine bearbeitet',
               onPress: () async {
-                CountSheet sheet = await DbInitiator.db.getCountSheetObjectFromDb(widget.nameHelper);
-                sheet.label = widget.routine.name;
-                DbInitiator.db.updateCountSheetObject(sheet);
-                DbInitiator.db.updateRoutineObject(widget.routine);
-                DbInitiator.db.printAll(DbInitiator.TABLE_ROUTINE_NAME);
-                DbInitiator.db.printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
+                CountSheet sheet =
+                    await CountSheetDao().getCountSheet(widget.routine.id);
+                sheet.name = widget.routine.name;
+                RoutineDao().update(widget.routine);
                 Navigator.pushNamed(context, 'HomeScreen');
               },
               marginLTRB: [10.0, 10.0, 10.0, 10.0],
@@ -82,9 +80,5 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
         ),
       ),
     );
-  }
-
-  Routine buildRoutineObject(String name, String typeOfSport) {
-    return new Routine(name, typeOfSport);
   }
 }

@@ -2,9 +2,9 @@ import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/RoundedContainer.dart';
 import 'package:cheerganize/consts/TableCellTextField.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
-import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
-import 'package:cheerganize/database/databaseObjects/Routine.dart';
+import 'package:cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/Routine.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +47,7 @@ class _CountsPlan extends State<CountsPlan> {
           },
         ),
         title: Text(
-          widget.countSheet.label,
+          widget.countSheet.name,
           style: BlackPawsAppBarTextStyle,
         ),
       ),
@@ -106,13 +106,8 @@ class _CountsPlan extends State<CountsPlan> {
                             ),
                           ),
                           onPressed: () async {
-                            print('angelegter CountsPlan als String');
-                            widget.countSheet.skills = widget.table.toString();
-                            print(widget.countSheet.skills);
-                            DbInitiator.db
-                                .updateCountSheetObject(widget.countSheet);
-                            DbInitiator.db
-                                .printAll(DbInitiator.TABLE_COUNT_SHEET_NAME);
+                            widget.table = widget.countSheet.skills;
+                            CountSheetDao().update(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
                         ),

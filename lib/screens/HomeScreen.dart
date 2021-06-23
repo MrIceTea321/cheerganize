@@ -1,8 +1,8 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:cheerganize/consts/Constants.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
-import 'package:cheerganize/database/databaseObjects/Routine.dart';
+import 'package:cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,9 +24,7 @@ class _HomeScreen extends State<HomeScreen> {
           "Cheerganize",
           style: BlackPawsAppBarTextStyle,
         ),
-        actions: <Widget>[
-        
-        ],
+        actions: <Widget>[],
       ),
       body: Center(
         child: SafeArea(
@@ -48,8 +45,8 @@ class _HomeScreen extends State<HomeScreen> {
                     BigFunctionButton(
                       text: 'Routines',
                       onPress: () async {
-                        List<Map<String, dynamic>> routines =
-                            await getAllRoutines();
+                        List<Routine> routines =
+                            await RoutineDao().getAllSortedByName();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -76,9 +73,4 @@ class _HomeScreen extends State<HomeScreen> {
       ),
     );
   }
-
-  static Future<List<Map<String, dynamic>>> getAllRoutines() async {
-    return await DbInitiator.db.queryAllRows(DbInitiator.TABLE_ROUTINE_NAME);
-  }
-
 }

@@ -3,9 +3,9 @@ import 'package:cheerganize/consts/ConstTextField.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/RoundedContainer.dart';
 import 'package:cheerganize/consts/TableCellTextOutputField.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
-import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
-import 'package:cheerganize/database/databaseObjects/Routine.dart';
+import 'package:cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -110,10 +110,8 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            widget.countSheet.skills =
-                                widget.countTableMap.toString();
-                            DbInitiator.db
-                                .updateCountSheetObject(widget.countSheet);
+                            widget.countSheet.skills = widget.table;
+                            CountSheetDao().update(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
                         ),
@@ -144,48 +142,6 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
   Map<int, List<String>> getTableRows(
       int numberIndicator, Map<int, List<String>> countTableMap) {
     Map<int, List<String>> oldValuesMap = {};
-    final regex = RegExp(r'[^a-zA-Z,äÄöÖüÜ]');
-    print('countSheet skills in getTable method');
-    print(widget.countSheet.skills);
-    String regexString = widget.countSheet.skills.replaceAll(regex, "");
-    print('regexString: $regexString');
-    List<String> splitList = regexString.split(",");
-    List<String> helpList = [];
-    splitList.forEach((element) {
-      helpList.add(element);
-    });
-    helpList.removeWhere((element) => element.isEmpty);
-    print('splitList: $splitList');
-    print('helpList: $helpList');
-
-    print('numberIndicator: $numberIndicator');
-    for (int i = 0; i < numberIndicator; i++) {
-      oldValuesMap[i] = [];
-      for (int j = 0; j < 8; j++) {
-        oldValuesMap.values.elementAt(i).insert(j, "");
-      }
-    }
-    int start = 0;
-    int end = 0;
-    int helperInt = 0;
-    for (int key = 0; key < numberIndicator; key++) {
-      print('startBefore: $start');
-      print('endeBefore: $end');
-      print('oldValesMapbeforeUpdate: $oldValuesMap');
-      print('helperIntBeforeUpdate: $helperInt');
-      print('SublistforUpdate: ');
-      print(splitList.sublist(start, end));
-
-      end = start + 8;
-      oldValuesMap.update(key, (value) => splitList.sublist(start, end));
-      start = end;
-      helperInt = helpList.length ~/ 2;
-
-      print('oldValesMapAfterUpdate: $oldValuesMap');
-      print('startAfter: $start');
-      print('endeAfter: $end');
-      print('helperIntAfterUpdate: $helperInt');
-    }
 
     for (int i = 0; i < numberIndicator; i++) {
       countTableMap[i] = [];

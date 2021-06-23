@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import '../BuildDbObjectsInterface.dart';
-
-class Pattern implements BuildDbObjectsInterface {
+class Pattern {
   int _patternid;
   String _url;
 

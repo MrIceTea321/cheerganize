@@ -1,22 +1,17 @@
 import 'dart:convert';
 
-import '../BuildDbObjectsInterface.dart';
-
-class Mat implements BuildDbObjectsInterface {
-
+class Mat {
   int _matid;
   int _patternid;
   double _xcoordinate;
   double _ycoordinate;
 
-  Mat(int patternid, double xcoordinate, double ycoordinate)
-      {
+  Mat(int patternid, double xcoordinate, double ycoordinate) {
     this._matid = _matid;
     this._patternid = patternid;
     this._xcoordinate = xcoordinate;
     this._ycoordinate = ycoordinate;
   }
-
 
   @override
   Map<String, dynamic> toJson() => {
@@ -48,7 +43,6 @@ class Mat implements BuildDbObjectsInterface {
 
     return map;
   }
-
 
   int get matid => _matid;
 

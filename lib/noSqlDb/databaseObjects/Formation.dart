@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import '../BuildDbObjectsInterface.dart';
-
-class Formation implements BuildDbObjectsInterface {
+class Formation {
   int _formationid;
   int _routineid;
   int _athletesid;

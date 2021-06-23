@@ -1,20 +1,15 @@
 import 'dart:convert';
 
-import '../BuildDbObjectsInterface.dart';
-
-class Music implements BuildDbObjectsInterface {
-
+class Music {
   int _musicid;
   String _title;
   double _duration;
 
-  Music(String title, double duration){
+  Music(String title, double duration) {
     this._musicid = _musicid;
     this._title = title;
     this._duration = duration;
   }
-
-
 
   @override
   Map<String, dynamic> toJson() =>

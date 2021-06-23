@@ -1,14 +1,15 @@
 import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:cheerganize/consts/Constants.dart';
 import 'package:cheerganize/consts/buttons/RoutineButton.dart';
-import 'package:cheerganize/database/databaseObjects/Routine.dart';
+import 'package:cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
+import 'package:cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'RoutineStatus.dart';
 
 class AllRoutines extends StatefulWidget {
-  final List<Map<String, dynamic>> routines;
+  final List<Routine> routines;
   const AllRoutines({this.routines});
 
   @override
@@ -16,14 +17,13 @@ class AllRoutines extends StatefulWidget {
 }
 
 class _AllRoutines extends State<AllRoutines> {
-  int routineNameIndex = 5;
+  int routineNameIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-        ],
+        actions: <Widget>[],
         leading: IconButton(
           icon: Icon(Icons.home),
           color: IconColorWhite,
@@ -58,27 +58,24 @@ class _AllRoutines extends State<AllRoutines> {
               child: Scrollbar(
                 thickness: 5.5,
                 child: new ListView.builder(
-                    itemCount: widget.routines.length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, index) {
-                      return RoutineButton(
-                        text: widget.routines
-                            .elementAt(index)
-                            .entries.elementAt(routineNameIndex).value,
-                        onPress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => RoutineStatus(
-                                routine: new Routine.buildFromMap(
-                                   widget.routines.elementAt(index),
-                                ),
-                              ),
+                  itemCount: widget.routines.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, index) {
+                    return RoutineButton(
+                      text: widget.routines.elementAt(index).name,
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RoutineStatus(
+                              routine: widget.routines.elementAt(index),
                             ),
-                          );
-                        },
-                      );
-                    }),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ],

@@ -1,16 +1,13 @@
 import 'dart:convert';
 
-import '../BuildDbObjectsInterface.dart';
-
-class Athletes implements BuildDbObjectsInterface {
-
+class Athletes {
   int _athletesid;
   double _xcoordinate;
   double _ycoordinate;
   String _name;
   String _color;
 
-  Athletes(double xcoordinate, double ycoordinate, String name, String color){
+  Athletes(double xcoordinate, double ycoordinate, String name, String color) {
     this._athletesid = _athletesid;
     this._xcoordinate = xcoordinate;
     this._ycoordinate = ycoordinate;
@@ -55,13 +52,9 @@ class Athletes implements BuildDbObjectsInterface {
 
   double get xcoordinate => _xcoordinate;
 
-
   double get ycoordinate => _ycoordinate;
-
 
   String get name => _name;
 
-
   String get color => _color;
-
 }
