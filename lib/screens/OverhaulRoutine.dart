@@ -1,21 +1,21 @@
 import 'dart:collection';
 
-import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:cheerganize/consts/ConstTextField.dart';
-import 'package:cheerganize/consts/Constants.dart';
-import 'package:cheerganize/consts/buttons/BigFunctionButton.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
-import 'package:cheerganize/database/databaseObjects/Routine.dart';
-import 'package:cheerganize/screens/AllRoutines.dart';
-import 'package:cheerganize/screens/CountsPlan.dart';
-import 'package:cheerganize/screens/HomeScreen.dart';
+import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/ConstTextField.dart';
+import 'package:Cheerganize/consts/Constants.dart';
+import 'package:Cheerganize/consts/buttons/BigFunctionButton.dart';
+import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OverhaulRoutine extends StatefulWidget {
   final Routine routine;
 
-  const OverhaulRoutine({Key key, this.routine}) : super(key: key);
+  String nameHelper = "";
+  OverhaulRoutine({Key key, this.routine}) : super(key: key);
 
   @override
   _OverhaulRoutine createState() => _OverhaulRoutine();
@@ -23,19 +23,16 @@ class OverhaulRoutine extends StatefulWidget {
 
 class _OverhaulRoutine extends State<OverhaulRoutine> {
   @override
+  void initState() {
+    widget.nameHelper = widget.routine.name;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            iconSize: 40.0,
-            color: IconColorWhite,
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, 'Settings');
-            },
-          ),
-        ],
+        actions: <Widget>[],
         leading: IconButton(
           icon: Icon(Icons.home),
           color: IconColorWhite,
@@ -50,8 +47,7 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: [
             SizedBox(height: 40.0),
             BlackPawsCircleAvatar(radius: 125.0),
@@ -59,21 +55,23 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
             ConstTextField(
               hintText: 'Neuer Name',
               onChanged: (String value) {
-                widget.routine.name = value;
+                widget.routine.name = '"' + value + '"';
               },
             ),
             ConstTextField(
               hintText: 'Neue Kategorie',
               onChanged: (String value) {
-                widget.routine.typeofsport = value;
+                widget.routine.typeofsport = '"' + value + '"';
               },
             ),
             SizedBox(height: 40.0),
             BigFunctionButton(
               text: 'Routine bearbeitet',
-              onPress: () {
-                DbInitiator.db.updateRoutineObject(widget.routine);
-                DbInitiator.db.printALl(DbInitiator.TABLE_ROUTINE_NAME);
+              onPress: () async {
+                CountSheet sheet =
+                    await CountSheetDao().getCountSheet(widget.nameHelper);
+                sheet.name = widget.routine.name;
+                RoutineDao().update(widget.routine);
                 Navigator.pushNamed(context, 'HomeScreen');
               },
               marginLTRB: [10.0, 10.0, 10.0, 10.0],
@@ -82,9 +80,5 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
         ),
       ),
     );
-  }
-
-  Routine buildRoutineObject(String name, String typeOfSport) {
-    return new Routine(name, typeOfSport);
   }
 }

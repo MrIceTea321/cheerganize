@@ -14,7 +14,7 @@ class BlackPawsCircleAvatar extends StatelessWidget {
       backgroundColor: BlackPawsColor,
       radius: radius + 1.0,
       child: CircleAvatar(
-          backgroundImage: AssetImage('images/logoRemovedBackground.png'),
+          backgroundImage: AssetImage('images/logo.jpg'),
           radius: radius,
           backgroundColor: Color(0xFF181d21)),
     );

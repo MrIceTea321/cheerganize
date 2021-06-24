@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cheerganize/screens/HomeScreen.dart';
 
 import 'package:flutter/material.dart';
 
@@ -35,9 +34,11 @@ class BigFunctionButton extends StatelessWidget {
             style: HomeScreenButtonTextStyle,
           ),
         ),
-        margin: EdgeInsets.fromLTRB(marginLTRB.elementAt(0), marginLTRB
-            .elementAt(1),
-            marginLTRB.elementAt(2), marginLTRB.elementAt(3)),
+        margin: EdgeInsets.fromLTRB(
+            marginLTRB.elementAt(0),
+            marginLTRB.elementAt(1),
+            marginLTRB.elementAt(2),
+            marginLTRB.elementAt(3)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(

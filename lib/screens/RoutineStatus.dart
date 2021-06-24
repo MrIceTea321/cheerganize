@@ -1,24 +1,23 @@
+import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/Constants.dart';
+import 'package:Cheerganize/consts/buttons/RoutineButton.dart';
+import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:cheerganize/consts/Constants.dart';
-import 'package:cheerganize/consts/buttons/RoutineButton.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
-import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
-import 'package:cheerganize/database/databaseObjects/Routine.dart';
-import 'package:cheerganize/screens/CountsPlan.dart';
-import 'package:cheerganize/screens/OverhaulCountsPlan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'OverhaulCountsPlan.dart';
 import 'OverhaulRoutine.dart';
 
 class RoutineStatus extends StatefulWidget {
   final Routine routine;
-  final CountSheet countSheet;
+  CountSheet countSheet = new CountSheet(tableList: [], name: '', bpm: 0,
+      duration: 0.0);
 
-  const RoutineStatus(
-      {Key key, @required this.routine, @required this.countSheet})
-      : super(key: key);
+  RoutineStatus({@required this.routine});
 
   @override
   RoutineStatusState createState() => RoutineStatusState();
@@ -26,60 +25,69 @@ class RoutineStatus extends StatefulWidget {
 
 class RoutineStatusState extends State<RoutineStatus> {
   @override
+  void initState() {
+    setUpCountSheetObject();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Center(
-            child: AutoSizeText(
-              widget.routine.name,
-              textAlign: TextAlign.center,
-              style: BlackPawsAppBarTextStyle,
-            ),
+      appBar: AppBar(
+        title: Center(
+          child: AutoSizeText(
+            widget.routine.name,
+            textAlign: TextAlign.center,
+            style: BlackPawsAppBarTextStyle,
           ),
-          leading: IconButton(
-            icon: Icon(
-              Icons.home,
-              color: IconColorWhite,
-              size: 40.0,
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, 'HomeScreen');
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.home,
+            color: IconColorWhite,
+            size: 40.0,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, 'HomeScreen');
+          },
+        ),
+        actions: <Widget>[
+          // action button
+          IconButton(
+            icon: Icon(Icons.delete, color: Colors.redAccent, size: 40),
+            onPressed: () async {
+              showDialog(
+                context: context,
+                builder: (_) => CupertinoAlertDialog(
+                  content: Text('Soll die aktuelle Routine wirklich gelöscht '
+                      'werden?'),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                      child: Text('Routine löschen'),
+                      onPressed: () async {
+                        _delete();
+                        Navigator.pushNamed(context, 'HomeScreen');
+                      },
+                    ),
+                  ],
+                ),
+                barrierDismissible: true,
+              );
             },
           ),
-          actions: <Widget>[
-            // action button
-            IconButton(
-              icon: Icon(Icons.delete, color: Colors.redAccent, size: 40),
-              onPressed: () async {
-                showDialog(
-                  context: context,
-                  builder: (_) => CupertinoAlertDialog(
-                    content: Text('Soll die aktuelle Routine wirklich gelöscht '
-                        'werden?'),
-                    actions: <Widget>[
-                      CupertinoDialogAction(
-                        child: Text('Routine löschen'),
-                        onPressed: () async {
-                          _delete();
-                          Navigator.pushNamed(context, 'HomeScreen');
-                        },
-                      ),
-                    ],
-                  ),
-                  barrierDismissible: true,
-                );
-              },
-            ),
-          ],
-        ),
-        body: SafeArea(
-            child: Align(
+        ],
+      ),
+      body: SafeArea(
+        child: Align(
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               BlackPawsCircleAvatar(radius: 125.0),
-              SizedBox(height: 80.0),
+              SizedBox(
+                height: 60.0,
+              ),
               RoutineButton(
                 text: '8 - Count bearbeiten',
                 onPress: () {
@@ -87,8 +95,9 @@ class RoutineStatusState extends State<RoutineStatus> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => OverhaulCountsPlan(
-                      routine: widget.routine,
+                        routine: widget.routine,
                         countSheet: widget.countSheet,
+                        oldValues: widget.countSheet.tableList,
                       ),
                     ),
                   );
@@ -107,14 +116,19 @@ class RoutineStatusState extends State<RoutineStatus> {
               ),
             ],
           ),
-        )));
+        ),
+      ),
+    );
+  }
+
+  void setUpCountSheetObject() async {
+    widget.countSheet.id = widget.routine.id;
+    widget.countSheet =
+        await CountSheetDao().getCountSheetById(widget.countSheet.id);
   }
 
   void _delete() async {
-    await DbInitiator.db
-        .delete("routineid",widget.routine.routineid, DbInitiator
-        .TABLE_ROUTINE_NAME);
-    await DbInitiator.db.delete("countsheetid",widget.routine.countsheetid,
-        DbInitiator.TABLE_COUNT_SHEET_NAME);
+    CountSheetDao().delete(widget.routine.id);
+    RoutineDao().delete(widget.routine);
   }
 }

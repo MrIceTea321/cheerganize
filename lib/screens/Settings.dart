@@ -1,4 +1,4 @@
-import 'package:cheerganize/consts/Constants.dart';
+import 'package:Cheerganize/consts/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +10,6 @@ class Settings extends StatefulWidget {
 class _Settings extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    //TODO insert user credentials and settings
     return Scaffold(
       appBar: AppBar(
           actions: <Widget>[

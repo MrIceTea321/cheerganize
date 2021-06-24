@@ -1,17 +1,14 @@
-import 'package:cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:cheerganize/consts/Constants.dart';
-import 'package:cheerganize/consts/TableCellTextField.dart';
-import 'package:cheerganize/database/DbInitiator.dart';
-import 'package:cheerganize/database/databaseObjects/CountSheet.dart';
-import 'package:cheerganize/database/databaseObjects/Routine.dart';
-import 'package:cheerganize/screens/FormationScreen.dart';
-import 'package:cheerganize/screens/HomeScreen.dart';
-import 'package:cheerganize/screens/RoutineStatus.dart';
+import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/Constants.dart';
+import 'package:Cheerganize/consts/RoundedContainer.dart';
+import 'package:Cheerganize/consts/TableCellTextField.dart';
+import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Skill.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Skills.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import 'OverhaulCountsPlan.dart';
 
 class CountsPlan extends StatefulWidget {
   CountsPlan({this.routine, this.countSheet});
@@ -19,7 +16,8 @@ class CountsPlan extends StatefulWidget {
   final Routine routine;
   final CountSheet countSheet;
   List<TableRow> tableRows = [];
-  Map<int, List<String>> table = {};
+  List<Skills> table = [];
+  int numberIndicator;
 
   @override
   _CountsPlan createState() => _CountsPlan();
@@ -30,29 +28,17 @@ class _CountsPlan extends State<CountsPlan> {
   void initState() {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
-    int numberIndicator = rows.toInt();
-    print('numberIndicator: $numberIndicator');
-    widget.table = getTableRows(numberIndicator, widget.tableRows, widget
-        .table);
+    widget.numberIndicator = rows.toInt();
+    widget.table =
+        getTableRows(widget.numberIndicator, widget.tableRows, widget.table);
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            iconSize: 40.0,
-            color: IconColorWhite,
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, 'Settings');
-            },
-          ),
-        ],
+        actions: <Widget>[],
         leading: IconButton(
           icon: Icon(Icons.home),
           color: IconColorWhite,
@@ -62,7 +48,7 @@ class _CountsPlan extends State<CountsPlan> {
           },
         ),
         title: Text(
-          widget.countSheet.label,
+          widget.countSheet.name,
           style: BlackPawsAppBarTextStyle,
         ),
       ),
@@ -87,10 +73,12 @@ class _CountsPlan extends State<CountsPlan> {
                   Expanded(
                     child: Column(
                       children: [
-                        Text(
-                          'Bpm: ' + widget.countSheet.bpm.toString(),
-                          style: BlackPawsTextFieldTextStyle,
-                        ),
+                        RoundedContainer(
+                            prefix: 'Anzahl der Reihen: ',
+                            suffix: widget.numberIndicator.toString()),
+                        RoundedContainer(
+                            prefix: 'Bpm: ',
+                            suffix: widget.countSheet.bpm.toString()),
                         SizedBox(
                           height: 10.0,
                         ),
@@ -119,25 +107,9 @@ class _CountsPlan extends State<CountsPlan> {
                             ),
                           ),
                           onPressed: () async {
-                            widget.countSheet.skills = widget.table.toString();
-                            print('widget skills');
-                            print(widget.countSheet.skills);
-                            print('widget id');
-                            print(widget.countSheet.countsheetid);
-                            DbInitiator.db.updateCountSheetObject(widget.countSheet);
-                            print('countSheetObject mit skills');
-                            DbInitiator.db.printALl(DbInitiator
-                                .TABLE_COUNT_SHEET_NAME);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    RoutineStatus(
-                                      routine: widget.routine,
-                                      countSheet: widget.countSheet,
-                                    ),
-                              ),
-                            );
+                            widget.countSheet.tableList = widget.table;
+                            CountSheetDao().insert(widget.countSheet);
+                            Navigator.pushNamed(context, "HomeScreen");
                           },
                         ),
                       ],
@@ -164,63 +136,66 @@ class _CountsPlan extends State<CountsPlan> {
     );
   }
 
-  Map<int, List<String>> getTableRows(int numberIndicator,
-      List<TableRow>countRows, Map<int, List<String>> countTableMap) {
+  List<Skills> getTableRows(
+      int numberIndicator, List<TableRow> countRows, List<Skills> skillsList) {
+    skillsList = new List.generate(
+        numberIndicator,
+        (index) => new Skills.build(
+            index.toString(),
+            new List.generate(
+                8, (index) => new Skill.build(index.toString(), ""))));
+
     for (int i = 0; i < numberIndicator; i++) {
-      countTableMap[i] = [];
-      for (int j = 0; j < 8; j++) {
-        countTableMap.values.elementAt(i).insert(j, "");
-      }
       countRows.add(
         TableRow(
           children: <Widget>[
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
-                  countTableMap.values.elementAt(i).insert(0, value);
+                onChanged: (String value) {
+                  skillsList.elementAt(i).skillRow.elementAt(0).setSkill(value);
                 },
               ),
             ),
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
-                  countTableMap.values.elementAt(i).insert(1, value);
+                onChanged: (String value) {
+                  skillsList.elementAt(i).skillRow.elementAt(1).setSkill(value);
                 },
               ),
             ),
             TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
-                countTableMap.values.elementAt(i).insert(2, value);
+              child: TableCellTextField(onChanged: (String value) {
+                skillsList.elementAt(i).skillRow.elementAt(2).setSkill(value);
               }),
             ),
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
-                  countTableMap.values.elementAt(i).insert(3, value);
+                onChanged: (String value) {
+                  skillsList.elementAt(i).skillRow.elementAt(3).setSkill(value);
                 },
               ),
             ),
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
-                  countTableMap.values.elementAt(i).insert(4, value);
+                onChanged: (String value) {
+                  skillsList.elementAt(i).skillRow.elementAt(4).setSkill(value);
                 },
               ),
             ),
             TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
-                countTableMap.values.elementAt(i).insert(5, value);
+              child: TableCellTextField(onChanged: (String value) {
+                skillsList.elementAt(i).skillRow.elementAt(5).setSkill(value);
               }),
             ),
             TableCell(
-              child: TableCellTextField(onSubmitted: (String value) {
-                countTableMap.values.elementAt(i).insert(6, value);
+              child: TableCellTextField(onChanged: (String value) {
+                skillsList.elementAt(i).skillRow.elementAt(6).setSkill(value);
               }),
             ),
             TableCell(
               child: TableCellTextField(
-                onSubmitted: (String value) {
-                  countTableMap.values.elementAt(i).insert(7, value);
+                onChanged: (String value) {
+                  skillsList.elementAt(i).skillRow.elementAt(7).setSkill(value);
                 },
               ),
             ),
@@ -228,6 +203,7 @@ class _CountsPlan extends State<CountsPlan> {
         ),
       );
     }
-    return countTableMap;
+
+    return skillsList;
   }
 }
