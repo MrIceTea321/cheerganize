@@ -175,7 +175,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                     .values
                     .elementAt(0)
                     .toString()
-                    .substring(14),
+                    .substring(
+                        14,
+                        oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(0)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
@@ -190,7 +201,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                     .values
                     .elementAt(1)
                     .toString()
-                    .substring(14),
+                    .substring(
+                        14,
+                        oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(1)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
@@ -205,7 +227,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                     .values
                     .elementAt(2)
                     .toString()
-                    .substring(14),
+                    .substring(
+                        14,
+                        oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(2)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
@@ -220,7 +253,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                     .values
                     .elementAt(3)
                     .toString()
-                    .substring(14),
+                    .substring(
+                        14,
+                        oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(3)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
@@ -235,7 +279,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                     .values
                     .elementAt(4)
                     .toString()
-                    .substring(14),
+                    .substring(
+                        14,
+                        oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(4)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
@@ -250,7 +305,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                     .values
                     .elementAt(5)
                     .toString()
-                    .substring(14),
+                    .substring(
+                        14,
+                        oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(5)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
@@ -265,7 +331,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                     .values
                     .elementAt(6)
                     .toString()
-                    .substring(14),
+                    .substring(
+                        14,
+                        oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(6)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
@@ -280,7 +357,18 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                     .values
                     .elementAt(7)
                     .toString()
-                    .substring(14),
+                    .substring(
+                        14,
+                        oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(7)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
           ],
