@@ -1,9 +1,7 @@
-import 'dart:collection';
 import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:Cheerganize/consts/ConstTextField.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/BigFunctionButton.dart';
-import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
@@ -75,10 +73,6 @@ class _NewRoutine extends State<NewRoutine> {
             text: '8 - Counts Planung',
             onPress: () {
               widget.countSheet.name = widget.routine.name;
-              print('NewRoutineValues: ');
-              print(widget.countSheet);
-              print(widget.routine);
-              CountSheetDao().insert(widget.countSheet);
               RoutineDao().insert(widget.routine);
               Navigator.push(
                 context,

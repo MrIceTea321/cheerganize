@@ -108,9 +108,7 @@ class _CountsPlan extends State<CountsPlan> {
                           ),
                           onPressed: () async {
                             widget.countSheet.tableList = widget.table;
-                            print('widget countsheet for update');
-                            print(widget.countSheet);
-                            CountSheetDao().update(widget.countSheet);
+                            CountSheetDao().insert(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
                         ),
@@ -205,8 +203,7 @@ class _CountsPlan extends State<CountsPlan> {
         ),
       );
     }
-    print('**************** skills List *****************');
-    print(skillsList);
+
     return skillsList;
   }
 }

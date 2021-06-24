@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 import 'Skill.dart';
 
 class Skills {
   String id;
-  List<Skill> skillRow;
+  List<dynamic> skillRow;
 
   Skills({this.id, this.skillRow});
 
@@ -14,7 +16,7 @@ class Skills {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'skillRow': skillRow.map((skill) => skill.toMap()).toList(growable: true)
+      'skillRow': skillRow.map((skill) => skill.toMap()).toList(),
     };
   }
 

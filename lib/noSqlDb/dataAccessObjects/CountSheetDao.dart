@@ -1,5 +1,7 @@
 import 'package:Cheerganize/noSqlDb/DbInitiator.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Skill.dart';
+import 'package:Cheerganize/noSqlDb/databaseObjects/Skills.dart';
 import 'package:sembast/sembast.dart';
 
 class CountSheetDao {
@@ -33,14 +35,16 @@ class CountSheetDao {
     return recordSnapshots
         .map((snapshot) => new CountSheet(
             id: snapshot.key,
-            tableList: snapshot.value.entries.elementAt(1).value,
+            tableList: snapshot.value.entries.elementAt(1).value.as(Skills()),
             name: snapshot.value.entries.elementAt(2).value,
             bpm: snapshot.value.entries.elementAt(3).value,
             duration: snapshot.value.entries.elementAt(4).value))
-        .single;
+        .firstWhere((element) => element.name == name);
   }
 
   Future update(CountSheet countSheet) async {
+    print('countSheet id: ');
+    print(countSheet.id);
     // For filtering by key (ID), RegEx, greater than, and many other criteria,
     // we use a Finder.
     final finder = Finder(filter: Filter.byKey(countSheet.id));
@@ -75,6 +79,7 @@ class CountSheetDao {
       final countSheet = CountSheet.fromMap(snapshot.value);
       // An ID is a key of a record from the database.
       countSheet.id = snapshot.key;
+      print(countSheet);
       return countSheet;
     }).toList();
   }

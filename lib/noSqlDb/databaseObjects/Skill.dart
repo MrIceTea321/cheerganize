@@ -26,8 +26,12 @@ class Skill {
     skill = value;
   }
 
+  String getSkill() {
+    return skill;
+  }
+
   @override
   String toString() {
-    return 'Skill{id: $id, skillRow: $skill}';
+    return 'Skill{id: $id, skill: $skill}';
   }
 }

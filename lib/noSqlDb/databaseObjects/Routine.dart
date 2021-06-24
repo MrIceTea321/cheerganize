@@ -7,7 +7,7 @@ class Routine {
   String name;
   String typeofsport;
 
-  Routine({@required String name, @required String typeofsport}) {
+  Routine({int id, @required String name, @required String typeofsport}) {
     this.id = id;
     this.name = name;
     this.typeofsport = typeofsport;

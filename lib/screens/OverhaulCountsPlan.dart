@@ -12,7 +12,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OverhaulCountsPlan extends StatefulWidget {
-  OverhaulCountsPlan({@required this.routine, @required this.countSheet});
+  OverhaulCountsPlan(
+      {@required this.routine,
+      @required this.countSheet,
+      @required this.oldTable});
 
   final Routine routine;
   final CountSheet countSheet;
@@ -29,8 +32,11 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
   @override
   void initState() {
     super.initState();
+    print('init countOverhal');
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
+    widget.table = getTableRowsNew(widget.numberIndicator, widget.tableRows,
+        widget.table, widget.oldTable);
   }
 
   @override
@@ -109,12 +115,14 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                               ),
                             ),
                           ),
-                          onPressed: () async {
-                            widget.countSheet.tableList = await getTableRows(
+                          onPressed: () {
+                            widget.countSheet.tableList = getTableRowsNew(
                                 widget.numberIndicator,
                                 widget.tableRows,
                                 widget.table,
                                 widget.oldTable);
+                            print('updateSheet nach bearbeitung');
+                            print(widget.countSheet);
                             CountSheetDao().update(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
@@ -143,14 +151,8 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     );
   }
 
-  Future<List<Skills>> getTableRows(
-      int numberIndicator,
-      List<TableRow> countRows,
-      List<Skills> skillsList,
-      List<Skills> oldValues) async {
-    CountSheet oldSheet =
-        await CountSheetDao().getCountSheet(widget.routine.name);
-    oldValues = oldSheet.tableList;
+  List<Skills> getTableRowsNew(int numberIndicator, List<TableRow> countRows,
+      List<Skills> skillsList, List<Skills> oldValues) {
     skillsList = new List.generate(
         numberIndicator,
         (index) => new Skills.build(
@@ -168,7 +170,14 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(0).setSkill(value);
                 },
-                hintText: oldValues.elementAt(i).skillRow.elementAt(0).skill,
+                hintText: oldValues
+                    .elementAt(i)
+                    .skillRow
+                    .asMap()
+                    .values
+                    .elementAt(0)
+                    .toString()
+                    .substring(14),
               ),
             ),
             TableCell(
@@ -176,7 +185,14 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(1).setSkill(value);
                 },
-                hintText: oldValues.elementAt(i).skillRow.elementAt(1).skill,
+                hintText: oldValues
+                    .elementAt(i)
+                    .skillRow
+                    .asMap()
+                    .values
+                    .elementAt(1)
+                    .toString()
+                    .substring(14),
               ),
             ),
             TableCell(
@@ -184,7 +200,14 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(2).setSkill(value);
                 },
-                hintText: oldValues.elementAt(i).skillRow.elementAt(2).skill,
+                hintText: oldValues
+                    .elementAt(i)
+                    .skillRow
+                    .asMap()
+                    .values
+                    .elementAt(2)
+                    .toString()
+                    .substring(14),
               ),
             ),
             TableCell(
@@ -192,7 +215,14 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(3).setSkill(value);
                 },
-                hintText: oldValues.elementAt(i).skillRow.elementAt(3).skill,
+                hintText: oldValues
+                    .elementAt(i)
+                    .skillRow
+                    .asMap()
+                    .values
+                    .elementAt(3)
+                    .toString()
+                    .substring(14),
               ),
             ),
             TableCell(
@@ -200,7 +230,14 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(4).setSkill(value);
                 },
-                hintText: oldValues.elementAt(i).skillRow.elementAt(4).skill,
+                hintText: oldValues
+                    .elementAt(i)
+                    .skillRow
+                    .asMap()
+                    .values
+                    .elementAt(4)
+                    .toString()
+                    .substring(14),
               ),
             ),
             TableCell(
@@ -208,7 +245,14 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(5).setSkill(value);
                 },
-                hintText: oldValues.elementAt(i).skillRow.elementAt(5).skill,
+                hintText: oldValues
+                    .elementAt(i)
+                    .skillRow
+                    .asMap()
+                    .values
+                    .elementAt(5)
+                    .toString()
+                    .substring(14),
               ),
             ),
             TableCell(
@@ -216,7 +260,14 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(6).setSkill(value);
                 },
-                hintText: oldValues.elementAt(i).skillRow.elementAt(6).skill,
+                hintText: oldValues
+                    .elementAt(i)
+                    .skillRow
+                    .asMap()
+                    .values
+                    .elementAt(6)
+                    .toString()
+                    .substring(14),
               ),
             ),
             TableCell(
@@ -224,13 +275,22 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(7).setSkill(value);
                 },
-                hintText: oldValues.elementAt(i).skillRow.elementAt(7).skill,
+                hintText: oldValues
+                    .elementAt(i)
+                    .skillRow
+                    .asMap()
+                    .values
+                    .elementAt(7)
+                    .toString()
+                    .substring(14),
               ),
             ),
           ],
         ),
       );
     }
+    print('**************** Neue Liste ***************');
+    print(skillsList);
     return skillsList;
   }
 }

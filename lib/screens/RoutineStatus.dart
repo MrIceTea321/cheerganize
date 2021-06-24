@@ -14,7 +14,8 @@ import 'OverhaulRoutine.dart';
 
 class RoutineStatus extends StatefulWidget {
   final Routine routine;
-  CountSheet countSheet;
+  CountSheet countSheet =
+      new CountSheet(id: 0, tableList: [], name: '', bpm: 0, duration: 0.0);
 
   RoutineStatus({@required this.routine});
 
@@ -90,14 +91,13 @@ class RoutineStatusState extends State<RoutineStatus> {
               RoutineButton(
                 text: '8 - Count bearbeiten',
                 onPress: () {
-                  print('widget.countSheet after update for push');
-                  print(widget.countSheet);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => OverhaulCountsPlan(
                         routine: widget.routine,
                         countSheet: widget.countSheet,
+                        oldTable: widget.countSheet.tableList,
                       ),
                     ),
                   );
@@ -122,16 +122,19 @@ class RoutineStatusState extends State<RoutineStatus> {
   }
 
   void setUpCountSheetObject() async {
-    print('countSheet name');
-    print(widget.routine.name);
+    widget.countSheet.id = widget.routine.id;
     widget.countSheet =
-        await CountSheetDao().getCountSheet(widget.routine.name);
-    print('********** setup countsheet **************');
-    print(widget.countSheet.tableList);
+        await CountSheetDao().getCountSheetById(widget.countSheet.id);
   }
 
   void _delete() async {
+    print('tables for delete');
+    print(CountSheetDao().getAllSortedByName());
+    print(RoutineDao().getAllSortedByName());
     CountSheetDao().delete(widget.countSheet);
     RoutineDao().delete(widget.routine);
+    print('tables after delete');
+    print(CountSheetDao().getAllSortedByName());
+    print(RoutineDao().getAllSortedByName());
   }
 }

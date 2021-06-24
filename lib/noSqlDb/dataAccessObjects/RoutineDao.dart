@@ -23,6 +23,22 @@ class RoutineDao {
     return map == null ? null : Routine.buildFromMap(map);
   }
 
+  // Get a routine by name
+  Future<Routine> getRoutineByName(String name) async {
+    final finder = Finder(filter: Filter.equals('name', name));
+    final recordSnapshots = await _routineStore.find(
+      await _db,
+      finder: finder,
+    );
+
+    return recordSnapshots
+        .map((snapshot) => new Routine(
+            id: snapshot.key,
+            name: snapshot.value.entries.elementAt(1).key,
+            typeofsport: snapshot.value.entries.elementAt(2).key))
+        .firstWhere((element) => element.name == name);
+  }
+
   Future update(Routine routine) async {
     // For filtering by key (ID), RegEx, greater than, and many other criteria,
     // we use a Finder.
@@ -55,10 +71,11 @@ class RoutineDao {
 
     // Making a List<Fruit> out of List<RecordSnapshot>
     return recordSnapshots.map((snapshot) {
-      final fruit = Routine.buildFromMap(snapshot.value);
+      final routine = Routine.buildFromMap(snapshot.value);
+      print(routine);
       // An ID is a key of a record from the database.
-      fruit.id = snapshot.key;
-      return fruit;
+      routine.id = snapshot.key;
+      return routine;
     }).toList();
   }
 }

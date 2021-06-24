@@ -20,7 +20,7 @@ class CountSheet {
     return {
       'id': id,
       'tableList':
-          tableList.map((skills) => skills.toMap()).toList(growable: true),
+          tableList.map((skills) => skills.toMap()).toList(growable: false),
       'name': name,
       'bpm': bpm,
       'duration': duration,
