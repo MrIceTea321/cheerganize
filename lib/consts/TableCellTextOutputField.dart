@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'Constants.dart';
 
 class TableCellTextOutputField extends StatelessWidget {
-  TableCellTextOutputField({@required this.onSubmitted, @required this.hintText});
+  TableCellTextOutputField({@required this.onSubmitted, @required this
+      .hintText, @required this.controller});
 
   final Function onSubmitted;
   final String hintText;
+  TextEditingController controller = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: BlackPawsColor,
       child: TextField(
+        controller: controller,
         textAlign: TextAlign.center,
         onSubmitted: onSubmitted,
         style: TextStyle(

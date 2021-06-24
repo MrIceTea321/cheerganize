@@ -43,8 +43,6 @@ class CountSheetDao {
   }
 
   Future update(CountSheet countSheet) async {
-    print('countSheet id: ');
-    print(countSheet.id);
     // For filtering by key (ID), RegEx, greater than, and many other criteria,
     // we use a Finder.
     final finder = Finder(filter: Filter.byKey(countSheet.id));

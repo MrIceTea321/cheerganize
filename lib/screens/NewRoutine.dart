@@ -73,6 +73,9 @@ class _NewRoutine extends State<NewRoutine> {
             text: '8 - Counts Planung',
             onPress: () {
               widget.countSheet.name = widget.routine.name;
+              print('objecte fertig erstellt:');
+              print(widget.countSheet);
+              print(widget.routine);
               RoutineDao().insert(widget.routine);
               Navigator.push(
                 context,
