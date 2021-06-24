@@ -131,7 +131,7 @@ class RoutineStatusState extends State<RoutineStatus> {
     print('tables for delete');
     print(CountSheetDao().getAllSortedByName());
     print(RoutineDao().getAllSortedByName());
-    CountSheetDao().delete(widget.countSheet);
+    CountSheetDao().delete(widget.routine.id);
     RoutineDao().delete(widget.routine);
     print('tables after delete');
     print(CountSheetDao().getAllSortedByName());

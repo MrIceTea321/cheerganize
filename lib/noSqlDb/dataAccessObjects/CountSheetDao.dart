@@ -35,7 +35,7 @@ class CountSheetDao {
     return recordSnapshots
         .map((snapshot) => new CountSheet(
             id: snapshot.key,
-            tableList: snapshot.value.entries.elementAt(1).value.as(Skills()),
+            tableList: snapshot.value.entries.elementAt(1).value,
             name: snapshot.value.entries.elementAt(2).value,
             bpm: snapshot.value.entries.elementAt(3).value,
             duration: snapshot.value.entries.elementAt(4).value))
@@ -55,8 +55,8 @@ class CountSheetDao {
     );
   }
 
-  Future delete(CountSheet countSheet) async {
-    final finder = Finder(filter: Filter.byKey(countSheet.id));
+  Future delete(int id) async {
+    final finder = Finder(filter: Filter.byKey(id));
     await _countSheetStore.delete(
       await _db,
       finder: finder,

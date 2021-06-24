@@ -116,11 +116,9 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            widget.countSheet.tableList = getTableRowsNew(
-                                widget.numberIndicator,
-                                widget.tableRows,
-                                widget.table,
-                                widget.oldTable);
+                            widget.countSheet.tableList = widget.table;
+                            widget.countSheet.id = widget.routine.id;
+                            CountSheetDao().update(widget.countSheet);
                             print('updateSheet nach bearbeitung');
                             print(widget.countSheet);
                             CountSheetDao().update(widget.countSheet);
