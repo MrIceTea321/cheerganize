@@ -149,7 +149,6 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     List<TextEditingController> controllerList =
         List.filled(numberIndicator * 8, new TextEditingController());
     List<String> stringList = [];
-
     skillsList = new List.generate(
         numberIndicator,
         (index) => new Skills.build(
@@ -157,7 +156,6 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             new List.generate(
                 8, (index) => new Skill.build(index.toString(), ""))));
     widget.oldValues = widget.countSheet.tableList;
-//TODO create dynmaic textEditingControllers to have one for every cell
     for (int i = 0; i < numberIndicator; i++) {
       tableRows.add(
         TableRow(
@@ -397,7 +395,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
       stringList.add(controllerList.elementAt(5 * i).text);
       stringList.add(controllerList.elementAt(6 * i).text);
       stringList.add(controllerList.elementAt(7 * i).text);
-      widget.table=  skillsList;
+      widget.table =  skillsList;
       if (stringList.elementAt(0 * i) == '') {
         widget.table.elementAt(i).skillRow.elementAt(0).setSkill(
               widget.oldValues

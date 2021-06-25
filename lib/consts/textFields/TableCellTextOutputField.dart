@@ -8,7 +8,7 @@ class TableCellTextOutputField extends StatelessWidget {
 
   final Function onSubmitted;
   final String hintText;
-  TextEditingController controller = new TextEditingController();
+  TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {

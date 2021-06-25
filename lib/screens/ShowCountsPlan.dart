@@ -16,8 +16,8 @@ import 'package:flutter/material.dart';
 class ShowCountsPlan extends StatefulWidget {
   ShowCountsPlan(
       {@required this.routine,
-        @required this.countSheet,
-        @required this.oldValues});
+      @required this.countSheet,
+      @required this.oldValues});
 
   final Routine routine;
   final CountSheet countSheet;
@@ -32,7 +32,6 @@ class ShowCountsPlan extends StatefulWidget {
 }
 
 class _ShowCountsPlan extends State<ShowCountsPlan> {
-  
   @override
   void initState() {
     super.initState();
@@ -89,13 +88,22 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                         RoundedContainer(
                             prefix: 'Bpm: ',
                             suffix: widget.countSheet.bpm.toString()),
-                        StartAnimationButton(onPressed: (){
-                          print('Button Pressed');
-                          setState(() {
-                            widget.color = Colors.red;
-                            print(widget.color.toString());
-                          });
-                        },),
+                        Row(
+                          children: [
+                            RoundedContainer(prefix: '8 - Count', suffix: ''),
+                            StartAnimationButton(
+                              onPressed: () {
+                                print('Button Pressed');
+                                setState(
+                                  () {
+                                    widget.color = Colors.red;
+                                    print(widget.color.toString());
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                         SizedBox(
                           height: 10.0,
                         ),
@@ -128,7 +136,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
     TableRow row;
     skillsList = new List.generate(
         numberIndicator,
-            (index) => new Skills.build(
+        (index) => new Skills.build(
             index.toString(),
             new List.generate(
                 8, (index) => new Skill.build(index.toString(), ""))));
@@ -150,22 +158,22 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                     .elementAt(0)
                     .toString()
                     .substring(
-                    14,
-                    widget.oldValues
-                        .elementAt(i)
-                        .skillRow
-                        .asMap()
-                        .values
-                        .elementAt(0)
-                        .toString()
-                        .characters
-                        .length -
-                        1),
+                        14,
+                        widget.oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(0)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
               child: TableCellTextShowField(
-                durationInSeconds: 2,
+                durationInSeconds: 10,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -174,22 +182,22 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                     .elementAt(1)
                     .toString()
                     .substring(
-                    14,
-                    widget.oldValues
-                        .elementAt(i)
-                        .skillRow
-                        .asMap()
-                        .values
-                        .elementAt(1)
-                        .toString()
-                        .characters
-                        .length -
-                        1),
+                        14,
+                        widget.oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(1)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
               child: TableCellTextShowField(
-                durationInSeconds: 3,
+                durationInSeconds: 10,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -198,22 +206,22 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                     .elementAt(2)
                     .toString()
                     .substring(
-                    14,
-                    widget.oldValues
-                        .elementAt(i)
-                        .skillRow
-                        .asMap()
-                        .values
-                        .elementAt(2)
-                        .toString()
-                        .characters
-                        .length -
-                        1),
+                        14,
+                        widget.oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(2)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
               child: TableCellTextShowField(
-                durationInSeconds: 4,
+                durationInSeconds: 10,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -222,22 +230,22 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                     .elementAt(3)
                     .toString()
                     .substring(
-                    14,
-                    widget.oldValues
-                        .elementAt(i)
-                        .skillRow
-                        .asMap()
-                        .values
-                        .elementAt(3)
-                        .toString()
-                        .characters
-                        .length -
-                        1),
+                        14,
+                        widget.oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(3)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
               child: TableCellTextShowField(
-                durationInSeconds: 5,
+                durationInSeconds: 10,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -246,22 +254,22 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                     .elementAt(4)
                     .toString()
                     .substring(
-                    14,
-                    widget.oldValues
-                        .elementAt(i)
-                        .skillRow
-                        .asMap()
-                        .values
-                        .elementAt(4)
-                        .toString()
-                        .characters
-                        .length -
-                        1),
+                        14,
+                        widget.oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(4)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
               child: TableCellTextShowField(
-                durationInSeconds: 2,
+                durationInSeconds: 10,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -270,22 +278,22 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                     .elementAt(5)
                     .toString()
                     .substring(
-                    14,
-                    widget.oldValues
-                        .elementAt(i)
-                        .skillRow
-                        .asMap()
-                        .values
-                        .elementAt(5)
-                        .toString()
-                        .characters
-                        .length -
-                        1),
+                        14,
+                        widget.oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(5)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
               child: TableCellTextShowField(
-                durationInSeconds: 2,
+                durationInSeconds: 10,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -294,22 +302,22 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                     .elementAt(6)
                     .toString()
                     .substring(
-                    14,
-                    widget.oldValues
-                        .elementAt(i)
-                        .skillRow
-                        .asMap()
-                        .values
-                        .elementAt(6)
-                        .toString()
-                        .characters
-                        .length -
-                        1),
+                        14,
+                        widget.oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(6)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
             TableCell(
               child: TableCellTextShowField(
-                durationInSeconds: 4,
+                durationInSeconds: 10,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -318,17 +326,17 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                     .elementAt(7)
                     .toString()
                     .substring(
-                    14,
-                    widget.oldValues
-                        .elementAt(i)
-                        .skillRow
-                        .asMap()
-                        .values
-                        .elementAt(7)
-                        .toString()
-                        .characters
-                        .length -
-                        1),
+                        14,
+                        widget.oldValues
+                                .elementAt(i)
+                                .skillRow
+                                .asMap()
+                                .values
+                                .elementAt(7)
+                                .toString()
+                                .characters
+                                .length -
+                            1),
               ),
             ),
           ],
