@@ -1,8 +1,8 @@
 import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:Cheerganize/consts/ConstTextField.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/RoundedContainer.dart';
-import 'package:Cheerganize/consts/TableCellTextOutputField.dart';
+import 'package:Cheerganize/consts/textFields/ConstTextField.dart';
+import 'package:Cheerganize/consts/textFields/TableCellTextOutputField.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
@@ -29,22 +29,12 @@ class OverhaulCountsPlan extends StatefulWidget {
 }
 
 class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
-  String helperZero = '';
-  String helperOne = '';
-  String helperTwo = '';
-  String helperThree = '';
-  String helperFour = '';
-  String helperFive = '';
-  String helperSix = '';
-  String helperSeven = '';
-
   @override
   void initState() {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
-    widget.table =
-        getTableRowsNew(widget.numberIndicator, widget.tableRows, widget.table);
+    getTableRowsNew(widget.numberIndicator, widget.tableRows, widget.table);
   }
 
   @override
@@ -124,7 +114,6 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            setupTableObjectOverhauled();
                             widget.countSheet.tableList = widget.table;
                             widget.countSheet.id = widget.routine.id;
                             CountSheetDao().update(widget.countSheet);
@@ -155,47 +144,30 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     );
   }
 
-  List<Skills> getTableRowsNew(
+  void getTableRowsNew(
       int numberIndicator, List<TableRow> tableRows, List<Skills> skillsList) {
-    Map<String, TextEditingController> controllerMap = {};
+    List<TextEditingController> controllerList =
+        List.filled(numberIndicator * 8, new TextEditingController());
+    List<String> stringList = [];
+
     skillsList = new List.generate(
         numberIndicator,
         (index) => new Skills.build(
             index.toString(),
             new List.generate(
                 8, (index) => new Skill.build(index.toString(), ""))));
-
     widget.oldValues = widget.countSheet.tableList;
 //TODO create dynmaic textEditingControllers to have one for every cell
     for (int i = 0; i < numberIndicator; i++) {
-
-      TextEditingController controllerZero = new TextEditingController();
-      TextEditingController controllerOne = new TextEditingController();
-      TextEditingController controllerTwo = new TextEditingController();
-      TextEditingController controllerThree = new TextEditingController();
-      TextEditingController controllerFour = new TextEditingController();
-      TextEditingController controllerFive = new TextEditingController();
-      TextEditingController controllerSix = new TextEditingController();
-      TextEditingController controllerSeven = new TextEditingController();
-
-      helperZero = controllerZero.text;
-      helperOne = controllerOne.text;
-      helperTwo = controllerTwo.text;
-      helperThree = controllerThree.text;
-      helperFour = controllerFour.text;
-      helperFive = controllerFive.text;
-      helperSix = controllerSix.text;
-      helperSeven = controllerSeven.text;
-
       tableRows.add(
         TableRow(
           children: <Widget>[
             TableCell(
               child: TableCellTextOutputField(
-                controller: controllerZero,
+                controller: controllerList.elementAt(0 * i),
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(0).setSkill(value);
-                  helperZero = value;
+                  stringList.insert(0 * i, value);
                 },
                 hintText: widget.oldValues
                     .elementAt(i)
@@ -220,10 +192,10 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                controller: controllerOne,
+                controller: controllerList.elementAt(1 * i),
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(1).setSkill(value);
-                  helperOne = value;
+                  stringList.insert(1 * i, value);
                 },
                 hintText: widget.oldValues
                     .elementAt(i)
@@ -248,10 +220,10 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                controller: controllerTwo,
+                controller: controllerList.elementAt(2 * i),
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(2).setSkill(value);
-                  helperTwo = value;
+                  stringList.insert(2 * i, value);
                 },
                 hintText: widget.oldValues
                     .elementAt(i)
@@ -276,10 +248,10 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                controller: controllerThree,
+                controller: controllerList.elementAt(3 * i),
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(3).setSkill(value);
-                  helperThree = value;
+                  stringList.insert(3 * i, value);
                 },
                 hintText: widget.oldValues
                     .elementAt(i)
@@ -304,10 +276,10 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                controller: controllerFour,
+                controller: controllerList.elementAt(4 * i),
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(4).setSkill(value);
-                  helperFour = value;
+                  stringList.insert(4 * i, value);
                 },
                 hintText: widget.oldValues
                     .elementAt(i)
@@ -332,10 +304,10 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                controller: controllerFive,
+                controller: controllerList.elementAt(5 * i),
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(5).setSkill(value);
-                  helperFive = value;
+                  stringList.insert(5 * i, value);
                 },
                 hintText: widget.oldValues
                     .elementAt(i)
@@ -360,10 +332,10 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                controller: controllerSix,
+                controller: controllerList.elementAt(6 * i),
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(6).setSkill(value);
-                  helperSix = value;
+                  stringList.insert(6 * i, value);
                 },
                 hintText: widget.oldValues
                     .elementAt(i)
@@ -388,10 +360,10 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             ),
             TableCell(
               child: TableCellTextOutputField(
-                controller: controllerSeven,
+                controller: controllerList.elementAt(7 * i),
                 onSubmitted: (String value) {
                   skillsList.elementAt(i).skillRow.elementAt(7).setSkill(value);
-                  helperSeven = value;
+                  stringList.insert(7 * i, value);
                 },
                 hintText: widget.oldValues
                     .elementAt(i)
@@ -417,13 +389,16 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
           ],
         ),
       );
-    }
-    return skillsList;
-  }
-
-  void setupTableObjectOverhauled() {
-    for (int i = 0; i < widget.numberIndicator; i++) {
-      if (helperZero == '') {
+      stringList.add(controllerList.elementAt(0 * i).text);
+      stringList.add(controllerList.elementAt(1 * i).text);
+      stringList.add(controllerList.elementAt(2 * i).text);
+      stringList.add(controllerList.elementAt(3 * i).text);
+      stringList.add(controllerList.elementAt(4 * i).text);
+      stringList.add(controllerList.elementAt(5 * i).text);
+      stringList.add(controllerList.elementAt(6 * i).text);
+      stringList.add(controllerList.elementAt(7 * i).text);
+      widget.table=  skillsList;
+      if (stringList.elementAt(0 * i) == '') {
         widget.table.elementAt(i).skillRow.elementAt(0).setSkill(
               widget.oldValues
                   .elementAt(i)
@@ -446,30 +421,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                           1),
             );
       }
-      if (helperOne == '') {
-        widget.table.elementAt(i).skillRow.elementAt(0).setSkill(
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(0)
-                  .toString()
-                  .substring(
-                      14,
-                      widget.oldValues
-                              .elementAt(i)
-                              .skillRow
-                              .asMap()
-                              .values
-                              .elementAt(0)
-                              .toString()
-                              .characters
-                              .length -
-                          1),
-            );
-      }
-      if (helperTwo == '') {
+      if (stringList.elementAt(1 * i) == '') {
         widget.table.elementAt(i).skillRow.elementAt(1).setSkill(
               widget.oldValues
                   .elementAt(i)
@@ -492,7 +444,30 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                           1),
             );
       }
-      if (helperThree == '') {
+      if (stringList.elementAt(2 * i) == '') {
+        widget.table.elementAt(i).skillRow.elementAt(2).setSkill(
+              widget.oldValues
+                  .elementAt(i)
+                  .skillRow
+                  .asMap()
+                  .values
+                  .elementAt(2)
+                  .toString()
+                  .substring(
+                      14,
+                      widget.oldValues
+                              .elementAt(i)
+                              .skillRow
+                              .asMap()
+                              .values
+                              .elementAt(2)
+                              .toString()
+                              .characters
+                              .length -
+                          1),
+            );
+      }
+      if (stringList.elementAt(3 * i) == '') {
         widget.table.elementAt(i).skillRow.elementAt(3).setSkill(
               widget.oldValues
                   .elementAt(i)
@@ -515,7 +490,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                           1),
             );
       }
-      if (helperFour == '') {
+      if (stringList.elementAt(4 * i) == '') {
         widget.table.elementAt(i).skillRow.elementAt(4).setSkill(
               widget.oldValues
                   .elementAt(i)
@@ -538,7 +513,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                           1),
             );
       }
-      if (helperFive == '') {
+      if (stringList.elementAt(5 * i) == '') {
         widget.table.elementAt(i).skillRow.elementAt(5).setSkill(
               widget.oldValues
                   .elementAt(i)
@@ -561,7 +536,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                           1),
             );
       }
-      if (helperSix == '') {
+      if (stringList.elementAt(6 * i) == '') {
         widget.table.elementAt(i).skillRow.elementAt(6).setSkill(
               widget.oldValues
                   .elementAt(i)
@@ -584,7 +559,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                           1),
             );
       }
-      if (helperSeven == '') {
+      if (stringList.elementAt(7 * i) == '') {
         widget.table.elementAt(i).skillRow.elementAt(7).setSkill(
               widget.oldValues
                   .elementAt(i)

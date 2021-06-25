@@ -15,8 +15,8 @@ import 'OverhaulRoutine.dart';
 
 class RoutineStatus extends StatefulWidget {
   final Routine routine;
-  CountSheet countSheet = new CountSheet(tableList: [], name: '', bpm: 0,
-      duration: 0.0);
+  CountSheet countSheet =
+      new CountSheet(tableList: [], name: '', bpm: 0, duration: 0.0);
 
   RoutineStatus({@required this.routine});
 
@@ -90,12 +90,12 @@ class RoutineStatusState extends State<RoutineStatus> {
                 height: 60.0,
               ),
               RoutineButton(
-                text: '8 - Count bearbeiten',
+                text: '8 - Count anzeigen',
                 onPress: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OverhaulCountsPlan(
+                      builder: (context) => ShowCountsPlan(
                         routine: widget.routine,
                         countSheet: widget.countSheet,
                         oldValues: widget.countSheet.tableList,
@@ -116,12 +116,12 @@ class RoutineStatusState extends State<RoutineStatus> {
                 },
               ),
               RoutineButton(
-                text: '8 - Count anzeigen',
+                text: '8 - Count bearbeiten',
                 onPress: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ShowCountsPlan(
+                      builder: (context) => OverhaulCountsPlan(
                         routine: widget.routine,
                         countSheet: widget.countSheet,
                         oldValues: widget.countSheet.tableList,

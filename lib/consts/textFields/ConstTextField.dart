@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'Constants.dart';
+import '../Constants.dart';
 
 class ConstTextField extends StatelessWidget {
   ConstTextField({@required this.hintText, @required this.onChanged});

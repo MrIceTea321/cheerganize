@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:Cheerganize/consts/ConstTextField.dart';
+import 'package:Cheerganize/consts/textFields/ConstTextField.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 class OverhaulRoutine extends StatefulWidget {
   final Routine routine;
 
-  String nameHelper = "";
+  int idHelper =0;
   OverhaulRoutine({Key key, this.routine}) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class OverhaulRoutine extends StatefulWidget {
 class _OverhaulRoutine extends State<OverhaulRoutine> {
   @override
   void initState() {
-    widget.nameHelper = widget.routine.name;
+    widget.idHelper = widget.routine.id;
     super.initState();
   }
 
@@ -69,7 +69,7 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
               text: 'Routine bearbeitet',
               onPress: () async {
                 CountSheet sheet =
-                    await CountSheetDao().getCountSheet(widget.nameHelper);
+                    await CountSheetDao().getCountSheetById(widget.idHelper);
                 sheet.name = widget.routine.name;
                 RoutineDao().update(widget.routine);
                 Navigator.pushNamed(context, 'HomeScreen');

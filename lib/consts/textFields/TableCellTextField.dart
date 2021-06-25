@@ -1,33 +1,25 @@
+import 'package:Cheerganize/consts/Constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Constants.dart';
 
-class TableCellTextOutputField extends StatelessWidget {
-  TableCellTextOutputField({@required this.onSubmitted, @required this
-      .hintText, @required this.controller});
+class TableCellTextField extends StatelessWidget {
+  TableCellTextField({@required this.onChanged});
 
-  final Function onSubmitted;
-  final String hintText;
-  TextEditingController controller = new TextEditingController();
+  final Function onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: BlackPawsColor,
       child: TextField(
-        controller: controller,
         textAlign: TextAlign.center,
-        onSubmitted: onSubmitted,
-        style: TextStyle(
-          fontSize: 20.0,
-          fontFamily: 'Antonio-VariableFont',
-        ),
+        onSubmitted: onChanged,
+        style: BlackPawsTextFieldTableTextStyle,
         decoration: InputDecoration(
-          hintText: hintText,
           hintStyle: TextStyle(
-            color: BasicBlackColor,
-            fontSize: 20.0,
-            fontFamily: 'Antonio-VariableFont',
+            fontSize: 14.0,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
           ),
           contentPadding: EdgeInsets.zero,
           border: OutlineInputBorder(

@@ -1,9 +1,10 @@
 import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:Cheerganize/consts/ConstTextField.dart';
+import 'package:Cheerganize/consts/buttons/StartAnimationButton.dart';
+import 'package:Cheerganize/consts/textFields/ConstTextField.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/RoundedContainer.dart';
-import 'package:Cheerganize/consts/TableCellTextOutputField.dart';
-import 'package:Cheerganize/consts/TableCellTextShowField.dart';
+import 'package:Cheerganize/consts/textFields/TableCellTextOutputField.dart';
+import 'package:Cheerganize/consts/textFields/TableCellTextShowField.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
@@ -24,24 +25,18 @@ class ShowCountsPlan extends StatefulWidget {
   List<Skills> table = [];
   List<Skills> oldValues;
   int numberIndicator;
+  Color color;
 
   @override
   _ShowCountsPlan createState() => _ShowCountsPlan();
 }
 
 class _ShowCountsPlan extends State<ShowCountsPlan> {
-  String helperZero = '';
-  String helperOne = '';
-  String helperTwo ='';
-  String helperThree = '';
-  String helperFour = '';
-  String helperFive = '';
-  String helperSix = '';
-  String helperSeven = '';
-
+  
   @override
   void initState() {
     super.initState();
+    widget.color = BlackPawsColor;
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
     widget.table =
@@ -94,6 +89,13 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
                         RoundedContainer(
                             prefix: 'Bpm: ',
                             suffix: widget.countSheet.bpm.toString()),
+                        StartAnimationButton(onPressed: (){
+                          print('Button Pressed');
+                          setState(() {
+                            widget.color = Colors.red;
+                            print(widget.color.toString());
+                          });
+                        },),
                         SizedBox(
                           height: 10.0,
                         ),
@@ -123,6 +125,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
 
   List<Skills> getTableRowsNew(
       int numberIndicator, List<TableRow> countRows, List<Skills> skillsList) {
+    TableRow row;
     skillsList = new List.generate(
         numberIndicator,
             (index) => new Skills.build(
@@ -132,30 +135,13 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
 
     widget.oldValues = widget.countSheet.tableList;
     for (int i = 0; i < numberIndicator; i++) {
-      TextEditingController controllerZero = new TextEditingController();
-      TextEditingController controllerOne = new TextEditingController();
-      TextEditingController controllerTwo = new TextEditingController();
-      TextEditingController controllerThree = new TextEditingController();
-      TextEditingController controllerFour = new TextEditingController();
-      TextEditingController controllerFive = new TextEditingController();
-      TextEditingController controllerSix = new TextEditingController();
-      TextEditingController controllerSeven = new TextEditingController();
-
-      helperZero = controllerZero.text;
-      helperOne = controllerOne.text;
-      helperTwo = controllerTwo.text;
-      helperThree = controllerThree.text;
-      helperFour = controllerFour.text;
-      helperFive = controllerFive.text;
-      helperSix = controllerSix.text;
-      helperSeven = controllerSeven.text;
-
       countRows.add(
         TableRow(
           children: <Widget>[
             TableCell(
               child: TableCellTextShowField(
-                controller: controllerZero,
+                color: widget.color,
+                durationInSeconds: 10,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -179,7 +165,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
             ),
             TableCell(
               child: TableCellTextShowField(
-                controller: controllerOne,
+                durationInSeconds: 2,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -203,7 +189,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
             ),
             TableCell(
               child: TableCellTextShowField(
-                controller: controllerTwo,
+                durationInSeconds: 3,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -227,7 +213,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
             ),
             TableCell(
               child: TableCellTextShowField(
-                controller: controllerThree,
+                durationInSeconds: 4,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -251,7 +237,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
             ),
             TableCell(
               child: TableCellTextShowField(
-                controller: controllerFour,
+                durationInSeconds: 5,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -275,7 +261,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
             ),
             TableCell(
               child: TableCellTextShowField(
-                controller: controllerFive,
+                durationInSeconds: 2,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -299,7 +285,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
             ),
             TableCell(
               child: TableCellTextShowField(
-                controller: controllerSix,
+                durationInSeconds: 2,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -323,7 +309,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
             ),
             TableCell(
               child: TableCellTextShowField(
-                controller: controllerSeven,
+                durationInSeconds: 4,
                 hintText: widget.oldValues
                     .elementAt(i)
                     .skillRow
@@ -350,195 +336,5 @@ class _ShowCountsPlan extends State<ShowCountsPlan> {
       );
     }
     return skillsList;
-  }
-
-  void setupTableObjectOverhauled() {
-
-    for (int i = 0; i < widget.numberIndicator; i++) {
-      if (helperZero == '') {
-        widget.table.elementAt(i).skillRow.elementAt(0).setSkill(
-          widget.oldValues
-              .elementAt(i)
-              .skillRow
-              .asMap()
-              .values
-              .elementAt(0)
-              .toString()
-              .substring(
-              14,
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(0)
-                  .toString()
-                  .characters
-                  .length -
-                  1),
-        );
-      }
-      if (helperOne == '') {
-        widget.table.elementAt(i).skillRow.elementAt(0).setSkill(
-          widget.oldValues
-              .elementAt(i)
-              .skillRow
-              .asMap()
-              .values
-              .elementAt(0)
-              .toString()
-              .substring(
-              14,
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(0)
-                  .toString()
-                  .characters
-                  .length -
-                  1),
-        );
-      }
-      if (helperTwo == '') {
-        widget.table.elementAt(i).skillRow.elementAt(1).setSkill(
-          widget.oldValues
-              .elementAt(i)
-              .skillRow
-              .asMap()
-              .values
-              .elementAt(1)
-              .toString()
-              .substring(
-              14,
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(1)
-                  .toString()
-                  .characters
-                  .length -
-                  1),
-        );
-      }
-      if (helperThree == '') {
-        widget.table.elementAt(i).skillRow.elementAt(3).setSkill(
-          widget.oldValues
-              .elementAt(i)
-              .skillRow
-              .asMap()
-              .values
-              .elementAt(3)
-              .toString()
-              .substring(
-              14,
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(3)
-                  .toString()
-                  .characters
-                  .length -
-                  1),
-        );
-      }
-      if (helperFour == '') {
-        widget.table.elementAt(i).skillRow.elementAt(4).setSkill(
-          widget.oldValues
-              .elementAt(i)
-              .skillRow
-              .asMap()
-              .values
-              .elementAt(4)
-              .toString()
-              .substring(
-              14,
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(4)
-                  .toString()
-                  .characters
-                  .length -
-                  1),
-        );
-      }
-      if (helperFive == '') {
-        widget.table.elementAt(i).skillRow.elementAt(5).setSkill(
-          widget.oldValues
-              .elementAt(i)
-              .skillRow
-              .asMap()
-              .values
-              .elementAt(5)
-              .toString()
-              .substring(
-              14,
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(5)
-                  .toString()
-                  .characters
-                  .length -
-                  1),
-        );
-      }
-      if (helperSix == '') {
-        widget.table.elementAt(i).skillRow.elementAt(6).setSkill(
-          widget.oldValues
-              .elementAt(i)
-              .skillRow
-              .asMap()
-              .values
-              .elementAt(6)
-              .toString()
-              .substring(
-              14,
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(6)
-                  .toString()
-                  .characters
-                  .length -
-                  1),
-        );
-      }
-      if (helperSeven == '') {
-        widget.table.elementAt(i).skillRow.elementAt(7).setSkill(
-          widget.oldValues
-              .elementAt(i)
-              .skillRow
-              .asMap()
-              .values
-              .elementAt(7)
-              .toString()
-              .substring(
-              14,
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(7)
-                  .toString()
-                  .characters
-                  .length -
-                  1),
-        );
-      }
-    }
   }
 }

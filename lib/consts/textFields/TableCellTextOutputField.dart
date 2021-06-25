@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Constants.dart';
+import '../Constants.dart';
 
-class TableCellTextShowField extends StatelessWidget {
-  TableCellTextShowField({@required this
+class TableCellTextOutputField extends StatelessWidget {
+  TableCellTextOutputField({@required this.onSubmitted, @required this
       .hintText, @required this.controller});
 
+  final Function onSubmitted;
   final String hintText;
   TextEditingController controller = new TextEditingController();
 
@@ -14,9 +15,9 @@ class TableCellTextShowField extends StatelessWidget {
     return Container(
       color: BlackPawsColor,
       child: TextField(
-        readOnly: true,
         controller: controller,
         textAlign: TextAlign.center,
+        onSubmitted: onSubmitted,
         style: TextStyle(
           fontSize: 20.0,
           fontFamily: 'Antonio-VariableFont',
