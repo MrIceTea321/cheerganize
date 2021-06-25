@@ -5,6 +5,7 @@ import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/screens/ShowCountsPlan.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -112,6 +113,21 @@ class RoutineStatusState extends State<RoutineStatus> {
                           builder: (context) => OverhaulRoutine(
                                 routine: widget.routine,
                               )));
+                },
+              ),
+              RoutineButton(
+                text: '8 - Count anzeigen',
+                onPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ShowCountsPlan(
+                        routine: widget.routine,
+                        countSheet: widget.countSheet,
+                        oldValues: widget.countSheet.tableList,
+                      ),
+                    ),
+                  );
                 },
               ),
             ],
