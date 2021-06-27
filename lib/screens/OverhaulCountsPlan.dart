@@ -148,10 +148,9 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
   }
 
   void setupTableRowsOverhaul() {
-    List<TextEditingController> controllerList =
-        List.filled(widget.allElements, new TextEditingController());
-    List<String> stringList = [];
+
     List<int> helperList = [];
+    List<TextEditingController> controllerList = List.filled(widget.allElements, new TextEditingController());
 
     widget.skillList = new List.generate(widget.numberIndicator,
         (index) => new Skill.build(index.toString(), ''));
@@ -168,6 +167,10 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             onSubmitted: (String value) {
               widget.skillList.elementAt(i+helperList
                   .elementAt(h)).setSkill(value);
+              controllerList.elementAt(i+helperList
+                  .elementAt(h)).clear();
+              widget.oldValues.elementAt(i+helperList
+                  .elementAt(h)).setSkill(value);
             },
             hintText: widget.oldValues.elementAt(i+helperList
                 .elementAt(h)).getSkill(),
@@ -177,10 +180,8 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
         );
         row.children.insert(i, widget.tableCellList.elementAt(i + helperList
             .elementAt(h)));
-        stringList.add(controllerList.elementAt(i + helperList
-            .elementAt(h)).text);
-        if (stringList.elementAt(i + helperList
-            .elementAt(h)) == '') {
+
+        if (controllerList.elementAt(i + helperList.elementAt(h)).text == '') {
           widget.skillList.insert(i + helperList
               .elementAt(h), widget.oldValues.elementAt(i +
               helperList

@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TableCellTextField extends StatelessWidget {
-  TableCellTextField({@required this.onChanged});
+  TableCellTextField({@required this.onSubmitted, this.controller, this.hintText});
 
-  final Function onChanged;
+  final Function onSubmitted;
+  final TextEditingController controller;
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +15,11 @@ class TableCellTextField extends StatelessWidget {
       color: BlackPawsColor,
       child: TextField(
         textAlign: TextAlign.center,
-        onSubmitted: onChanged,
+        controller: controller,
+        onSubmitted: onSubmitted,
         style: BlackPawsTextFieldTableTextStyle,
         decoration: InputDecoration(
+          hintText: hintText,
           hintStyle: TextStyle(
             fontSize: 14.0,
             fontWeight: FontWeight.w400,
