@@ -37,7 +37,9 @@ class _CountsPlan extends State<CountsPlan> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[],
@@ -143,18 +145,30 @@ class _CountsPlan extends State<CountsPlan> {
   void setupTableRows() {
     widget.skillList = new List.generate(
         widget.allElements, (index) => new Skill.build(index.toString(), ""));
+    List<int> helperList = [];
+
     int helper = 0;
+    helperList.add(helper);
     for (int h = 0; h < widget.numberIndicator; h++) {
       TableRow row = new TableRow(children: []);
       for (int i = 0; i <= 7; i++) {
-        widget.tableCellList.insert(i,
+        widget.tableCellList.insert(i + helperList
+            .elementAt(h),
             new TableCellTextField(onChanged: (String value) {
-          widget.skillList.elementAt(i).setSkill(value);
-        }));
-        row.children.insert(i, widget.tableCellList.elementAt(i + helper));
+              widget.skillList.elementAt(i + helperList
+                  .elementAt(h)).setSkill(value);
+            }));
+        row.children.insert(i, widget.tableCellList.elementAt(i + helperList
+            .elementAt(h)));
       }
-      helper = helper + 8;
+      if (helper < widget.allElements) {
+        helper = helper + 8;
+      }
+      helperList.add(helper);
       widget.tableRows.insert(h, row);
+      if (helper == widget.allElements - 8) {
+        helper = 0;
+      }
     }
   }
 }

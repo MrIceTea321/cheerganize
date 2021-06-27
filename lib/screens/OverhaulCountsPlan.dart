@@ -151,6 +151,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     List<TextEditingController> controllerList =
         List.filled(widget.allElements, new TextEditingController());
     List<String> stringList = [];
+    List<int> helperList = [];
 
     widget.skillList = new List.generate(widget.numberIndicator,
         (index) => new Skill.build(index.toString(), ''));
@@ -158,26 +159,42 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     widget.oldValues = widget.countSheet.tableList;
 
     int helper = 0;
+    helperList.add(helper);
     for (int h = 0; h < widget.numberIndicator; h++) {
       TableRow row = new TableRow(children: []);
       for (int i = 0; i <= 7; i++) {
-        widget.tableCellList.insert(i, new TableCellTextOutputField(
+        widget.tableCellList.insert(i+helperList
+            .elementAt(h), new TableCellTextOutputField(
             onSubmitted: (String value) {
-              widget.skillList.elementAt(i).setSkill(value);
+              widget.skillList.elementAt(i+helperList
+                  .elementAt(h)).setSkill(value);
             },
-            hintText: widget.oldValues.elementAt(i).getSkill(),
-            controller: controllerList.elementAt(i),
+            hintText: widget.oldValues.elementAt(i+helperList
+                .elementAt(h)).getSkill(),
+            controller: controllerList.elementAt(i+helperList
+                .elementAt(h)),
           ),
         );
-        row.children.insert(i, widget.tableCellList.elementAt(i + helper));
-        stringList.add(controllerList.elementAt(i + helper).text);
-        if (stringList.elementAt(i + helper) == '') {
-          widget.skillList.insert(i + helper, widget.oldValues.elementAt(i +
-              helper));
+        row.children.insert(i, widget.tableCellList.elementAt(i + helperList
+            .elementAt(h)));
+        stringList.add(controllerList.elementAt(i + helperList
+            .elementAt(h)).text);
+        if (stringList.elementAt(i + helperList
+            .elementAt(h)) == '') {
+          widget.skillList.insert(i + helperList
+              .elementAt(h), widget.oldValues.elementAt(i +
+              helperList
+                  .elementAt(h)));
         }
       }
-      helper = helper + 8;
+      if (helper < widget.allElements) {
+        helper = helper + 8;
+      }
+      helperList.add(helper);
       widget.tableRows.insert(h, row);
+      if (helper == widget.allElements - 8) {
+        helper = 0;
+      }
     }
   }
 }
