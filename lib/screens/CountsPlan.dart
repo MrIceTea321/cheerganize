@@ -16,8 +16,10 @@ class CountsPlan extends StatefulWidget {
   final Routine routine;
   final CountSheet countSheet;
   List<TableRow> tableRows = [];
-  List<Skills> table = [];
+  List<Skill> skillList = [];
+  List<TableCellTextField> tableCellList = [];
   int numberIndicator;
+  int allElements;
 
   @override
   _CountsPlan createState() => _CountsPlan();
@@ -29,8 +31,8 @@ class _CountsPlan extends State<CountsPlan> {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
-    widget.table =
-        getTableRows(widget.numberIndicator, widget.tableRows, widget.table);
+    widget.allElements = widget.numberIndicator * 8;
+    setupTableRows();
   }
 
   @override
@@ -106,8 +108,10 @@ class _CountsPlan extends State<CountsPlan> {
                               ),
                             ),
                           ),
-                          onPressed: () async {
-                            widget.countSheet.tableList = widget.table;
+                          onPressed: () {
+                            widget.countSheet.tableList = widget.skillList;
+                            print('abgespeichertes CountSheet');
+                            print(widget.countSheet);
                             CountSheetDao().insert(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
@@ -136,74 +140,21 @@ class _CountsPlan extends State<CountsPlan> {
     );
   }
 
-  List<Skills> getTableRows(
-      int numberIndicator, List<TableRow> countRows, List<Skills> skillsList) {
-    skillsList = new List.generate(
-        numberIndicator,
-        (index) => new Skills.build(
-            index.toString(),
-            new List.generate(
-                8, (index) => new Skill.build(index.toString(), ""))));
-
-    for (int i = 0; i < numberIndicator; i++) {
-      countRows.add(
-        TableRow(
-          children: <Widget>[
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(0).setSkill(value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(1).setSkill(value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(onChanged: (String value) {
-                skillsList.elementAt(i).skillRow.elementAt(2).setSkill(value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(3).setSkill(value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(4).setSkill(value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(onChanged: (String value) {
-                skillsList.elementAt(i).skillRow.elementAt(5).setSkill(value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(onChanged: (String value) {
-                skillsList.elementAt(i).skillRow.elementAt(6).setSkill(value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(7).setSkill(value);
-                },
-              ),
-            ),
-          ],
-        ),
-      );
+  void setupTableRows() {
+    widget.skillList = new List.generate(
+        widget.allElements, (index) => new Skill.build(index.toString(), ""));
+    int helper = 0;
+    for (int h = 0; h < widget.numberIndicator; h++) {
+      TableRow row = new TableRow(children: []);
+      for (int i = 0; i <= 7; i++) {
+        widget.tableCellList.insert(i,
+            new TableCellTextField(onChanged: (String value) {
+          widget.skillList.elementAt(i).setSkill(value);
+        }));
+        row.children.insert(i, widget.tableCellList.elementAt(i + helper));
+      }
+      helper = helper + 8;
+      widget.tableRows.insert(h, row);
     }
-
-    return skillsList;
   }
 }

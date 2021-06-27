@@ -20,9 +20,11 @@ class OverhaulCountsPlan extends StatefulWidget {
   final Routine routine;
   final CountSheet countSheet;
   List<TableRow> tableRows = [];
-  List<Skills> table = [];
-  List<Skills> oldValues;
+  List<Skill> skillList = [];
+  List<Skill> oldValues;
+  List<TableCellTextOutputField> tableCellList = [];
   int numberIndicator;
+  int allElements;
 
   @override
   _OverhaulCountsPlan createState() => _OverhaulCountsPlan();
@@ -34,7 +36,8 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
-    getTableRowsNew(widget.numberIndicator, widget.tableRows, widget.table);
+    widget.allElements = widget.numberIndicator * 8;
+    setupTableRowsOverhaul();
   }
 
   @override
@@ -114,7 +117,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                             ),
                           ),
                           onPressed: () {
-                            widget.countSheet.tableList = widget.table;
+                            widget.countSheet.tableList = widget.skillList;
                             widget.countSheet.id = widget.routine.id;
                             CountSheetDao().update(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
@@ -144,442 +147,37 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     );
   }
 
-  void getTableRowsNew(
-      int numberIndicator, List<TableRow> tableRows, List<Skills> skillsList) {
+  void setupTableRowsOverhaul() {
     List<TextEditingController> controllerList =
-        List.filled(numberIndicator * 8, new TextEditingController());
+        List.filled(widget.allElements, new TextEditingController());
     List<String> stringList = [];
-    skillsList = new List.generate(
-        numberIndicator,
-        (index) => new Skills.build(
-            index.toString(),
-            new List.generate(
-                8, (index) => new Skill.build(index.toString(), ""))));
+
+    widget.skillList = new List.generate(widget.numberIndicator,
+        (index) => new Skill.build(index.toString(), ''));
+
     widget.oldValues = widget.countSheet.tableList;
-    for (int i = 0; i < numberIndicator; i++) {
-      tableRows.add(
-        TableRow(
-          children: <Widget>[
-            TableCell(
-              child: TableCellTextOutputField(
-                controller: controllerList.elementAt(0 * i),
-                onSubmitted: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(0).setSkill(value);
-                  stringList.insert(0 * i, value);
-                },
-                hintText: widget.oldValues
-                    .elementAt(i)
-                    .skillRow
-                    .asMap()
-                    .values
-                    .elementAt(0)
-                    .toString()
-                    .substring(
-                        14,
-                        widget.oldValues
-                                .elementAt(i)
-                                .skillRow
-                                .asMap()
-                                .values
-                                .elementAt(0)
-                                .toString()
-                                .characters
-                                .length -
-                            1),
-              ),
-            ),
-            TableCell(
-              child: TableCellTextOutputField(
-                controller: controllerList.elementAt(1 * i),
-                onSubmitted: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(1).setSkill(value);
-                  stringList.insert(1 * i, value);
-                },
-                hintText: widget.oldValues
-                    .elementAt(i)
-                    .skillRow
-                    .asMap()
-                    .values
-                    .elementAt(1)
-                    .toString()
-                    .substring(
-                        14,
-                        widget.oldValues
-                                .elementAt(i)
-                                .skillRow
-                                .asMap()
-                                .values
-                                .elementAt(1)
-                                .toString()
-                                .characters
-                                .length -
-                            1),
-              ),
-            ),
-            TableCell(
-              child: TableCellTextOutputField(
-                controller: controllerList.elementAt(2 * i),
-                onSubmitted: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(2).setSkill(value);
-                  stringList.insert(2 * i, value);
-                },
-                hintText: widget.oldValues
-                    .elementAt(i)
-                    .skillRow
-                    .asMap()
-                    .values
-                    .elementAt(2)
-                    .toString()
-                    .substring(
-                        14,
-                        widget.oldValues
-                                .elementAt(i)
-                                .skillRow
-                                .asMap()
-                                .values
-                                .elementAt(2)
-                                .toString()
-                                .characters
-                                .length -
-                            1),
-              ),
-            ),
-            TableCell(
-              child: TableCellTextOutputField(
-                controller: controllerList.elementAt(3 * i),
-                onSubmitted: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(3).setSkill(value);
-                  stringList.insert(3 * i, value);
-                },
-                hintText: widget.oldValues
-                    .elementAt(i)
-                    .skillRow
-                    .asMap()
-                    .values
-                    .elementAt(3)
-                    .toString()
-                    .substring(
-                        14,
-                        widget.oldValues
-                                .elementAt(i)
-                                .skillRow
-                                .asMap()
-                                .values
-                                .elementAt(3)
-                                .toString()
-                                .characters
-                                .length -
-                            1),
-              ),
-            ),
-            TableCell(
-              child: TableCellTextOutputField(
-                controller: controllerList.elementAt(4 * i),
-                onSubmitted: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(4).setSkill(value);
-                  stringList.insert(4 * i, value);
-                },
-                hintText: widget.oldValues
-                    .elementAt(i)
-                    .skillRow
-                    .asMap()
-                    .values
-                    .elementAt(4)
-                    .toString()
-                    .substring(
-                        14,
-                        widget.oldValues
-                                .elementAt(i)
-                                .skillRow
-                                .asMap()
-                                .values
-                                .elementAt(4)
-                                .toString()
-                                .characters
-                                .length -
-                            1),
-              ),
-            ),
-            TableCell(
-              child: TableCellTextOutputField(
-                controller: controllerList.elementAt(5 * i),
-                onSubmitted: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(5).setSkill(value);
-                  stringList.insert(5 * i, value);
-                },
-                hintText: widget.oldValues
-                    .elementAt(i)
-                    .skillRow
-                    .asMap()
-                    .values
-                    .elementAt(5)
-                    .toString()
-                    .substring(
-                        14,
-                        widget.oldValues
-                                .elementAt(i)
-                                .skillRow
-                                .asMap()
-                                .values
-                                .elementAt(5)
-                                .toString()
-                                .characters
-                                .length -
-                            1),
-              ),
-            ),
-            TableCell(
-              child: TableCellTextOutputField(
-                controller: controllerList.elementAt(6 * i),
-                onSubmitted: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(6).setSkill(value);
-                  stringList.insert(6 * i, value);
-                },
-                hintText: widget.oldValues
-                    .elementAt(i)
-                    .skillRow
-                    .asMap()
-                    .values
-                    .elementAt(6)
-                    .toString()
-                    .substring(
-                        14,
-                        widget.oldValues
-                                .elementAt(i)
-                                .skillRow
-                                .asMap()
-                                .values
-                                .elementAt(6)
-                                .toString()
-                                .characters
-                                .length -
-                            1),
-              ),
-            ),
-            TableCell(
-              child: TableCellTextOutputField(
-                controller: controllerList.elementAt(7 * i),
-                onSubmitted: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(7).setSkill(value);
-                  stringList.insert(7 * i, value);
-                },
-                hintText: widget.oldValues
-                    .elementAt(i)
-                    .skillRow
-                    .asMap()
-                    .values
-                    .elementAt(7)
-                    .toString()
-                    .substring(
-                        14,
-                        widget.oldValues
-                                .elementAt(i)
-                                .skillRow
-                                .asMap()
-                                .values
-                                .elementAt(7)
-                                .toString()
-                                .characters
-                                .length -
-                            1),
-              ),
-            ),
-          ],
-        ),
-      );
-      stringList.add(controllerList.elementAt(0 * i).text);
-      stringList.add(controllerList.elementAt(1 * i).text);
-      stringList.add(controllerList.elementAt(2 * i).text);
-      stringList.add(controllerList.elementAt(3 * i).text);
-      stringList.add(controllerList.elementAt(4 * i).text);
-      stringList.add(controllerList.elementAt(5 * i).text);
-      stringList.add(controllerList.elementAt(6 * i).text);
-      stringList.add(controllerList.elementAt(7 * i).text);
-      widget.table =  skillsList;
-      if (stringList.elementAt(0 * i) == '') {
-        widget.table.elementAt(i).skillRow.elementAt(0).setSkill(
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(0)
-                  .toString()
-                  .substring(
-                      14,
-                      widget.oldValues
-                              .elementAt(i)
-                              .skillRow
-                              .asMap()
-                              .values
-                              .elementAt(0)
-                              .toString()
-                              .characters
-                              .length -
-                          1),
-            );
+
+    int helper = 0;
+    for (int h = 0; h < widget.numberIndicator; h++) {
+      TableRow row = new TableRow(children: []);
+      for (int i = 0; i <= 7; i++) {
+        widget.tableCellList.insert(i, new TableCellTextOutputField(
+            onSubmitted: (String value) {
+              widget.skillList.elementAt(i).setSkill(value);
+            },
+            hintText: widget.oldValues.elementAt(i).getSkill(),
+            controller: controllerList.elementAt(i),
+          ),
+        );
+        row.children.insert(i, widget.tableCellList.elementAt(i + helper));
+        stringList.add(controllerList.elementAt(i + helper).text);
+        if (stringList.elementAt(i + helper) == '') {
+          widget.skillList.insert(i + helper, widget.oldValues.elementAt(i +
+              helper));
+        }
       }
-      if (stringList.elementAt(1 * i) == '') {
-        widget.table.elementAt(i).skillRow.elementAt(1).setSkill(
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(1)
-                  .toString()
-                  .substring(
-                      14,
-                      widget.oldValues
-                              .elementAt(i)
-                              .skillRow
-                              .asMap()
-                              .values
-                              .elementAt(1)
-                              .toString()
-                              .characters
-                              .length -
-                          1),
-            );
-      }
-      if (stringList.elementAt(2 * i) == '') {
-        widget.table.elementAt(i).skillRow.elementAt(2).setSkill(
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(2)
-                  .toString()
-                  .substring(
-                      14,
-                      widget.oldValues
-                              .elementAt(i)
-                              .skillRow
-                              .asMap()
-                              .values
-                              .elementAt(2)
-                              .toString()
-                              .characters
-                              .length -
-                          1),
-            );
-      }
-      if (stringList.elementAt(3 * i) == '') {
-        widget.table.elementAt(i).skillRow.elementAt(3).setSkill(
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(3)
-                  .toString()
-                  .substring(
-                      14,
-                      widget.oldValues
-                              .elementAt(i)
-                              .skillRow
-                              .asMap()
-                              .values
-                              .elementAt(3)
-                              .toString()
-                              .characters
-                              .length -
-                          1),
-            );
-      }
-      if (stringList.elementAt(4 * i) == '') {
-        widget.table.elementAt(i).skillRow.elementAt(4).setSkill(
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(4)
-                  .toString()
-                  .substring(
-                      14,
-                      widget.oldValues
-                              .elementAt(i)
-                              .skillRow
-                              .asMap()
-                              .values
-                              .elementAt(4)
-                              .toString()
-                              .characters
-                              .length -
-                          1),
-            );
-      }
-      if (stringList.elementAt(5 * i) == '') {
-        widget.table.elementAt(i).skillRow.elementAt(5).setSkill(
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(5)
-                  .toString()
-                  .substring(
-                      14,
-                      widget.oldValues
-                              .elementAt(i)
-                              .skillRow
-                              .asMap()
-                              .values
-                              .elementAt(5)
-                              .toString()
-                              .characters
-                              .length -
-                          1),
-            );
-      }
-      if (stringList.elementAt(6 * i) == '') {
-        widget.table.elementAt(i).skillRow.elementAt(6).setSkill(
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(6)
-                  .toString()
-                  .substring(
-                      14,
-                      widget.oldValues
-                              .elementAt(i)
-                              .skillRow
-                              .asMap()
-                              .values
-                              .elementAt(6)
-                              .toString()
-                              .characters
-                              .length -
-                          1),
-            );
-      }
-      if (stringList.elementAt(7 * i) == '') {
-        widget.table.elementAt(i).skillRow.elementAt(7).setSkill(
-              widget.oldValues
-                  .elementAt(i)
-                  .skillRow
-                  .asMap()
-                  .values
-                  .elementAt(7)
-                  .toString()
-                  .substring(
-                      14,
-                      widget.oldValues
-                              .elementAt(i)
-                              .skillRow
-                              .asMap()
-                              .values
-                              .elementAt(7)
-                              .toString()
-                              .characters
-                              .length -
-                          1),
-            );
-      }
+      helper = helper + 8;
+      widget.tableRows.insert(h, row);
     }
   }
 }
