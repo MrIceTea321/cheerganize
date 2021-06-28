@@ -2,7 +2,7 @@ import 'package:Cheerganize/screens/AllRoutines.dart';
 import 'package:Cheerganize/screens/NewRoutine.dart';
 import 'package:flutter/material.dart';
 import 'consts/Constants.dart';
-import 'noSqlDb/DbInitiator.dart';
+import 'sembastDb/DbInitiator.dart';
 import 'screens/CountsPlan.dart';
 import 'screens/HomeScreen.dart';
 import 'screens/Settings.dart';

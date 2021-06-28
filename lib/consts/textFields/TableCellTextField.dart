@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TableCellTextField extends StatelessWidget {
-  TableCellTextField({@required this.onSubmitted, this.controller, this.hintText});
+  TableCellTextField(
+      {@required this.onSubmitted, this.controller, this.hintText});
 
   final Function onSubmitted;
   final TextEditingController controller;

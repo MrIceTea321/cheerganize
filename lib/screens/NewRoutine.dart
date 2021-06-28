@@ -2,9 +2,9 @@ import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:Cheerganize/consts/textFields/ConstTextField.dart';
-import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/sembastDb/dataAccessObjects/RoutineDao.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,6 @@ class NewRoutine extends StatefulWidget {
 class _NewRoutine extends State<NewRoutine> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[],

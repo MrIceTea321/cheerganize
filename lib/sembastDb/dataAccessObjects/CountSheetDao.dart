@@ -1,13 +1,14 @@
-import 'package:Cheerganize/noSqlDb/DbInitiator.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Skill.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Skills.dart';
+import 'package:Cheerganize/sembastDb/DbInitiator.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/CountSheet.dart';
+
 import 'package:sembast/sembast.dart';
 
 class CountSheetDao {
   static const String COUNTSHEET_STORE_NAME = 'countSheet';
+
   // A Store with int keys and Map<String, dynamic> values.
-  // This Store acts like a persistent map, values of which are Fruit objects converted to Map
+  // This Store acts like a persistent map, values of which are Countsheet
+  // objects converted to Map
   final _countSheetStore = intMapStoreFactory.store(COUNTSHEET_STORE_NAME);
 
   // Private getter to shorten the amount of code needed to get the
@@ -25,7 +26,7 @@ class CountSheetDao {
   }
 
   // Get a countSheet by name
-  Future<CountSheet> getCountSheet(String name) async {
+  Future<CountSheet> getCountSheetByName(String name) async {
     final finder = Finder(filter: Filter.equals('name', name));
     final recordSnapshots = await _countSheetStore.find(
       await _db,

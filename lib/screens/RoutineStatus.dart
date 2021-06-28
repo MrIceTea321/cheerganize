@@ -1,10 +1,10 @@
 import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/RoutineButton.dart';
-import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
-import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/sembastDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:Cheerganize/sembastDb/dataAccessObjects/RoutineDao.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/Routine.dart';
 import 'package:Cheerganize/screens/ShowCountsPlan.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,22 +94,26 @@ class RoutineStatusState extends State<RoutineStatus> {
                   showDialog(
                     context: context,
                     builder: (_) => CupertinoAlertDialog(
-                      content: Text('Auf der nächsten Seite startet der 8 - '
-                          'Count automatisch nachdem der Counter, welcher auf'
-                          ' der Seite oben mittig zu sehen ist, auf 0 steht'
-                          '.', style: TextStyle(
-                        color: BasicBlackColor,
-                        fontSize: 24.0,
-                        fontFamily: 'Antonio-VariableFont',
-                      ),),
+                      content: Text(
+                        'Auf der nächsten Seite startet der 8 - '
+                        'Count automatisch nachdem der Counter, welcher auf'
+                        ' der Seite oben mittig zu sehen ist, auf 0 steht'
+                        '.',
+                        style: TextStyle(
+                          color: BasicBlackColor,
+                          fontSize: 24.0,
+                          fontFamily: 'Antonio-VariableFont',
+                        ),
+                      ),
                       actions: <Widget>[
                         CupertinoDialogAction(
-                          child: Text('zum 8 - Count',style: TextStyle(
-                    color: BasicBlackColor,
-                      fontSize: 32.0,
-                      fontFamily: 'Antonio-VariableFont',
-                    )),
-                          onPressed: ()  {
+                          child: Text('zum 8 - Count',
+                              style: TextStyle(
+                                color: BasicBlackColor,
+                                fontSize: 32.0,
+                                fontFamily: 'Antonio-VariableFont',
+                              )),
+                          onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(

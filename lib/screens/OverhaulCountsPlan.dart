@@ -1,13 +1,11 @@
 import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/container/RoundedContainer.dart';
-import 'package:Cheerganize/consts/textFields/ConstTextField.dart';
 import 'package:Cheerganize/consts/textFields/TableCellTextOutputField.dart';
-import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Skill.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Skills.dart';
+import 'package:Cheerganize/sembastDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/Skill.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -145,9 +143,9 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
   }
 
   void setupTableRowsOverhaul() {
-
     List<int> helperList = [];
-    List<TextEditingController> controllerList = List.filled(widget.allElements, new TextEditingController());
+    List<TextEditingController> controllerList =
+        List.filled(widget.allElements, new TextEditingController());
 
     widget.skillList = new List.generate(widget.numberIndicator,
         (index) => new Skill.build(index.toString(), ''));
@@ -159,30 +157,30 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
     for (int h = 0; h < widget.numberIndicator; h++) {
       TableRow row = new TableRow(children: []);
       for (int i = 0; i <= 7; i++) {
-        widget.tableCellList.insert(i+helperList
-            .elementAt(h), new TableCellTextOutputField(
+        widget.tableCellList.insert(
+          i + helperList.elementAt(h),
+          new TableCellTextOutputField(
             onSubmitted: (String value) {
-              widget.skillList.elementAt(i+helperList
-                  .elementAt(h)).setSkill(value);
-              controllerList.elementAt(i+helperList
-                  .elementAt(h)).clear();
-              widget.oldValues.elementAt(i+helperList
-                  .elementAt(h)).setSkill(value);
+              widget.skillList
+                  .elementAt(i + helperList.elementAt(h))
+                  .setSkill(value);
+              controllerList.elementAt(i + helperList.elementAt(h)).clear();
+              widget.oldValues
+                  .elementAt(i + helperList.elementAt(h))
+                  .setSkill(value);
             },
-            hintText: widget.oldValues.elementAt(i+helperList
-                .elementAt(h)).getSkill(),
-            controller: controllerList.elementAt(i+helperList
-                .elementAt(h)),
+            hintText: widget.oldValues
+                .elementAt(i + helperList.elementAt(h))
+                .getSkill(),
+            controller: controllerList.elementAt(i + helperList.elementAt(h)),
           ),
         );
-        row.children.insert(i, widget.tableCellList.elementAt(i + helperList
-            .elementAt(h)));
+        row.children.insert(
+            i, widget.tableCellList.elementAt(i + helperList.elementAt(h)));
 
         if (controllerList.elementAt(i + helperList.elementAt(h)).text == '') {
-          widget.skillList.insert(i + helperList
-              .elementAt(h), widget.oldValues.elementAt(i +
-              helperList
-                  .elementAt(h)));
+          widget.skillList.insert(i + helperList.elementAt(h),
+              widget.oldValues.elementAt(i + helperList.elementAt(h)));
         }
       }
       if (helper < widget.allElements) {

@@ -3,6 +3,7 @@ class Skill {
   String skill;
 
   Skill({this.id, this.skill});
+
   Skill.build(String id, String skill) {
     this.id = id;
     this.skill = skill;

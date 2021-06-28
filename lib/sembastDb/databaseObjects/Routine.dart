@@ -17,22 +17,6 @@ class Routine {
     return Routine(name: map['name'], typeofsport: map['typeofsport']);
   }
 
-  @override
-  Map<String, dynamic> toJson() =>
-      {'id': id, 'name': name, 'typeofsport': typeofsport};
-
-//to be used when inserting a row in the table
-  @override
-  Map<String, dynamic> toMapWithoutId() {
-    final map = new Map<String, dynamic>();
-    map['name'] = name;
-    map['typeofsport'] = typeofsport;
-
-    return map;
-  }
-
-  //to be used when updating a row in the table
-  @override
   Map<String, dynamic> toMap() {
     final map = new Map<String, dynamic>();
     map['name'] = name;

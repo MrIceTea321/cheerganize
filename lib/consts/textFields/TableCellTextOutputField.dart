@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../Constants.dart';
 
 class TableCellTextOutputField extends StatelessWidget {
-  TableCellTextOutputField({@required this.onSubmitted, @required this
-      .hintText, @required this.controller});
+  TableCellTextOutputField(
+      {@required this.onSubmitted,
+      @required this.hintText,
+      @required this.controller});
 
   final Function onSubmitted;
   final String hintText;

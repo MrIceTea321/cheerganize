@@ -21,8 +21,9 @@ class _AnimatedContainerCell extends State<AnimatedContainerCell>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: widget.durationInMillSec + widget
-        .delayValue), () {
+    Future.delayed(
+        Duration(milliseconds: widget.durationInMillSec + widget.delayValue),
+        () {
       setState(() {
         widget.selected = false;
       });

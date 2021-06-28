@@ -2,11 +2,10 @@ import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/container/RoundedContainer.dart';
 import 'package:Cheerganize/consts/textFields/TableCellTextField.dart';
-import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Skill.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Skills.dart';
+import 'package:Cheerganize/sembastDb/dataAccessObjects/CountSheetDao.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/CountSheet.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/Skill.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -37,9 +36,7 @@ class _CountsPlan extends State<CountsPlan> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[],
@@ -152,17 +149,16 @@ class _CountsPlan extends State<CountsPlan> {
     for (int h = 0; h < widget.numberIndicator; h++) {
       TableRow row = new TableRow(children: []);
       for (int i = 0; i <= 7; i++) {
-        widget.tableCellList.insert(i + helperList
-            .elementAt(h),
+        widget.tableCellList.insert(i + helperList.elementAt(h),
             new TableCellTextField(
-
-                onSubmitted: (String value) {
-              widget.skillList.elementAt(i + helperList
-                  .elementAt(h)).setSkill(value);
-            },
-            ));
-        row.children.insert(i, widget.tableCellList.elementAt(i + helperList
-            .elementAt(h)));
+          onSubmitted: (String value) {
+            widget.skillList
+                .elementAt(i + helperList.elementAt(h))
+                .setSkill(value);
+          },
+        ));
+        row.children.insert(
+            i, widget.tableCellList.elementAt(i + helperList.elementAt(h)));
       }
       if (helper < widget.allElements) {
         helper = helper + 8;

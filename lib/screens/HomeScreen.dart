@@ -1,8 +1,8 @@
 import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/BigFunctionButton.dart';
-import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
-import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/sembastDb/dataAccessObjects/RoutineDao.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/Routine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

@@ -1,12 +1,14 @@
-import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
+import 'package:Cheerganize/sembastDb/databaseObjects/Routine.dart';
 import 'package:sembast/sembast.dart';
 
 import '../DbInitiator.dart';
 
 class RoutineDao {
   static const String ROUTINE_STORE_NAME = 'routine';
+
   // A Store with int keys and Map<String, dynamic> values.
-  // This Store acts like a persistent map, values of which are Fruit objects converted to Map
+  // This Store acts like a persistent map, values of which are Routine objects
+  // converted to Map
   final _routineStore = intMapStoreFactory.store(ROUTINE_STORE_NAME);
 
   // Private getter to shorten the amount of code needed to get the
@@ -17,8 +19,8 @@ class RoutineDao {
     await _routineStore.add(await _db, routine.toMap());
   }
 
-  // Get a countSheet by name
-  Future<Routine> getRoutine(int id) async {
+  // Get a routine by id
+  Future<Routine> getRoutineById(int id) async {
     var map = await _routineStore.record(id).get(await _db);
     return map == null ? null : Routine.buildFromMap(map);
   }
