@@ -30,6 +30,12 @@ const BlackPawsTextFieldTableTextStyle = TextStyle(
   fontFamily: 'Antonio-VariableFont',
 );
 
+const BlackPawsPlayCountTextStyle = TextStyle(
+  color: BlackPawsColor,
+  fontSize: 25.0,
+  fontFamily: 'Antonio-VariableFont',
+);
+
 const BlackPawsColor = Color(0xffF7C824);
 
 const IconColorWhite = Colors.white70;
