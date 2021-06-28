@@ -11,9 +11,9 @@ class SmallRoundedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350.0,
+      width: 230.0,
       height: 80.0,
-      padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
+      padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 15.0),
       child: TextField(
         readOnly: true,
         textAlign: TextAlign.center,

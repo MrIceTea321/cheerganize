@@ -14,12 +14,12 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  sembast: ^2.4.3
-  get_it: ^4.0.2
-  path_provider: ^1.6.7
-  equatable: ^0.2.3
+  sembast: ^3.1.0+2
+  get_it: ^7.1.4
+  path_provider: ^2.0.2
+  equatable: ^2.0.3
   auto_size_text: ^2.1.0
-  background_app_bar: ^1.0.0
+  background_app_bar: ^2.0.0
   countdown_flutter: ^0.1.2
 
 dev_dependencies:

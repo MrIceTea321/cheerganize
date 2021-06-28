@@ -4,7 +4,6 @@ import 'package:Cheerganize/consts/container/AnimatedContainer.dart';
 import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/container/RoundedContainer.dart';
-import 'package:Cheerganize/consts/buttons/StartAnimationButton.dart';
 import 'package:Cheerganize/consts/container/SmallRoundedContainer.dart';
 import 'package:Cheerganize/consts/textFields/TableCellTextShowField.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
@@ -73,31 +72,31 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
           children: [
             Column(
               children: [
-                SizedBox(
-                  height: 20.0,
-                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
                       children: [
                         BlackPawsCircleAvatar(radius: 80.0),
                         SizedBox(
-                          width: 100.0,
+                          width: size.width * 0.05,
                         ),
                         Container(
                           padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
                           decoration: BoxDecoration(
-                              border: Border(
-                            top: BorderSide(color: CheerganizeYellowColor, width: 1.0),
-                            left: BorderSide(color: CheerganizeYellowColor, width: 1.0),
-                            right:
-                                BorderSide(color: CheerganizeYellowColor, width: 1.0),
-                            bottom:
-                                BorderSide(color: CheerganizeYellowColor, width: 1.0),
+                            border: Border(
+                              top: BorderSide(
+                                  color: CheerganizeYellowColor, width: 1.0),
+                              left: BorderSide(
+                                  color: CheerganizeYellowColor, width: 1.0),
+                              right: BorderSide(
+                                  color: CheerganizeYellowColor, width: 1.0),
+                              bottom: BorderSide(
+                                  color: CheerganizeYellowColor, width: 1.0),
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(32.0)),
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(32.0)),
-    ),
                           child: Countdown(
                             builder:
                                 (BuildContext context, Duration remaining) {
@@ -116,16 +115,16 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
                                 ),
                               );
                             },
-                            // duration has to be the same as the delayValue in
-                            // the AnimatedContainerClass
+                            // the Duration has to be the same as the
+                            // delayValue in the AnimatedContainerClass
                             duration: Duration(seconds: 7),
                           ),
                         ),
+                        SizedBox(
+                          width: size.width * 0.05,
+                        ),
                         Row(
                           children: [
-                            SizedBox(
-                              width: 100.0,
-                            ),
                             Column(
                               children: [
                                 SmallRoundedContainer(
