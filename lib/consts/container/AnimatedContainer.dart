@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Constants.dart';
+import '../Constants.dart';
 
 class AnimatedContainerCell extends StatefulWidget {
   String hintText;
   int durationInMillSec;
-  int endValue;
   bool selected = true;
+  int delayValue = 7000;
 
   AnimatedContainerCell(
       {Key key, @required this.hintText, @required this.durationInMillSec})
@@ -21,7 +21,8 @@ class _AnimatedContainerCell extends State<AnimatedContainerCell>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: widget.durationInMillSec), () {
+    Future.delayed(Duration(milliseconds: widget.durationInMillSec + widget
+        .delayValue), () {
       setState(() {
         widget.selected = false;
       });

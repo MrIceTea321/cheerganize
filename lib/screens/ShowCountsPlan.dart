@@ -1,13 +1,16 @@
 import 'dart:async';
 
-import 'package:Cheerganize/consts/AnimatedContainer.dart';
+import 'package:Cheerganize/consts/container/AnimatedContainer.dart';
 import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
+import 'package:Cheerganize/consts/container/RoundedContainer.dart';
 import 'package:Cheerganize/consts/buttons/StartAnimationButton.dart';
+import 'package:Cheerganize/consts/container/SmallRoundedContainer.dart';
 import 'package:Cheerganize/consts/textFields/TableCellTextShowField.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Skill.dart';
+import 'package:countdown_flutter/countdown_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -57,11 +60,6 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
             color: IconColorWhite,
             iconSize: 40.0,
             onPressed: () {
-              widget.animationControllerList.forEach(
-                (controller) {
-                  controller.dispose();
-                },
-              );
               Navigator.pushNamed(context, 'HomeScreen');
             },
           ),
@@ -87,25 +85,40 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
                         SizedBox(
                           width: 100.0,
                         ),
+                        Countdown(
+                          builder: (BuildContext context, Duration remaining) {
+                            return Align(
+                              alignment: Alignment.center,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Der 8 - Count startet in', style:
+                                  BlackPawsAppBarTextStyle,),
+                                  Text('${remaining.inSeconds} Sekunden', style:
+                                  BlackPawsAppBarTextStyle)
+                                ],
+                              ),
+                            );
+                          },
+                          // duration has to be the same as the delayValue in
+                          // the AnimatedContainerClass
+                          duration: Duration(seconds: 7),
+                        ),
                         Row(
                           children: [
-                            SizedBox(
-                              height: 20.00,
-                            ),
                             SizedBox(
                               width: 100.0,
                             ),
                             Column(
                               children: [
-                                Text(
-                                    'Anzahl der Reihen: ' +
-                                        widget.numberOfRows.toString(),
-                                    style: BlackPawsPlayCountTextStyle),
-                                SizedBox(
-                                  height: 15.0,
+                                SmallRoundedContainer(
+                                  prefix: 'Anzahl der Reihen: ',
+                                  suffix: widget.numberOfRows.toString(),
                                 ),
-                                Text('Bpm: ' + widget.countSheet.bpm.toString(),
-                                    style: BlackPawsPlayCountTextStyle),
+                                SmallRoundedContainer(
+                                  prefix: 'Bpm: ',
+                                  suffix: widget.countSheet.bpm.toString(),
+                                ),
                               ],
                             )
                           ],
@@ -145,11 +158,12 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
       TableRow row = new TableRow(children: []);
 
       for (int i = 0; i <= 7; i++) {
-        widget.tableCellList.insert(i + rowCounts.elementAt(h),
+        widget.tableCellList.insert(
+          i + rowCounts.elementAt(h),
           new AnimatedContainerCell(
-              durationInMillSec: durations.elementAt(i+1+ rowCounts.elementAt
-                (h)),
-                hintText: widget.oldValues
+            durationInMillSec:
+                durations.elementAt(i + 1 + rowCounts.elementAt(h)),
+            hintText: widget.oldValues
                 .elementAt(i + rowCounts.elementAt(h))
                 .getSkill(),
           ),

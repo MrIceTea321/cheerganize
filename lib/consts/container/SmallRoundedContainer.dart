@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Constants.dart';
+import '../Constants.dart';
 
-class RoundedContainer extends StatelessWidget {
-  RoundedContainer({@required this.prefix, @required this.suffix});
+class SmallRoundedContainer extends StatelessWidget {
+  SmallRoundedContainer({@required this.prefix, @required this.suffix});
 
   final String prefix;
   final String suffix;
@@ -11,6 +11,8 @@ class RoundedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 350.0,
+      height: 80.0,
       padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
       child: TextField(
         readOnly: true,
