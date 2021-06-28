@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'Skills.dart';
+import 'Skill.dart';
 
 class CountSheet {
   int id;
-  List<Skills> tableList;
+  List<Skill> tableList;
   String name;
   int bpm;
   double duration;
@@ -31,9 +31,9 @@ class CountSheet {
     return CountSheet(
         id: map['id'],
         tableList: map['tableList']
-            .map((mapping) => Skills.fromMap(mapping))
+            .map((mapping) => Skill.fromMap(mapping))
             .toList()
-            .cast<Skills>(),
+            .cast<Skill>(),
         name: map['name'],
         bpm: map['bpm'],
         duration: map['duration']);

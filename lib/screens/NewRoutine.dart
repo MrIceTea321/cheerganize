@@ -1,7 +1,7 @@
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
-import 'package:Cheerganize/consts/ConstTextField.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/BigFunctionButton.dart';
+import 'package:Cheerganize/consts/textFields/ConstTextField.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
@@ -48,13 +48,13 @@ class _NewRoutine extends State<NewRoutine> {
           ConstTextField(
             hintText: 'Name der Routine',
             onChanged: (String value) {
-              widget.routine.name = '"' + value + '"';
+              widget.routine.name = value;
             },
           ),
           ConstTextField(
             hintText: 'Kategorie',
             onChanged: (String value) {
-              widget.routine.typeofsport = '"' + value + '"';
+              widget.routine.typeofsport = value;
             },
           ),
           ConstTextField(
@@ -73,9 +73,6 @@ class _NewRoutine extends State<NewRoutine> {
             text: '8 - Counts Planung',
             onPress: () {
               widget.countSheet.name = widget.routine.name;
-              print('objecte fertig erstellt:');
-              print(widget.countSheet);
-              print(widget.routine);
               RoutineDao().insert(widget.routine);
               Navigator.push(
                 context,

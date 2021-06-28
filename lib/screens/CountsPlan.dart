@@ -1,7 +1,7 @@
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
-import 'package:Cheerganize/consts/RoundedContainer.dart';
-import 'package:Cheerganize/consts/TableCellTextField.dart';
+import 'package:Cheerganize/consts/container/RoundedContainer.dart';
+import 'package:Cheerganize/consts/textFields/TableCellTextField.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
@@ -16,8 +16,10 @@ class CountsPlan extends StatefulWidget {
   final Routine routine;
   final CountSheet countSheet;
   List<TableRow> tableRows = [];
-  List<Skills> table = [];
+  List<Skill> skillList = [];
+  List<TableCellTextField> tableCellList = [];
   int numberIndicator;
+  int allElements;
 
   @override
   _CountsPlan createState() => _CountsPlan();
@@ -29,13 +31,15 @@ class _CountsPlan extends State<CountsPlan> {
     super.initState();
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberIndicator = rows.toInt();
-    widget.table =
-        getTableRows(widget.numberIndicator, widget.tableRows, widget.table);
+    widget.allElements = widget.numberIndicator * 8;
+    setupTableRows();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[],
@@ -90,7 +94,7 @@ class _CountsPlan extends State<CountsPlan> {
                             decoration: BoxDecoration(
                                 border: Border.all(
                                   width: 1.5,
-                                  color: BlackPawsColor,
+                                  color: CheerganizeYellowColor,
                                 ),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(
@@ -101,13 +105,15 @@ class _CountsPlan extends State<CountsPlan> {
                               '8 - Count anlegen',
                               style: TextStyle(
                                 fontSize: 20.0,
-                                color: BlackPawsColor,
+                                color: CheerganizeYellowColor,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
-                          onPressed: () async {
-                            widget.countSheet.tableList = widget.table;
+                          onPressed: () {
+                            widget.countSheet.tableList = widget.skillList;
+                            print('abgespeichertes CountSheet');
+                            print(widget.countSheet);
                             CountSheetDao().insert(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
@@ -136,74 +142,36 @@ class _CountsPlan extends State<CountsPlan> {
     );
   }
 
-  List<Skills> getTableRows(
-      int numberIndicator, List<TableRow> countRows, List<Skills> skillsList) {
-    skillsList = new List.generate(
-        numberIndicator,
-        (index) => new Skills.build(
-            index.toString(),
-            new List.generate(
-                8, (index) => new Skill.build(index.toString(), ""))));
+  void setupTableRows() {
+    widget.skillList = new List.generate(
+        widget.allElements, (index) => new Skill.build(index.toString(), ""));
+    List<int> helperList = [];
 
-    for (int i = 0; i < numberIndicator; i++) {
-      countRows.add(
-        TableRow(
-          children: <Widget>[
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(0).setSkill(value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(1).setSkill(value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(onChanged: (String value) {
-                skillsList.elementAt(i).skillRow.elementAt(2).setSkill(value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(3).setSkill(value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(4).setSkill(value);
-                },
-              ),
-            ),
-            TableCell(
-              child: TableCellTextField(onChanged: (String value) {
-                skillsList.elementAt(i).skillRow.elementAt(5).setSkill(value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(onChanged: (String value) {
-                skillsList.elementAt(i).skillRow.elementAt(6).setSkill(value);
-              }),
-            ),
-            TableCell(
-              child: TableCellTextField(
-                onChanged: (String value) {
-                  skillsList.elementAt(i).skillRow.elementAt(7).setSkill(value);
-                },
-              ),
-            ),
-          ],
-        ),
-      );
+    int helper = 0;
+    helperList.add(helper);
+    for (int h = 0; h < widget.numberIndicator; h++) {
+      TableRow row = new TableRow(children: []);
+      for (int i = 0; i <= 7; i++) {
+        widget.tableCellList.insert(i + helperList
+            .elementAt(h),
+            new TableCellTextField(
+
+                onSubmitted: (String value) {
+              widget.skillList.elementAt(i + helperList
+                  .elementAt(h)).setSkill(value);
+            },
+            ));
+        row.children.insert(i, widget.tableCellList.elementAt(i + helperList
+            .elementAt(h)));
+      }
+      if (helper < widget.allElements) {
+        helper = helper + 8;
+      }
+      helperList.add(helper);
+      widget.tableRows.insert(h, row);
+      if (helper == widget.allElements - 8) {
+        helper = 0;
+      }
     }
-
-    return skillsList;
   }
 }

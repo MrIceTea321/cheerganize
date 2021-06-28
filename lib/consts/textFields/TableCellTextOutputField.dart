@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Constants.dart';
+import '../Constants.dart';
 
 class TableCellTextOutputField extends StatelessWidget {
   TableCellTextOutputField({@required this.onSubmitted, @required this
@@ -8,12 +8,12 @@ class TableCellTextOutputField extends StatelessWidget {
 
   final Function onSubmitted;
   final String hintText;
-  TextEditingController controller = new TextEditingController();
+  TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: BlackPawsColor,
+      color: CheerganizeYellowColor,
       child: TextField(
         controller: controller,
         textAlign: TextAlign.center,
@@ -31,15 +31,15 @@ class TableCellTextOutputField extends StatelessWidget {
           ),
           contentPadding: EdgeInsets.zero,
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
         ),

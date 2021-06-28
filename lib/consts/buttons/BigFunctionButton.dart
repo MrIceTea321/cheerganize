@@ -42,7 +42,7 @@ class BigFunctionButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
-            color: BlackPawsColor,
+            color: CheerganizeYellowColor,
             width: 1.5,
             style: BorderStyle.solid,
           ),
