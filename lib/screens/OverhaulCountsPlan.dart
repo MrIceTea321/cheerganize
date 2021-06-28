@@ -1,4 +1,4 @@
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/container/RoundedContainer.dart';
 import 'package:Cheerganize/consts/textFields/ConstTextField.dart';
@@ -97,7 +97,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                             decoration: BoxDecoration(
                                 border: Border.all(
                                   width: 1.5,
-                                  color: BlackPawsColor,
+                                  color: CheerganizeYellowColor,
                                 ),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(
@@ -108,7 +108,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                               '8 - Count bearbeitet',
                               style: TextStyle(
                                 fontSize: 20.0,
-                                color: BlackPawsColor,
+                                color: CheerganizeYellowColor,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),

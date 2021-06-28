@@ -12,12 +12,12 @@ class TableCellTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: BlackPawsColor,
+      color: CheerganizeYellowColor,
       child: TextField(
         textAlign: TextAlign.center,
         controller: controller,
         onSubmitted: onSubmitted,
-        style: BlackPawsTextFieldTableTextStyle,
+        style: CheerganizeTextFieldTableTextStyle,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(
@@ -27,15 +27,15 @@ class TableCellTextField extends StatelessWidget {
           ),
           contentPadding: EdgeInsets.zero,
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
         ),

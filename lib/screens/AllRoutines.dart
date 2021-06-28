@@ -1,4 +1,4 @@
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/RoutineButton.dart';
 import 'package:Cheerganize/noSqlDb/databaseObjects/Routine.dart';
@@ -50,7 +50,7 @@ class _AllRoutines extends State<AllRoutines> {
               width: 375.0,
               child: Divider(
                 thickness: 0.5,
-                color: BlackPawsColor,
+                color: CheerganizeYellowColor,
               ),
             ),
             Expanded(

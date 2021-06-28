@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:Cheerganize/consts/container/AnimatedContainer.dart';
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/container/RoundedContainer.dart';
 import 'package:Cheerganize/consts/buttons/StartAnimationButton.dart';
@@ -85,24 +85,41 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
                         SizedBox(
                           width: 100.0,
                         ),
-                        Countdown(
-                          builder: (BuildContext context, Duration remaining) {
-                            return Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('Der 8 - Count startet in', style:
-                                  BlackPawsAppBarTextStyle,),
-                                  Text('${remaining.inSeconds} Sekunden', style:
-                                  BlackPawsAppBarTextStyle)
-                                ],
-                              ),
-                            );
-                          },
-                          // duration has to be the same as the delayValue in
-                          // the AnimatedContainerClass
-                          duration: Duration(seconds: 7),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
+                          decoration: BoxDecoration(
+                              border: Border(
+                            top: BorderSide(color: CheerganizeYellowColor, width: 1.0),
+                            left: BorderSide(color: CheerganizeYellowColor, width: 1.0),
+                            right:
+                                BorderSide(color: CheerganizeYellowColor, width: 1.0),
+                            bottom:
+                                BorderSide(color: CheerganizeYellowColor, width: 1.0),
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+    ),
+                          child: Countdown(
+                            builder:
+                                (BuildContext context, Duration remaining) {
+                              return Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Der 8 - Count startet in',
+                                      style: CheerganizePlayCountTextStyle,
+                                    ),
+                                    Text('${remaining.inSeconds} Sekunden',
+                                        style: BlackPawsAppBarTextStyle)
+                                  ],
+                                ),
+                              );
+                            },
+                            // duration has to be the same as the delayValue in
+                            // the AnimatedContainerClass
+                            duration: Duration(seconds: 7),
+                          ),
                         ),
                         Row(
                           children: [
@@ -131,7 +148,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
                   height: 20.0,
                 ),
                 Table(
-                  border: TableBorder.all(color: BasicBlackColor, width: 2.0),
+                  border: TableBorder.all(color: BasicBlackColor, width: 0.5),
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   children: widget.tableRows,
                 ),

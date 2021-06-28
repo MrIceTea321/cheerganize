@@ -1,4 +1,4 @@
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/container/RoundedContainer.dart';
 import 'package:Cheerganize/consts/textFields/TableCellTextField.dart';
@@ -94,7 +94,7 @@ class _CountsPlan extends State<CountsPlan> {
                             decoration: BoxDecoration(
                                 border: Border.all(
                                   width: 1.5,
-                                  color: BlackPawsColor,
+                                  color: CheerganizeYellowColor,
                                 ),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(
@@ -105,7 +105,7 @@ class _CountsPlan extends State<CountsPlan> {
                               '8 - Count anlegen',
                               style: TextStyle(
                                 fontSize: 20.0,
-                                color: BlackPawsColor,
+                                color: CheerganizeYellowColor,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),

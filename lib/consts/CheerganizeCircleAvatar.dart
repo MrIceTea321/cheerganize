@@ -11,7 +11,7 @@ class BlackPawsCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundColor: BlackPawsColor,
+      backgroundColor: CheerganizeYellowColor,
       radius: radius + 1.0,
       child: CircleAvatar(
           backgroundImage: AssetImage('images/logo.jpg'),

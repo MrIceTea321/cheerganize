@@ -30,7 +30,7 @@ class _Cheerganize extends State<Cheerganize> {
       theme: ThemeData.light().copyWith(
         primaryColor: BasicBlackColor,
         scaffoldBackgroundColor: BasicBlackColor,
-        accentColor: BlackPawsColor,
+        accentColor: CheerganizeYellowColor,
       ),
       home: HomeScreen(),
       routes: {

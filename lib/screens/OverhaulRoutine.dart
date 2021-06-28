@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/textFields/ConstTextField.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/BigFunctionButton.dart';

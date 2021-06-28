@@ -18,7 +18,7 @@ class _StartAnimationButtonState extends State<StartAnimationButton>{
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: widget.onPressed,
-      backgroundColor: BlackPawsColor,
+      backgroundColor: CheerganizeYellowColor,
       child:
         Icon(Icons.play_arrow, color: BasicBlackColor,size: 50,
         )

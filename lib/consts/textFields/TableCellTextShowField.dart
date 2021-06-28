@@ -1,4 +1,4 @@
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Constants.dart';
@@ -19,7 +19,7 @@ class _TableCellTextShowFieldState extends State<TableCellTextShowField>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: BlackPawsColor,
+      color: CheerganizeYellowColor,
       child: FadeTransition(
         alwaysIncludeSemantics: true,
         opacity: widget.controller,
@@ -39,15 +39,15 @@ class _TableCellTextShowFieldState extends State<TableCellTextShowField>
             ),
             contentPadding: EdgeInsets.zero,
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+              borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
               borderRadius: BorderRadius.all(Radius.zero),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+              borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
               borderRadius: BorderRadius.all(Radius.zero),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+              borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
               borderRadius: BorderRadius.all(Radius.zero),
             ),
           ),

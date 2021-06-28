@@ -33,7 +33,7 @@ class RoutineButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
-            color: BlackPawsColor,
+            color: CheerganizeYellowColor,
             width: 0.5,
             style: BorderStyle.solid,
           ),

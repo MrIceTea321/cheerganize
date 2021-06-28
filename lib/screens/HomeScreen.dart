@@ -1,4 +1,4 @@
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/BigFunctionButton.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/RoutineDao.dart';

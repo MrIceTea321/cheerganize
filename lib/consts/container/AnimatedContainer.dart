@@ -33,9 +33,10 @@ class _AnimatedContainerCell extends State<AnimatedContainerCell>
 
   @override
   Widget build(BuildContext context) {
+    Color borderColor = Colors.black87;
     return AnimatedContainer(
       duration: Duration(milliseconds: widget.durationInMillSec),
-      color: BlackPawsColor,
+      color: CheerganizeYellowColor,
       child: TextField(
         readOnly: true,
         textAlign: TextAlign.center,
@@ -53,20 +54,20 @@ class _AnimatedContainerCell extends State<AnimatedContainerCell>
           contentPadding: EdgeInsets.zero,
           border: OutlineInputBorder(
             borderSide: BorderSide(
-                color: widget.selected ? BlackPawsColor : Colors.red,
-                width: widget.selected ? 3.0 : 4.0),
+                color: widget.selected ? CheerganizeYellowColor : borderColor,
+                width: widget.selected ? 2.0 : 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-                color: widget.selected ? BlackPawsColor : Colors.red,
-                width: widget.selected ? 3.0 : 4.0),
+                color: widget.selected ? CheerganizeYellowColor : borderColor,
+                width: widget.selected ? 2.0 : 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-                color: widget.selected ? BlackPawsColor : Colors.red,
-                width: widget.selected ? 3.0 : 4.0),
+                color: widget.selected ? CheerganizeYellowColor : borderColor,
+                width: widget.selected ? 2.0 : 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
         ),

@@ -13,7 +13,7 @@ class TableCellTextOutputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: BlackPawsColor,
+      color: CheerganizeYellowColor,
       child: TextField(
         controller: controller,
         textAlign: TextAlign.center,
@@ -31,15 +31,15 @@ class TableCellTextOutputField extends StatelessWidget {
           ),
           contentPadding: EdgeInsets.zero,
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: BlackPawsColor, width: 3.0),
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
             borderRadius: BorderRadius.all(Radius.zero),
           ),
         ),

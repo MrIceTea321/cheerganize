@@ -1,4 +1,4 @@
-import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
+import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/RoutineButton.dart';
 import 'package:Cheerganize/noSqlDb/dataAccessObjects/CountSheetDao.dart';
@@ -91,15 +91,40 @@ class RoutineStatusState extends State<RoutineStatus> {
               RoutineButton(
                 text: '8 - Count anzeigen',
                 onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ShowCountsPlan(
-                        routine: widget.routine,
-                        countSheet: widget.countSheet,
-                        oldValues: widget.countSheet.tableList,
-                      ),
+                  showDialog(
+                    context: context,
+                    builder: (_) => CupertinoAlertDialog(
+                      content: Text('Auf der nächsten Seite startet der 8 - '
+                          'Count automatisch nachdem der Counter, welcher auf'
+                          ' der Seite oben mittig zu sehen ist, auf 0 steht'
+                          '.', style: TextStyle(
+                        color: BasicBlackColor,
+                        fontSize: 24.0,
+                        fontFamily: 'Antonio-VariableFont',
+                      ),),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          child: Text('zum 8 - Count',style: TextStyle(
+                    color: BasicBlackColor,
+                      fontSize: 32.0,
+                      fontFamily: 'Antonio-VariableFont',
+                    )),
+                          onPressed: ()  {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ShowCountsPlan(
+                                  routine: widget.routine,
+                                  countSheet: widget.countSheet,
+                                  oldValues: widget.countSheet.tableList,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
+                    barrierDismissible: true,
                   );
                 },
               ),
