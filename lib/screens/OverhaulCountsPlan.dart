@@ -83,12 +83,9 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                         RoundedContainer(
                             prefix: 'Anzahl der Reihen: ',
                             suffix: widget.numberIndicator.toString()),
-                        ConstTextField(
-                          hintText: 'Bpm: ' + widget.countSheet.bpm.toString(),
-                          onChanged: (String value) {
-                            widget.countSheet.bpm = int.parse(value);
-                          },
-                        ),
+                        RoundedContainer(
+                            prefix: 'Bpm: ',
+                            suffix: widget.countSheet.bpm.toString()),
                         SizedBox(
                           height: 10.0,
                         ),

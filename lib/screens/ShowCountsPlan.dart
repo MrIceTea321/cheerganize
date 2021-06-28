@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:Cheerganize/consts/AnimatedContainer.dart';
 import 'package:Cheerganize/consts/BlackPawsCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/buttons/StartAnimationButton.dart';
@@ -20,12 +23,11 @@ class ShowCountsPlan extends StatefulWidget {
   List<Skill> skillList;
   List<Skill> oldValues;
   List<String> stringList = [];
-  List<TableCellTextShowField> tableCellList = [];
+  List<AnimatedContainerCell> tableCellList = [];
   List<AnimationController> animationControllerList;
   int numberOfRows;
   int allElements;
-  bool selected = false;
-  int durationPerRowInMilSec;
+  int durationPerCellInMilSec;
 
   @override
   _ShowCountsPlan createState() => _ShowCountsPlan();
@@ -39,8 +41,8 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
     var rows = (widget.countSheet.bpm * widget.countSheet.duration) / 8.0;
     widget.numberOfRows = rows.toInt();
     widget.allElements = widget.numberOfRows * 8;
-    widget.durationPerRowInMilSec =
-        ((widget.countSheet.bpm / widget.allElements) * 8000.0).toInt();
+    widget.durationPerCellInMilSec =
+        ((widget.countSheet.bpm / widget.allElements) * 1000.0).toInt();
     setupTableRowsOverhaul();
   }
 
@@ -90,25 +92,6 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
                             SizedBox(
                               height: 20.00,
                             ),
-                            Column(
-                              children: [
-                                StartAnimationButton(
-                                  onPressed: () {
-                                    print('Button Pressed');
-                                    setState(
-                                      () {},
-                                    );
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  '8 - Count starten',
-                                  style: BlackPawsPlayCountTextStyle,
-                                ),
-                              ],
-                            ),
                             SizedBox(
                               width: 100.0,
                             ),
@@ -148,12 +131,9 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
   void setupTableRowsOverhaul() {
     widget.skillList = new List.generate(
         widget.allElements, (index) => new Skill.build(index.toString(), ''));
-      print('duratoinPerCellInMilSec');
-      print(widget.durationPerRowInMilSec);
-    List<int> durations = new List.generate(widget.numberOfRows+1,
-        (index) => widget.durationPerRowInMilSec*index);
 
-    print('durations: $durations');
+    List<int> durations = new List.generate(widget.allElements + 1,
+        (index) => widget.durationPerCellInMilSec * index);
 
     widget.oldValues = widget.countSheet.tableList;
 
@@ -163,25 +143,13 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
 
     for (int h = 0; h < widget.numberOfRows; h++) {
       TableRow row = new TableRow(children: []);
-      widget.animationControllerList = List.generate(
-        widget.numberOfRows,
-        (index) => new AnimationController(
-          vsync: this,
-          duration: Duration(
-            milliseconds: durations.elementAt(h+1),
-          ),
-        ),
-      );
-
-      AnimationController _animationController = setupAnimationController(
-          widget.animationControllerList, h, durations);
 
       for (int i = 0; i <= 7; i++) {
-        widget.tableCellList.insert(
-          i + rowCounts.elementAt(h),
-          new TableCellTextShowField(
-            controller: _animationController,
-            hintText: widget.oldValues
+        widget.tableCellList.insert(i + rowCounts.elementAt(h),
+          new AnimatedContainerCell(
+              durationInMillSec: durations.elementAt(i+1+ rowCounts.elementAt
+                (h)),
+                hintText: widget.oldValues
                 .elementAt(i + rowCounts.elementAt(h))
                 .getSkill(),
           ),
@@ -199,22 +167,5 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
     if (factorEight == widget.allElements - 8) {
       factorEight = 0;
     }
-  }
-
-  AnimationController setupAnimationController(
-      List<AnimationController> animationControllerList,
-      int h,
-      List<int> durations) {
-    AnimationController _animationController =
-        animationControllerList.elementAt(h);
-
-    _animationController.addListener(() => setState(() {}));
-    TickerFuture tickerFuture = _animationController.repeat();
-    tickerFuture.timeout(
-        Duration(
-            milliseconds: durations.elementAt(h+1)), onTimeout: () {
-      _animationController.stop(canceled: true);
-    });
-    return _animationController;
   }
 }

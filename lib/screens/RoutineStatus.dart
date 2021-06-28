@@ -137,11 +137,8 @@ class RoutineStatusState extends State<RoutineStatus> {
   }
 
   void setUpCountSheetObject() async {
-    print('routine Id');
-    print(widget.routine.id);
     widget.countSheet =
         await CountSheetDao().getCountSheetById(widget.routine.id);
-    print(widget.countSheet);
   }
 
   void _delete() async {
