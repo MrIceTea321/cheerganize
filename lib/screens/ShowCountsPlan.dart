@@ -5,6 +5,7 @@ import 'package:Cheerganize/consts/container/SmallRoundedContainer.dart';
 import 'package:Cheerganize/sembastDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/sembastDb/databaseObjects/Routine.dart';
 import 'package:Cheerganize/sembastDb/databaseObjects/Skill.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:countdown_flutter/countdown_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,11 @@ class ShowCountsPlan extends StatefulWidget {
   List<String> stringList = [];
   List<AnimatedContainerCell> tableCellList = [];
   List<AnimationController> animationControllerList;
+  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.newPlayer();
   int numberOfRows;
   int allElements;
   int durationPerCellInMilSec;
+  int delayDuration = 7;
 
   @override
   _ShowCountsPlan createState() => _ShowCountsPlan();
@@ -33,6 +36,7 @@ class ShowCountsPlan extends StatefulWidget {
 
 class _ShowCountsPlan extends State<ShowCountsPlan>
     with TickerProviderStateMixin {
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +46,16 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
     widget.durationPerCellInMilSec =
         ((widget.countSheet.bpm / widget.allElements) * 1000.0).toInt();
     setupTableRowsOverhaul();
+    if (widget.routine.name == 'Musik') {
+      Future.delayed(
+          Duration(milliseconds:5000),
+              () {
+            widget.audioPlayer.open(
+              Audio("music/track.mp3"),
+              autoStart: true,
+            );
+          });
+    }
   }
 
   @override
@@ -55,6 +69,9 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
             color: IconColorWhite,
             iconSize: 40.0,
             onPressed: () {
+              if(widget.routine.name == 'Musik'){
+                widget.audioPlayer.stop();
+              }
               Navigator.pushNamed(context, 'HomeScreen');
             },
           ),
@@ -106,14 +123,14 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
                                       style: CheerganizePlayCountTextStyle,
                                     ),
                                     Text('${remaining.inSeconds} Sekunden',
-                                        style: BlackPawsAppBarTextStyle)
+                                        style: BlackPawsAppBarTextStyle),
                                   ],
                                 ),
                               );
                             },
                             // the Duration has to be the same as the
                             // delayValue in the AnimatedContainerClass
-                            duration: Duration(seconds: 7),
+                            duration: Duration(seconds: widget.delayDuration),
                           ),
                         ),
                         SizedBox(
