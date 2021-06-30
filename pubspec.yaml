@@ -21,6 +21,7 @@ dependencies:
   auto_size_text: ^2.1.0
   background_app_bar: ^2.0.0
   countdown_flutter: ^0.1.2
+  assets_audio_player: ^1.4.7+4
 
 dev_dependencies:
   flutter_test:
@@ -33,6 +34,7 @@ flutter:
   assets:
     - icons/
     - images/
+    - music/
 
   fonts:
     - family: BalooBhai2
