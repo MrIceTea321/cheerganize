@@ -7,7 +7,7 @@ class TableCellTextShowField extends StatefulWidget {
   String hintText;
   AnimationController controller;
 
-  TableCellTextShowField({Key key, @required this.hintText, this.controller})
+  TableCellTextShowField({Key key, @required this.hintText})
       : super(key: key);
 
   @override
@@ -20,36 +20,32 @@ class _TableCellTextShowFieldState extends State<TableCellTextShowField>
   Widget build(BuildContext context) {
     return Container(
       color: CheerganizeYellowColor,
-      child: FadeTransition(
-        alwaysIncludeSemantics: true,
-        opacity: widget.controller,
-        child: TextField(
-          readOnly: true,
-          textAlign: TextAlign.center,
-          style: TextStyle(
+      child: TextField(
+        readOnly: true,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 20.0,
+          fontFamily: 'Antonio-VariableFont',
+        ),
+        decoration: InputDecoration(
+          hintText: widget.hintText,
+          hintStyle: TextStyle(
+            color: BasicBlackColor,
             fontSize: 20.0,
             fontFamily: 'Antonio-VariableFont',
           ),
-          decoration: InputDecoration(
-            hintText: widget.hintText,
-            hintStyle: TextStyle(
-              color: BasicBlackColor,
-              fontSize: 20.0,
-              fontFamily: 'Antonio-VariableFont',
-            ),
-            contentPadding: EdgeInsets.zero,
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
-              borderRadius: BorderRadius.all(Radius.zero),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
-              borderRadius: BorderRadius.all(Radius.zero),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
-              borderRadius: BorderRadius.all(Radius.zero),
-            ),
+          contentPadding: EdgeInsets.zero,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
+            borderRadius: BorderRadius.all(Radius.zero),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
+            borderRadius: BorderRadius.all(Radius.zero),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: CheerganizeYellowColor, width: 3.0),
+            borderRadius: BorderRadius.all(Radius.zero),
           ),
         ),
       ),

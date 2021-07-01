@@ -2,6 +2,7 @@ import 'package:Cheerganize/consts/container/AnimatedContainer.dart';
 import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/container/SmallRoundedContainer.dart';
+import 'package:Cheerganize/consts/textFields/TableCellTextShowField.dart';
 import 'package:Cheerganize/sembastDb/databaseObjects/CountSheet.dart';
 import 'package:Cheerganize/sembastDb/databaseObjects/Routine.dart';
 import 'package:Cheerganize/sembastDb/databaseObjects/Skill.dart';
@@ -36,7 +37,6 @@ class ShowCountsPlan extends StatefulWidget {
 
 class _ShowCountsPlan extends State<ShowCountsPlan>
     with TickerProviderStateMixin {
-
   @override
   void initState() {
     super.initState();
@@ -48,13 +48,14 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
     setupTableRowsOverhaul();
     if (widget.routine.name == 'Musik') {
       Future.delayed(
-          Duration(milliseconds:5000),
-              () {
-            widget.audioPlayer.open(
-              Audio("music/track.mp3"),
-              autoStart: true,
-            );
-          });
+        Duration(milliseconds: 5000),
+        () {
+          widget.audioPlayer.open(
+            Audio("music/track.mp3"),
+            autoStart: true,
+          );
+        },
+      );
     }
   }
 
@@ -69,7 +70,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
             color: IconColorWhite,
             iconSize: 40.0,
             onPressed: () {
-              if(widget.routine.name == 'Musik'){
+              if (widget.routine.name == 'Musik') {
                 widget.audioPlayer.stop();
               }
               Navigator.pushNamed(context, 'HomeScreen');
@@ -182,10 +183,21 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
     List<int> rowCounts = [];
     int factorEight = 0;
     rowCounts.add(factorEight);
+    widget.tableRows.insert(0,
+      new TableRow(children: [
+        TableCellTextShowField(hintText: '1'),
+        TableCellTextShowField(hintText: '2'),
+        TableCellTextShowField(hintText: '3'),
+        TableCellTextShowField(hintText: '4'),
+        TableCellTextShowField(hintText: '5'),
+        TableCellTextShowField(hintText: '6'),
+        TableCellTextShowField(hintText: '7'),
+        TableCellTextShowField(hintText: '8'),
+      ]),
+    );
 
     for (int h = 0; h < widget.numberOfRows; h++) {
       TableRow row = new TableRow(children: []);
-
       for (int i = 0; i <= 7; i++) {
         widget.tableCellList.insert(
           i + rowCounts.elementAt(h),
@@ -203,7 +215,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
       if (factorEight < widget.allElements - 8) {
         factorEight = factorEight + 8;
       }
-      widget.tableRows.insert(h, row);
+      widget.tableRows.insert(h+1, row);
       rowCounts.add(factorEight);
     }
 
