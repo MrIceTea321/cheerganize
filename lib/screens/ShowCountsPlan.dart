@@ -183,18 +183,8 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
     List<int> rowCounts = [];
     int factorEight = 0;
     rowCounts.add(factorEight);
-    widget.tableRows.insert(0,
-      new TableRow(children: [
-        TableCellTextShowField(hintText: '1'),
-        TableCellTextShowField(hintText: '2'),
-        TableCellTextShowField(hintText: '3'),
-        TableCellTextShowField(hintText: '4'),
-        TableCellTextShowField(hintText: '5'),
-        TableCellTextShowField(hintText: '6'),
-        TableCellTextShowField(hintText: '7'),
-        TableCellTextShowField(hintText: '8'),
-      ]),
-    );
+
+    insertHeadCountHeader();
 
     for (int h = 0; h < widget.numberOfRows; h++) {
       TableRow row = new TableRow(children: []);
@@ -222,5 +212,20 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
     if (factorEight == widget.allElements - 8) {
       factorEight = 0;
     }
+  }
+
+  void insertHeadCountHeader() {
+    widget.tableRows.insert(0,
+      new TableRow(children: [
+        TableCellTextShowField(hintText: '1'),
+        TableCellTextShowField(hintText: '2'),
+        TableCellTextShowField(hintText: '3'),
+        TableCellTextShowField(hintText: '4'),
+        TableCellTextShowField(hintText: '5'),
+        TableCellTextShowField(hintText: '6'),
+        TableCellTextShowField(hintText: '7'),
+        TableCellTextShowField(hintText: '8'),
+      ]),
+    );
   }
 }
