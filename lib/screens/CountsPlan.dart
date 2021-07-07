@@ -50,7 +50,7 @@ class _CountsPlan extends State<CountsPlan> {
         ),
         title: Text(
           widget.countSheet.name,
-          style: BlackPawsAppBarTextStyle,
+          style: CheerganizeAppBarTextStyle,
         ),
       ),
       body: ListView(
@@ -67,7 +67,7 @@ class _CountsPlan extends State<CountsPlan> {
                   SizedBox(
                     width: size.width * 0.15,
                   ),
-                  BlackPawsCircleAvatar(radius: 80.0),
+                  CheerganizeCircleAvatar(radius: 80.0),
                   SizedBox(
                     width: size.width * 0.125,
                   ),
@@ -109,8 +109,6 @@ class _CountsPlan extends State<CountsPlan> {
                           ),
                           onPressed: () {
                             widget.countSheet.tableList = widget.skillList;
-                            print('abgespeichertes CountSheet');
-                            print(widget.countSheet);
                             CountSheetDao().insert(widget.countSheet);
                             Navigator.pushNamed(context, "HomeScreen");
                           },
@@ -141,11 +139,11 @@ class _CountsPlan extends State<CountsPlan> {
 
   void setupTableRows() {
     widget.skillList = new List.generate(
-        widget.allElements, (index) => new Skill.build(index.toString(), ""));
+        widget.allElements, (index) => new Skill.build(index.toString(), ''));
     List<int> helperList = [];
 
-    int helper = 0;
-    helperList.add(helper);
+    int factorEight = 0;
+    helperList.add(factorEight);
     for (int h = 0; h < widget.numberIndicator; h++) {
       TableRow row = new TableRow(children: []);
       for (int i = 0; i <= 7; i++) {
@@ -160,13 +158,13 @@ class _CountsPlan extends State<CountsPlan> {
         row.children.insert(
             i, widget.tableCellList.elementAt(i + helperList.elementAt(h)));
       }
-      if (helper < widget.allElements) {
-        helper = helper + 8;
+      if (factorEight < widget.allElements) {
+        factorEight = factorEight + 8;
       }
-      helperList.add(helper);
+      helperList.add(factorEight);
       widget.tableRows.insert(h, row);
-      if (helper == widget.allElements - 8) {
-        helper = 0;
+      if (factorEight == widget.allElements - 8) {
+        factorEight = 0;
       }
     }
   }

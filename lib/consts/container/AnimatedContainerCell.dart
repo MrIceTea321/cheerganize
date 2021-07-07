@@ -24,11 +24,11 @@ class _AnimatedContainerCell extends State<AnimatedContainerCell>
     Future.delayed(
         Duration(milliseconds: widget.durationInMillSec + widget.delayValue),
         () {
-          if(mounted){
-            setState(() {
-              widget.selected = false;
-            });
-          }
+      if (mounted) {
+        setState(() {
+          widget.selected = false;
+        });
+      }
     });
     super.initState();
   }

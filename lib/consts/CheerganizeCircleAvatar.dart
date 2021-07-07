@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'Constants.dart';
 
-class BlackPawsCircleAvatar extends StatelessWidget {
-  BlackPawsCircleAvatar({@required this.radius});
+class CheerganizeCircleAvatar extends StatelessWidget {
+  CheerganizeCircleAvatar({@required this.radius});
 
   final double radius;
 

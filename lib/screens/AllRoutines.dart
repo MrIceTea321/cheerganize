@@ -34,7 +34,7 @@ class _AllRoutines extends State<AllRoutines> {
         ),
         title: Text(
           "Cheerganize",
-          style: BlackPawsAppBarTextStyle,
+          style: CheerganizeAppBarTextStyle,
         ),
       ),
       body: SafeArea(
@@ -43,7 +43,7 @@ class _AllRoutines extends State<AllRoutines> {
             SizedBox(
               height: 20.0,
             ),
-            BlackPawsCircleAvatar(
+            CheerganizeCircleAvatar(
               radius: 125.0,
             ),
             SizedBox(

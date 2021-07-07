@@ -24,7 +24,7 @@ class _Settings extends State<Settings> {
           ],
           title: Text(
             'Einstellungen',
-            style: BlackPawsAppBarTextStyle,
+            style: CheerganizeAppBarTextStyle,
           )),
     );
   }

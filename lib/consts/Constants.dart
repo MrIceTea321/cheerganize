@@ -12,7 +12,7 @@ const HomeScreenButtonTextStyle = TextStyle(
   fontFamily: 'Antonio-VariableFont',
 );
 
-const BlackPawsAppBarTextStyle = TextStyle(
+const CheerganizeAppBarTextStyle = TextStyle(
   color: CheerganizeYellowColor,
   fontSize: 30.0,
   fontFamily: 'Antonio-VariableFont',

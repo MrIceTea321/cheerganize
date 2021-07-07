@@ -22,7 +22,7 @@ class _HomeScreen extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         title: Text(
           "Cheerganize",
-          style: BlackPawsAppBarTextStyle,
+          style: CheerganizeAppBarTextStyle,
         ),
         actions: <Widget>[],
       ),
@@ -35,7 +35,7 @@ class _HomeScreen extends State<HomeScreen> {
               SizedBox(
                 height: 60.0,
               ),
-              BlackPawsCircleAvatar(
+              CheerganizeCircleAvatar(
                 radius: 150.0,
               ),
               Expanded(

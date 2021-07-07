@@ -35,14 +35,14 @@ class _NewRoutine extends State<NewRoutine> {
         ),
         title: Text(
           "Cheerganize",
-          style: BlackPawsAppBarTextStyle,
+          style: CheerganizeAppBarTextStyle,
         ),
       ),
       body: ListView(
         shrinkWrap: true,
         children: [
           SizedBox(height: 40.0),
-          BlackPawsCircleAvatar(radius: 125.0),
+          CheerganizeCircleAvatar(radius: 125.0),
           SizedBox(height: 20.0),
           ConstTextField(
             hintText: 'Name der Routine',

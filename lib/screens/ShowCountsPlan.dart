@@ -1,4 +1,4 @@
-import 'package:Cheerganize/consts/container/AnimatedContainer.dart';
+import 'package:Cheerganize/consts/container/AnimatedContainerCell.dart';
 import 'package:Cheerganize/consts/CheerganizeCircleAvatar.dart';
 import 'package:Cheerganize/consts/Constants.dart';
 import 'package:Cheerganize/consts/container/SmallRoundedContainer.dart';
@@ -78,7 +78,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
           ),
           title: Text(
             widget.routine.name,
-            style: BlackPawsAppBarTextStyle,
+            style: CheerganizeAppBarTextStyle,
           ),
         ),
         body: ListView(
@@ -91,7 +91,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
                   children: [
                     Row(
                       children: [
-                        BlackPawsCircleAvatar(radius: 80.0),
+                        CheerganizeCircleAvatar(radius: 80.0),
                         SizedBox(
                           width: size.width * 0.05,
                         ),
@@ -124,7 +124,7 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
                                       style: CheerganizePlayCountTextStyle,
                                     ),
                                     Text('${remaining.inSeconds} Sekunden',
-                                        style: BlackPawsAppBarTextStyle),
+                                        style: CheerganizeAppBarTextStyle),
                                   ],
                                 ),
                               );

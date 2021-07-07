@@ -54,7 +54,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
         ),
         title: Text(
           widget.routine.name,
-          style: BlackPawsAppBarTextStyle,
+          style: CheerganizeAppBarTextStyle,
         ),
       ),
       body: ListView(
@@ -71,7 +71,7 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
                   SizedBox(
                     width: size.width * 0.15,
                   ),
-                  BlackPawsCircleAvatar(radius: 80.0),
+                  CheerganizeCircleAvatar(radius: 80.0),
                   SizedBox(
                     width: size.width * 0.125,
                   ),

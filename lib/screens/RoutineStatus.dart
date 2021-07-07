@@ -38,7 +38,7 @@ class RoutineStatusState extends State<RoutineStatus> {
           child: AutoSizeText(
             widget.routine.name,
             textAlign: TextAlign.center,
-            style: BlackPawsAppBarTextStyle,
+            style: CheerganizeAppBarTextStyle,
           ),
         ),
         leading: IconButton(
@@ -84,7 +84,7 @@ class RoutineStatusState extends State<RoutineStatus> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              BlackPawsCircleAvatar(radius: 125.0),
+              CheerganizeCircleAvatar(radius: 125.0),
               SizedBox(
                 height: 60.0,
               ),

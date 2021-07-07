@@ -42,14 +42,14 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
         ),
         title: Text(
           "Cheerganize",
-          style: BlackPawsAppBarTextStyle,
+          style: CheerganizeAppBarTextStyle,
         ),
       ),
       body: SafeArea(
         child: ListView(
           children: [
             SizedBox(height: 40.0),
-            BlackPawsCircleAvatar(radius: 125.0),
+            CheerganizeCircleAvatar(radius: 125.0),
             SizedBox(height: 50.0),
             ConstTextField(
               hintText: 'Neuer Name',
