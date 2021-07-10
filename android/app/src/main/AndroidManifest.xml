@@ -2,8 +2,7 @@
     package="com.example.cheerganize">
 
    <application
-       android:label="Cheerganize"
-       android:icon="@mipmap/cheerganize">
+       android:label="Cheerganize">
        <activity
            android:name=".MainActivity">
             <intent-filter>
