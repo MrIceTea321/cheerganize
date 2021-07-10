@@ -1,6 +1,4 @@
 PODS:
-  - assets_audio_player (0.0.1):
-    - Flutter
   - countdown_flutter (0.0.1):
     - Flutter
   - Flutter (1.0.0)
@@ -8,14 +6,11 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - assets_audio_player (from `.symlinks/plugins/assets_audio_player/ios`)
   - countdown_flutter (from `.symlinks/plugins/countdown_flutter/ios`)
   - Flutter (from `Flutter`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
 
 EXTERNAL SOURCES:
-  assets_audio_player:
-    :path: ".symlinks/plugins/assets_audio_player/ios"
   countdown_flutter:
     :path: ".symlinks/plugins/countdown_flutter/ios"
   Flutter:
@@ -24,7 +19,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
 
 SPEC CHECKSUMS:
-  assets_audio_player: 1f5d855ea3e0484357e2efb0cb703b17959e6170
   countdown_flutter: 423a4cc24614ccb078c2ce4ac6739b1d85cbe98b
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c

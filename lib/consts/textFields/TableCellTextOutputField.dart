@@ -4,11 +4,11 @@ import '../Constants.dart';
 
 class TableCellTextOutputField extends StatelessWidget {
   TableCellTextOutputField(
-      {@required this.onSubmitted,
+      {@required this.onChanged,
       @required this.hintText,
       @required this.controller});
 
-  final Function onSubmitted;
+  final Function onChanged;
   final String hintText;
   TextEditingController controller;
 
@@ -19,13 +19,13 @@ class TableCellTextOutputField extends StatelessWidget {
       child: TextField(
         controller: controller,
         textAlign: TextAlign.center,
-        onSubmitted: onSubmitted,
+        onSubmitted: onChanged,
         style: TextStyle(
           fontSize: 20.0,
           fontFamily: 'Antonio-VariableFont',
         ),
         decoration: InputDecoration(
-          hintText: hintText,
+          hintText: hintText ,
           hintStyle: TextStyle(
             color: BasicBlackColor,
             fontSize: 20.0,

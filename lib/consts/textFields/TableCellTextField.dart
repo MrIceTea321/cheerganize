@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class TableCellTextField extends StatelessWidget {
   TableCellTextField(
-      {@required this.onSubmitted, this.controller, this.hintText});
+      {@required this.onChanged, this.controller, this.hintText});
 
-  final Function onSubmitted;
+  final Function onChanged;
   final TextEditingController controller;
   final String hintText;
 
@@ -17,7 +17,7 @@ class TableCellTextField extends StatelessWidget {
       child: TextField(
         textAlign: TextAlign.center,
         controller: controller,
-        onSubmitted: onSubmitted,
+        onChanged: onChanged,
         style: CheerganizeTextFieldTableTextStyle,
         decoration: InputDecoration(
           hintText: hintText,

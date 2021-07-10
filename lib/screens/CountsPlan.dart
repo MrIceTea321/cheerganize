@@ -149,14 +149,20 @@ class _CountsPlan extends State<CountsPlan> {
     for (int h = 0; h < widget.numberIndicator; h++) {
       TableRow row = new TableRow(children: []);
       for (int i = 0; i <= 7; i++) {
-        widget.tableCellList.insert(i + helperList.elementAt(h),
-            new TableCellTextField(
-          onSubmitted: (String value) {
-            widget.skillList
-                .elementAt(i + helperList.elementAt(h))
-                .setSkill(value);
-          },
-        ));
+        widget.tableCellList.insert(
+          i + helperList.elementAt(h),
+          new TableCellTextField(
+            onChanged: (String value) {
+              setState(
+                () {
+                  widget.skillList
+                      .elementAt(i + helperList.elementAt(h))
+                      .setSkill(value);
+                },
+              );
+            },
+          ),
+        );
         row.children.insert(
             i, widget.tableCellList.elementAt(i + helperList.elementAt(h)));
       }

@@ -162,14 +162,16 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
         widget.tableCellList.insert(
           i + helperList.elementAt(h),
           new TableCellTextOutputField(
-            onSubmitted: (String value) {
-              widget.skillList
-                  .elementAt(i + helperList.elementAt(h))
-                  .setSkill(value);
-              controllerList.elementAt(i + helperList.elementAt(h)).clear();
-              widget.oldValues
-                  .elementAt(i + helperList.elementAt(h))
-                  .setSkill(value);
+            onChanged: (String value) {
+              setState(() {
+                widget.skillList
+                    .elementAt(i + helperList.elementAt(h))
+                    .setSkill(value);
+                controllerList.elementAt(i + helperList.elementAt(h)).clear();
+                widget.oldValues
+                    .elementAt(i + helperList.elementAt(h))
+                    .setSkill(value);
+              },);
             },
             hintText: widget.oldValues
                 .elementAt(i + helperList.elementAt(h))
