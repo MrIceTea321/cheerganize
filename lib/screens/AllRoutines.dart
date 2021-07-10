@@ -32,10 +32,6 @@ class _AllRoutines extends State<AllRoutines> {
             Navigator.pushNamed(context, 'HomeScreen');
           },
         ),
-        title: Text(
-          "Cheerganize",
-          style: CheerganizeAppBarTextStyle,
-        ),
       ),
       body: SafeArea(
         child: Column(

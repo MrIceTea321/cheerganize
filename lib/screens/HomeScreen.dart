@@ -20,9 +20,11 @@ class _HomeScreen extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(
-          "Cheerganize",
-          style: CheerganizeAppBarTextStyle,
+        title: Center(
+          child: Text(
+            "Cheerganize",
+            style: CheerganizeAppBarTextStyle,
+          ),
         ),
         actions: <Widget>[],
       ),

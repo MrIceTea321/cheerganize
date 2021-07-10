@@ -33,10 +33,6 @@ class _NewRoutine extends State<NewRoutine> {
             Navigator.pushNamed(context, 'HomeScreen');
           },
         ),
-        title: Text(
-          "Cheerganize",
-          style: CheerganizeAppBarTextStyle,
-        ),
       ),
       body: ListView(
         shrinkWrap: true,
@@ -47,25 +43,36 @@ class _NewRoutine extends State<NewRoutine> {
           ConstTextField(
             hintText: 'Name der Routine',
             onChanged: (String value) {
-              widget.routine.name = value;
+              setState(() {
+                widget.routine.name = value;
+              });
             },
           ),
           ConstTextField(
             hintText: 'Kategorie',
             onChanged: (String value) {
-              widget.routine.typeofsport = value;
+              setState(() {
+                widget.routine.typeofsport = value;
+
+              });
             },
           ),
           ConstTextField(
             hintText: 'Bpm: z.B. 150',
             onChanged: (String value) {
-              widget.countSheet.bpm = int.parse(value);
+              setState(() {
+                widget.countSheet.bpm = int.parse(value);
+
+              });
             },
           ),
           ConstTextField(
             hintText: 'Dauer der Routine in Minuten: z.B. 1.45',
             onChanged: (String value) {
-              widget.countSheet.duration = double.parse(value);
+              setState(() {
+                widget.countSheet.duration = double.parse(value);
+
+              });
             },
           ),
           BigFunctionButton(

@@ -40,10 +40,6 @@ class _OverhaulRoutine extends State<OverhaulRoutine> {
             Navigator.pushNamed(context, 'HomeScreen');
           },
         ),
-        title: Text(
-          "Cheerganize",
-          style: CheerganizeAppBarTextStyle,
-        ),
       ),
       body: SafeArea(
         child: ListView(

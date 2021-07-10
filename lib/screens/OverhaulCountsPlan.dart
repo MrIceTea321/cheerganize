@@ -52,9 +52,11 @@ class _OverhaulCountsPlan extends State<OverhaulCountsPlan> {
             Navigator.pushNamed(context, 'HomeScreen');
           },
         ),
-        title: Text(
-          widget.routine.name,
-          style: CheerganizeAppBarTextStyle,
+        title: Center(
+          child: Text(
+            widget.routine.name,
+            style: CheerganizeAppBarTextStyle,
+          ),
         ),
       ),
       body: ListView(

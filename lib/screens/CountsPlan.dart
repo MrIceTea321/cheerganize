@@ -48,9 +48,11 @@ class _CountsPlan extends State<CountsPlan> {
             Navigator.pushNamed(context, 'HomeScreen');
           },
         ),
-        title: Text(
-          widget.countSheet.name,
-          style: CheerganizeAppBarTextStyle,
+        title: Center(
+          child: Text(
+            widget.countSheet.name,
+            style: CheerganizeAppBarTextStyle,
+          ),
         ),
       ),
       body: ListView(
