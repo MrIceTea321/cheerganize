@@ -9,6 +9,8 @@ import 'package:Cheerganize/sembastDb/databaseObjects/Skill.dart';
 import 'package:countdown_flutter/countdown_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+
 
 class ShowCountsPlan extends StatefulWidget {
   ShowCountsPlan(
@@ -28,6 +30,8 @@ class ShowCountsPlan extends StatefulWidget {
   int allElements;
   int durationPerCellInMilSec;
   int delayDuration = 7;
+  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.newPlayer();
+
 
   @override
   _ShowCountsPlan createState() => _ShowCountsPlan();
@@ -44,6 +48,17 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
     widget.durationPerCellInMilSec =
         ((widget.countSheet.bpm / widget.allElements) * 1000.0).toInt();
     setupTableRowsOverhaul();
+    if (widget.routine.name == 'Musik') {
+      Future.delayed(
+        Duration(milliseconds: 5000),
+            () {
+          widget.audioPlayer.open(
+            Audio("music/track.mp3"),
+            autoStart: true,
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -57,6 +72,9 @@ class _ShowCountsPlan extends State<ShowCountsPlan>
             color: IconColorWhite,
             iconSize: 40.0,
             onPressed: () {
+              if (widget.routine.name == 'Musik') {
+                widget.audioPlayer.stop();
+              }
               Navigator.pushNamed(context, 'HomeScreen');
             },
           ),
