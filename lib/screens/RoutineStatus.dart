@@ -146,15 +146,45 @@ class RoutineStatusState extends State<RoutineStatus> {
               RoutineButton(
                 text: '8 - Count bearbeiten',
                 onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OverhaulCountsPlan(
-                        routine: widget.routine,
-                        countSheet: widget.countSheet,
-                        oldValues: widget.countSheet.tableList,
+                  showDialog(
+                    context: context,
+                    builder: (_) => CupertinoAlertDialog(
+                      content: Text(
+                        'Um die einzelnen Zellen überarbeiten zu können, müssen '
+                            'diese angeklickt werden und die neuen Eingaben '
+                            'anschließend mit Enter bestätigt werden. Nachdem '
+                            'der 8 - Count erneut aufgerufen wird sind '
+                            'die Änderungen zu sehen.',
+                        style: TextStyle(
+                          color: BasicBlackColor,
+                          fontSize: 24.0,
+                          fontFamily: 'Antonio-VariableFont',
+                        ),
                       ),
+                      actions: <Widget>[
+                        CupertinoDialogAction(
+                          child: Text('8 - Count bearbeiten',
+                              style: TextStyle(
+                                color: BasicBlackColor,
+                                fontSize: 32.0,
+                                fontFamily: 'Antonio-VariableFont',
+                              )),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => OverhaulCountsPlan(
+                                  routine: widget.routine,
+                                  countSheet: widget.countSheet,
+                                  oldValues: widget.countSheet.tableList,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
+                    barrierDismissible: true,
                   );
                 },
               ),
